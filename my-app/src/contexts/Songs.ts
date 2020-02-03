@@ -10,7 +10,7 @@ const songsReducer = (state: any, action: any) => {
 
 const fetchSongs = (dispatch: any) => async (value: string) => {
   try {
-    const { data } = await roslenAPI.get(`/search?q=${value}`);
+    const { data } = await roslenAPI.get(`/`);
     dispatch({ type: 'fetch_song', payload: data });
   } catch (err) {
     console.log('Something went wrong');

@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
     const { data } = await axios.get('https://api.deezer.com/user/2529');
     res.json({ data });
   } catch (err) {
-    console.log(err.message);
+    res.send(err.message);
   }
 });
 

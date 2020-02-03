@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useTextInput } from '../hooks/useTextInput';
-import { Context as SongsContext } from '../contexts/Songs';
+import { Context as SongsContext } from '../contexts/songs';
 
 const SearchBar: React.FC = (): JSX.Element => {
   const input = useTextInput('');
