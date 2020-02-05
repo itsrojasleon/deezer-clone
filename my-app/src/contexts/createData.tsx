@@ -1,10 +1,10 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, ReactNode } from 'react';
 
 export default (reducer: any, actions: any, defaultValues: any) => {
   interface Props {
-    // Come here yooooooo!!!
-    children: any;
+    children?: ReactNode;
   }
+
   const Context = React.createContext(defaultValues);
 
   const Provider = ({ children }: Props): JSX.Element => {

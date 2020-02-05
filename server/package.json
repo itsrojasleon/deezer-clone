@@ -4,9 +4,7 @@
   "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
-    "start:build": "tsc -w",
-    "start:run": "nodemon build/index.js",
-    "start": "concurrently npm:start:*"
+    "dev": "nodemon index.js"
   },
   "dependencies": {
     "@types/body-parser": "^1.17.1",

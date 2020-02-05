@@ -6,8 +6,6 @@ const SearchBar: React.FC = (): JSX.Element => {
   const input = useTextInput('');
   const { state, fetchSongs } = useContext(SongsContext);
 
-  console.log(state);
-
   React.useEffect(() => {
     fetchSongs('eminem');
   }, []);
