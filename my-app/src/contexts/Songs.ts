@@ -1,25 +1,46 @@
+import React from 'react';
 import createDataContext from './createData';
 import { roslenAPI } from '../api/deezer';
 
-const songsReducer = (state: any, action: any) => {
+enum ActionType {
+  FetchSongs = 'fetch_song',
+  Error = 'error'
+}
+
+interface SongsState {
+  songs: [];
+  error: '';
+}
+interface SongActions {
+  type: ActionType;
+  payload: any;
+}
+
+const songsReducer: React.Reducer<SongsState, SongActions> = (state, action) => {
   switch (action.type) {
-    case 'fetch_song':
-      return { ...action.payload };
+    case ActionType.FetchSongs:
+      return { ...state, songs: action.payload };
+    case ActionType.Error:
+      return { ...state, error: action.payload };
+    default:
+      return state;
   }
 };
 
-const fetchSongs = (dispatch: any) => async (value: string) => {
+const fetchTracks = (dispatch: any) => async (value: string) => {
   try {
-    const { data } = await roslenAPI.get(`/`);
-    dispatch({ type: 'fetch_song', payload: data });
+    const {
+      data: { tracks }
+    } = await roslenAPI.get(`/search/${value}`);
+    dispatch({ type: 'fetch_song', payload: tracks });
   } catch (err) {
     console.log('Something went wrong');
-    // dispatch({ type: '' });
+    dispatch({ type: 'error', payload: err.message });
   }
 };
 
 export const { Provider, Context } = createDataContext(
   songsReducer,
-  { fetchSongs },
-  { songs: [] }
+  { fetchTracks },
+  { songs: [], error: '' }
 );

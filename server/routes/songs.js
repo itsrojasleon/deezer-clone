@@ -3,10 +3,14 @@ const axios = require('axios').default;
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+const URL = 'https://api.deezer.com';
+
+router.get('/search/:track', async (req, res) => {
   try {
-    const { data } = await axios.get('https://api.deezer.com/user/2529');
-    res.json({ data });
+    const {
+      data: { data: tracks }
+    } = await axios.get(`${URL}/search?q=${req.params.track}`);
+    res.json({ tracks });
   } catch (err) {
     res.send(err.message);
   }

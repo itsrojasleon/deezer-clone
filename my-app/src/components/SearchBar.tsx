@@ -1,14 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useTextInput } from '../hooks/useTextInput';
 import { Context as SongsContext } from '../contexts/songs';
 
 const SearchBar: React.FC = (): JSX.Element => {
+  const { fetchTracks } = useContext(SongsContext);
   const input = useTextInput('');
-  const { state, fetchSongs } = useContext(SongsContext);
+  useEffect(() => {
+    let ignore = false;
 
-  React.useEffect(() => {
-    fetchSongs('eminem');
-  }, []);
+    const fetch = (): void => {
+      if (input.value && !ignore) {
+        fetchTracks(input.value);
+      }
+    };
+    fetch();
+
+    return () => {
+      ignore = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [input.value]);
 
   return (
     <form>

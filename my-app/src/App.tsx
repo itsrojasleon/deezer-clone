@@ -1,11 +1,18 @@
-import React from 'react';
-import SearchBar from './components/SearchBar';
+import React, { Suspense, lazy } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+const Home = lazy(() => import('./screens/Home'));
 
 const App: React.FC = (): JSX.Element => {
   return (
-    <div>
-      <SearchBar />
-    </div>
+    <>
+      <Router>
+        <Suspense fallback={<h1>Loading...</h1>}>
+          <Switch>
+            <Route path="/" exact component={Home} />
+          </Switch>
+        </Suspense>
+      </Router>
+    </>
   );
 };
 
