@@ -1,6 +1,7 @@
 import React from 'react';
+import SearchBar from '../components/SearchBar';
 
 const Home: React.FC = (): JSX.Element => {
-  return <div>Hello there</div>;
+  return <SearchBar />;
 };
 export default Home;

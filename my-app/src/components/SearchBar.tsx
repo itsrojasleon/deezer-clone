@@ -1,10 +1,13 @@
 import React, { useEffect, useContext } from 'react';
 import { useTextInput } from '../hooks/useTextInput';
 import { Context as SongsContext } from '../contexts/songs';
+import { InputProps } from '../types/Elements';
+import TextInput from './TextInput';
 
 const SearchBar: React.FC = (): JSX.Element => {
   const { fetchTracks } = useContext(SongsContext);
   const input = useTextInput('');
+
   useEffect(() => {
     let ignore = false;
 
@@ -21,9 +24,16 @@ const SearchBar: React.FC = (): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input.value]);
 
+  // const inputData = { ...input, placeholder: 'Search Dude', type: 'text' };
+  const inputData: InputProps = {
+    ...input,
+    placeholder: 'Search dude',
+    type: 'text'
+  };
+
   return (
     <form>
-      <input {...input} type="text" placeholder="Search..." />
+      <TextInput {...inputData} />
     </form>
   );
 };

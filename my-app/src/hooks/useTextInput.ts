@@ -1,14 +1,16 @@
 import { useState } from 'react';
 
+type InputElement = React.ChangeEvent<HTMLInputElement>;
+
 interface Values {
   value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (event: InputElement) => void;
 }
 
 export const useTextInput = (defaultText: string): Values => {
   const [text, setText] = useState(defaultText);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: InputElement) => {
     setText(e.target.value);
   };
 
