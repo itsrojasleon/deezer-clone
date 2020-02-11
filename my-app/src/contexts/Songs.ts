@@ -8,7 +8,7 @@ enum ActionType {
 }
 
 interface SongsState {
-  songs: [];
+  tracks: [];
   error: '';
 }
 interface SongActions {
@@ -19,7 +19,7 @@ interface SongActions {
 const songsReducer: React.Reducer<SongsState, SongActions> = (state, action) => {
   switch (action.type) {
     case ActionType.FetchSongs:
-      return { ...state, songs: action.payload };
+      return { ...state, tracks: action.payload };
     case ActionType.Error:
       return { ...state, error: action.payload };
     default:
@@ -42,5 +42,5 @@ const fetchTracks = (dispatch: any) => async (value: string) => {
 export const { Provider, Context } = createDataContext(
   songsReducer,
   { fetchTracks },
-  { songs: [], error: '' }
+  { tracks: [], error: '' }
 );

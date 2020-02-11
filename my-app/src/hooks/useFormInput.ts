@@ -7,7 +7,7 @@ interface Values {
   onChange: (event: InputElement) => void;
 }
 
-export const useTextInput = (defaultText: string): Values => {
+export const useFormInput = (defaultText: string): Values => {
   const [text, setText] = useState(defaultText);
 
   const handleChange = (e: InputElement) => {

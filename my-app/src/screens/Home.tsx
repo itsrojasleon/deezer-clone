@@ -5,11 +5,11 @@ import { Context as TracksContext } from '../contexts/songs';
 
 const Home: React.FC = (): JSX.Element => {
   const { state, fetchTracks } = useContext(TracksContext);
-  console.log(state.songs);
+
   return (
     <>
       <SearchBar fetchTracks={fetchTracks} />
-      <Tracks tracks={state.songs} />
+      <Tracks tracks={state.tracks} />
     </>
   );
 };
