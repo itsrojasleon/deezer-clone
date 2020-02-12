@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Context as TracksContext } from '../../contexts/songs';
 
 interface Album {
   id: number;
@@ -19,14 +20,19 @@ interface Track {
   album: Album;
 }
 
-interface Props {
+interface General {
   tracks: Track[];
 }
+interface Props {
+  state: General;
+}
 
-const Tracks = ({ tracks }: Props): JSX.Element => {
+const Tracks = (): JSX.Element => {
+  const { state }: Props = useContext(TracksContext);
+  console.log();
   return (
     <div>
-      {tracks.map(track => (
+      {state.tracks.map(track => (
         <div key={track.id}>
           <h2>{track.title}</h2>
           <img src={track.album.cover_medium} alt={track.album.title} />

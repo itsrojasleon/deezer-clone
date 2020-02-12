@@ -1,14 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { Context as TracksContext } from '../contexts/songs';
 import { useFormInput } from '../hooks/useFormInput';
 import { useDebounce } from '../hooks/useDebounce';
 import { InputProps } from '../types/Elements';
 import Input from './Input';
 
-interface Props {
-  fetchTracks: Function;
-}
-
-const SearchBar = ({ fetchTracks }: Props): JSX.Element => {
+const SearchBar = (): JSX.Element => {
+  const { fetchTracks } = useContext(TracksContext);
   const input = useFormInput('');
   const debouncedSearchTerm = useDebounce(input.value, 500);
 
