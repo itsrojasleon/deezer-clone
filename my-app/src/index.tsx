@@ -2,11 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { Provider as SongsProvider } from './contexts/songs';
+import { Provider as TracksProvider } from './contexts/tracks';
+import { Provider as AlbumsProvider } from './contexts/albums';
 
 ReactDOM.render(
-  <SongsProvider>
-    <App />
-  </SongsProvider>,
+  <TracksProvider>
+    <AlbumsProvider>
+      <App />
+    </AlbumsProvider>
+  </TracksProvider>,
   document.getElementById('root')
 );

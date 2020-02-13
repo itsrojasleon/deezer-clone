@@ -5,7 +5,7 @@ const router = express.Router();
 
 const URL = 'https://api.deezer.com';
 
-router.get('/search/:track', async (req, res) => {
+router.get('/search/tracks/:track', async (req, res) => {
   try {
     const {
       data: { data: tracks }

@@ -31,7 +31,7 @@ const fetchTracks = (dispatch: any) => async (value: string) => {
   try {
     const {
       data: { tracks }
-    } = await roslenAPI.get(`/search/${value}`);
+    } = await roslenAPI.get(`/search/tracks/${value}`);
     dispatch({ type: ActionType.FetchSongs, payload: tracks });
   } catch (err) {
     console.log('Something went wrong');
