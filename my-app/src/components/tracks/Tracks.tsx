@@ -9,7 +9,6 @@ interface Props {
 
 const Tracks = (): JSX.Element => {
   const { state }: Props = useContext(TracksContext);
-  console.log(state.tracks);
   return (
     <div>
       {state.tracks.map(track => (

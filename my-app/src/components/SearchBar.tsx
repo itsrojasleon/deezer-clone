@@ -1,6 +1,5 @@
 import React, { useEffect, useContext } from 'react';
 import { Context as TracksContext } from '../contexts/tracks';
-import { Context as AlbumsContext } from '../contexts/albums';
 import { useFormInput } from '../hooks/useFormInput';
 import { useDebounce } from '../hooks/useDebounce';
 import { InputProps } from '../types/Elements';
@@ -8,7 +7,6 @@ import Input from './Input';
 
 const SearchBar = (): JSX.Element => {
   const { fetchTracks } = useContext(TracksContext);
-  const { fetchAlbums } = useContext(AlbumsContext);
   const input = useFormInput('');
   const debouncedSearchTerm = useDebounce(input.value, 500);
 
@@ -19,7 +17,6 @@ const SearchBar = (): JSX.Element => {
     // only once
     if (debouncedSearchTerm) {
       fetchTracks(input.value);
-      fetchAlbums(input.value);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchTerm]);
