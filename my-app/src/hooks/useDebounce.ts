@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-// debounce hook (wait 500 ms or any delay and then do the request!)
+// wait 500 ms or any delay and then do the request!
 export const useDebounce = (value: string, delay: number = 500) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
@@ -9,9 +9,7 @@ export const useDebounce = (value: string, delay: number = 500) => {
       setDebouncedValue(value);
     }, delay);
 
-    return () => {
-      clearTimeout(timer);
-    };
+    return () => clearTimeout(timer);
   }, [value, delay]);
 
   return debouncedValue;

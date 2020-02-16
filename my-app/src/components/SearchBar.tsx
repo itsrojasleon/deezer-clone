@@ -4,11 +4,13 @@ import { useFormInput } from '../hooks/useFormInput';
 import { useDebounce } from '../hooks/useDebounce';
 import { InputProps } from '../types/Elements';
 import TextInput from './TextInput';
+import Spinner from './Spinner';
 
 import { StyledInputContainer } from '../styles/SearchBar';
+import SearchIcon from './SearchIcon';
 
 const SearchBar = (): JSX.Element => {
-  const { fetchTracks } = useContext(TracksContext);
+  const { state, fetchTracks } = useContext(TracksContext);
   const input = useFormInput('');
   const debouncedSearchTerm = useDebounce(input.value, 500);
 
@@ -32,6 +34,8 @@ const SearchBar = (): JSX.Element => {
   return (
     <StyledInputContainer>
       <TextInput {...inputData} />
+      {state.isLoading ? <Spinner /> : <SearchIcon />}
+      {state.isError && <div>Something went wrong</div>}
     </StyledInputContainer>
   );
 };
