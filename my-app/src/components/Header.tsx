@@ -1,15 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
 
 const Header = () => {
   return (
     <header>
       <nav>
-        <div>
+        <>
           <SearchBar />
-        </div>
+        </>
         <div>
-          <a href="#">Tracks</a>
+          <Link to="/"></Link>
         </div>
       </nav>
     </header>

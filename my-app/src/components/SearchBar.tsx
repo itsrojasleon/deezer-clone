@@ -3,7 +3,9 @@ import { Context as TracksContext } from '../contexts/tracks';
 import { useFormInput } from '../hooks/useFormInput';
 import { useDebounce } from '../hooks/useDebounce';
 import { InputProps } from '../types/Elements';
-import Input from './Input';
+import TextInput from './TextInput';
+
+import { StyledInputContainer } from '../styles/SearchBar';
 
 const SearchBar = (): JSX.Element => {
   const { fetchTracks } = useContext(TracksContext);
@@ -28,9 +30,9 @@ const SearchBar = (): JSX.Element => {
   };
 
   return (
-    <form>
-      <Input {...inputData} />
-    </form>
+    <StyledInputContainer>
+      <TextInput {...inputData} />
+    </StyledInputContainer>
   );
 };
 export default SearchBar;
