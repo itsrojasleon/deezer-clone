@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const StyledInputContainer = styled.div`
   position: relative;
-  width: 50%;
-  margin: 18px auto 18px auto;
+  width: 100%;
+  margin: 18px auto;
   @media (max-width: 769px) {
     width: 95%;
   }
