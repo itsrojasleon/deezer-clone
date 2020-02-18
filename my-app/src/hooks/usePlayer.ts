@@ -22,7 +22,7 @@ export const usePlayer = () => {
         toggle();
 
         const timeUpdate = () => {
-          setCurrentTime(node.currentTime);
+          setCurrentTime(String(node.currentTime));
         };
 
         node.addEventListener('loadeddata', load);
