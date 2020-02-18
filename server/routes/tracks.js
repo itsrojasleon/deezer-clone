@@ -9,7 +9,7 @@ router.get('/search/tracks/:track', async (req, res) => {
   try {
     const {
       data: { data: tracks }
-    } = await axios.get(`${URL}/search?q=${req.params.track}`);
+    } = await axios.get(`${URL}/search/track?q=${req.params.track}`);
     res.json({ tracks });
   } catch (err) {
     res.send(err.message);
