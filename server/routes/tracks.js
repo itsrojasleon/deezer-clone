@@ -16,4 +16,14 @@ router.get('/search/tracks/:track', async (req, res) => {
   }
 });
 
+router.get('/search/artists/:artist', async (req, res) => {
+  try {
+    const {
+      data: { data: artists }
+    } = await axios.get(`${URL}/search/artist?q=${req.params.artist}`);
+  } catch (err) {
+    res.send(err.message);
+  }
+});
+
 module.exports = router;

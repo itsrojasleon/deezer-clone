@@ -10,11 +10,11 @@ interface Props {
 const Tracks = (): JSX.Element => {
   const { state }: Props = useContext(TracksContext);
   return (
-    <div>
+    <>
       {state.tracks.map(track => (
         <TrackDetails key={track.id} {...track} />
       ))}
-    </div>
+    </>
   );
 };
 export default Tracks;
