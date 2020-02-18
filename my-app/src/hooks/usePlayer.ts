@@ -36,5 +36,5 @@ export const usePlayer = () => {
     },
     [isPlaying]
   );
-  return [setRef, setIsPlaying, isPlaying, currentTime];
+  return [setRef, setIsPlaying, isPlaying, currentTime, duration];
 };
