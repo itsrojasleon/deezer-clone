@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { gray, darkness, darkness10 } from './colors';
+import { base, gray10, darkness, darkness10 } from './colors';
 
 export const StyledInputContainer = styled.div`
   position: relative;
@@ -12,8 +12,8 @@ export const StyledInputContainer = styled.div`
 
 export const StyledInput = styled.input`
   width: 100%;
-  border: 1px solid ${gray};
-  background-color: white;
+  border: 1px solid ${gray10};
+  background-color: ${base};
   padding: 13px 10px;
   border-radius: 5px;
   font-size: 17px;

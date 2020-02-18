@@ -1,4 +1,4 @@
-import React from 'react';
+import { Reducer, Dispatch } from 'react';
 import createDataContext from './createData';
 import { roslenAPI } from '../api/deezer';
 
@@ -14,13 +14,10 @@ interface SongsState {
 }
 interface SongActions {
   type: ActionType;
-  payload: any;
+  payload?: any;
 }
 
-const songsReducer: React.Reducer<SongsState, SongActions> = (
-  state,
-  action
-) => {
+const songsReducer: Reducer<SongsState, SongActions> = (state, action) => {
   switch (action.type) {
     case ActionType.FetchedTracks:
       return { ...state, tracks: action.payload, isLoading: false };
@@ -33,7 +30,9 @@ const songsReducer: React.Reducer<SongsState, SongActions> = (
   }
 };
 
-const fetchTracks = (dispatch: any) => async (value: string) => {
+const fetchTracks = (dispatch: Dispatch<SongActions>) => async (
+  value: string
+) => {
   dispatch({ type: ActionType.IsLoading });
   try {
     const {
