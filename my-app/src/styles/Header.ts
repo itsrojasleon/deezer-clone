@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+import { gray } from './colors';
 
 export const StyledHeader = styled.header`
   width: 100%;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid ${gray};
   padding: 0 10px 0 10px;
 `;
 
