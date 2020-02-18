@@ -6,5 +6,5 @@ export const StyledTrack = styled.div`
 `;
 
 export const StyledImage = styled.img`
-  width: 10%;
+  width: 100%;
 `;
