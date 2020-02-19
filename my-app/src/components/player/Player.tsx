@@ -2,8 +2,9 @@ import React from 'react';
 import { usePlayer } from '../../hooks/usePlayer';
 import { useHtmlElement } from '../../hooks/useHtmlElement';
 import {
+  StyledPlayer,
   StyledDiv,
-  StyledPoint,
+  StyledKnob,
   StyledElement
 } from '../../styles/player/Player';
 
@@ -18,24 +19,24 @@ const Player = (): JSX.Element => {
     currentTime,
     duration
   ] = usePlayer();
-  const [divRef, width] = useHtmlElement();
+  // const [divRef, width] = useHtmlElement();
 
   // Current progress
   const progress = (currentTime / duration) * 100;
 
   return (
-    <div>
+    <StyledPlayer>
       <audio ref={playerRef} src={TRACK_URL} />
       {isPlaying ? (
         <button onClick={() => setIsPlaying(false)}>Pause</button>
       ) : (
         <button onClick={() => setIsPlaying(true)}>Play</button>
       )}
-      <StyledDiv ref={divRef}>
+      <StyledDiv>
         <StyledElement progress={progress} />
-        <StyledPoint></StyledPoint>
+        <StyledKnob progress={progress - 2} />
       </StyledDiv>
-    </div>
+    </StyledPlayer>
   );
 };
 export default Player;

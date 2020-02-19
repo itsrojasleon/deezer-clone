@@ -1,12 +1,17 @@
 import styled from 'styled-components';
 
+export const StyledPlayer = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+`;
+
 export const StyledDiv = styled.div`
   width: 100%;
   height: 16px;
   background-color: purple;
 `;
 export const StyledElement = styled.div`
-  background-color: yellow;
   background: ${(props: { progress: number }) =>
     props.progress &&
     `linear-gradient(to right, rgb(50, 50, 50) ${props.progress}%, white 0)`};
@@ -14,9 +19,12 @@ export const StyledElement = styled.div`
   height: 8px;
 `;
 
-export const StyledPoint = styled.div`
+export const StyledKnob = styled.div`
   width: 15px;
   height: 15px;
+  position: relative;
+  background-color: black;
   border-radius: 50%;
-  background-color: blue;
+  left: ${(props: { progress: number }) =>
+    props.progress && `${props.progress}%`};
 `;

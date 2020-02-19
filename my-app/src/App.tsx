@@ -23,8 +23,8 @@ const App: React.FC = (): JSX.Element => {
             <Switch>
               <Route path="/" exact component={Home} />
             </Switch>
-            <Player />
           </StyledContainer>
+          <Player />
         </Suspense>
       </Router>
     </>
