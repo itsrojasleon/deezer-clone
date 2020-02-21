@@ -9,9 +9,7 @@ export const usePlayer = () => {
   const setRef = useCallback(
     (node: HTMLAudioElement) => {
       if (node) {
-        const load = () => {
-          setDuration(node.duration);
-        };
+        const load = () => setDuration(node.duration);
         const toggle = () => {
           if (isPlaying) {
             node.play();
@@ -21,9 +19,7 @@ export const usePlayer = () => {
         };
         toggle();
 
-        const timeUpdate = () => {
-          setCurrentTime(String(node.currentTime));
-        };
+        const timeUpdate = () => setCurrentTime(String(node.currentTime));
 
         node.addEventListener('loadeddata', load);
         node.addEventListener('timeupdate', timeUpdate);

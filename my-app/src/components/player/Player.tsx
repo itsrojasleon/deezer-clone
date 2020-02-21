@@ -23,6 +23,7 @@ const Player = (): JSX.Element => {
 
   // Current progress
   const progress = (currentTime / duration) * 100;
+  // useCountRenders();
 
   return (
     <StyledPlayer>
