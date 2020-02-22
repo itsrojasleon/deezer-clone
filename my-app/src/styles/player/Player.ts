@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const StyledPlayer = styled.div`
   position: absolute;
-  bottom: 0;
+  bottom: 50px;
   width: 100%;
 `;
 
@@ -19,11 +19,32 @@ export const StyledElement = styled.div`
   height: 8px;
 `;
 
-export const StyledKnob = styled.div`
-  width: 15px;
+export const StyledInputRange = styled.input`
+  width: 100%;
   height: 15px;
-  position: relative;
-  background-color: black;
-  border-radius: 50%;
-  left: ${(props: { progress: number }) => `${props.progress}%`};
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+  &:hover {
+    opacity: 1;
+  }
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4caf50;
+    cursor: pointer;
+  }
+  &::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4caf50;
+    cursor: pointer;
+  }
 `;
