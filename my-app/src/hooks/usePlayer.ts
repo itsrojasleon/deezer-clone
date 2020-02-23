@@ -14,6 +14,7 @@ export const usePlayer = (): Data => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  // Someone pressed the duration bar/icon/button
   const [clickedTime, setClickedTime] = useState(0);
 
   // https://reactjs.org/docs/hooks-faq.html#how-can-i-measure-a-dom-node
@@ -21,20 +22,18 @@ export const usePlayer = (): Data => {
     (node: HTMLAudioElement) => {
       if (node) {
         const load = () => {
-          console.log('initial load');
           setDuration(node.duration);
         };
         const timeUpdate = () => {
-          console.log('on time update');
           setCurrentTime(node.currentTime);
         };
-        const toggle = () => (isPlaying ? node.play() : node.pause());
+        const toggle = () => {
+          isPlaying ? node.play() : node.pause();
+        };
         toggle();
+
         if (clickedTime) {
-          const clickedTime = () => {
-            console.log('clicked dude');
-          };
-          clickedTime();
+          node.currentTime = clickedTime;
         }
 
         node.addEventListener('loadeddata', load);
@@ -46,7 +45,7 @@ export const usePlayer = (): Data => {
         };
       }
     },
-    [isPlaying]
+    [isPlaying, clickedTime]
   );
   return {
     ref,

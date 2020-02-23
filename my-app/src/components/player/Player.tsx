@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { usePlayer } from '../../hooks/usePlayer';
+import { useRangeInput } from '../../hooks/useRangeInput';
 import {
   StyledPlayer,
   StyledDiv,
   StyledInputRange,
   StyledElement
 } from '../../styles/player/Player';
-
-type InputElement = React.ChangeEvent<HTMLInputElement>;
 
 const TRACK_URL =
   'https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3';
@@ -18,25 +17,14 @@ const Player = (): JSX.Element => {
     setIsPlaying,
     isPlaying,
     currentTime,
-    setCurrentTime,
     duration,
     setClickedTime
   } = usePlayer();
 
-  const [time, setTime] = useState(0);
-  // console.log(time, currentTime);
-
-  React.useEffect(() => {
-    setTime(currentTime);
-  }, [currentTime]);
+  const inputData = useRangeInput(currentTime, setClickedTime);
 
   // Current progress
   const progress = (currentTime / duration) * 100 || 0;
-
-  const onChange = (e: InputElement) => {
-    setTime(Number(e.target.value));
-    // setCurrentTime(Number(e.target.value));
-  };
 
   return (
     <StyledPlayer>
@@ -52,11 +40,10 @@ const Player = (): JSX.Element => {
           type="range"
           max={duration}
           min={0}
-          value={time}
-          onChange={onChange}
+          {...inputData}
           step={0.00001}
         />
-        <h2>{time}</h2>
+        <h2>{inputData.value}</h2>
       </StyledDiv>
     </StyledPlayer>
   );
