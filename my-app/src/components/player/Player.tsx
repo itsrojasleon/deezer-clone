@@ -23,12 +23,11 @@ const Player = (): JSX.Element => {
 
   const inputData = useRangeInput(currentTime, setClickedTime);
 
-  // Current progress
   const progress = (currentTime / duration) * 100 || 0;
 
   return (
     <StyledPlayer>
-      <audio ref={playerRef} src={TRACK_URL} controls />
+      <audio ref={playerRef} src={TRACK_URL} />
       {isPlaying ? (
         <button onClick={() => setIsPlaying(false)}>Pause</button>
       ) : (
