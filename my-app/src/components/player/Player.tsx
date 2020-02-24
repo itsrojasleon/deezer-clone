@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { usePlayer } from '../../hooks/usePlayer';
-import { useRangeInput } from '../../hooks/useRangeInput';
+// import { useRangeInput } from '../../hooks/useRangeInput';
 import { Context as PlayerContext } from '../../contexts/player';
 import {
   StyledPlayer,
-  StyledDiv,
-  StyledInputRange,
-  StyledElement
+  StyledDiv
+  // StyledInputRange,
+  // StyledElement
 } from '../../styles/player/Player';
 
 const TRACK_URL =
@@ -15,40 +15,36 @@ const TRACK_URL =
 const Player = (): JSX.Element => {
   const { state, togglePlay } = useContext(PlayerContext);
   console.log(state);
-  const inputData = useRangeInput();
+  // const inputData = useRangeInput();
   const {
-    ref: playerRef,
-    setIsPlaying,
-    isPlaying,
-    currentTime,
-    duration
-  } = usePlayer(inputData.value);
+    ref: playerRef
+    // setIsPlaying,
+    // isPlaying,
+    // currentTime,
+    // duration
+  } = usePlayer(state.isPlaying);
 
-  const progress = (currentTime / duration) * 100 || 0;
+  // const progress = (currentTime / duration) * 100 || 0;
 
   return (
     <StyledPlayer>
       <audio ref={playerRef} src={TRACK_URL} />
-      {state.isPlaying ? (
-        <button onClick={() => togglePlay()}>Pause</button>
-      ) : (
-        <button onClick={() => togglePlay()}>Play</button>
-      )}
+      <button onClick={togglePlay}>{state.isPlaying ? 'Pause' : 'Play'}</button>
       <StyledDiv>
-        <StyledElement
+        {/* <StyledElement
           style={{
             background: `linear-gradient(to right, rgb(50, 50, 50) ${progress}%, white 0)`
           }}
           progress={progress}
-        />
-        <StyledInputRange
+        /> */}
+        {/* <StyledInputRange
           type="range"
           max={duration}
           min={0}
           {...inputData}
           step={0.5}
-        />
-        <h2>{inputData.value}</h2>
+        /> */}
+        {/* <h2>{inputData.value}</h2> */}
       </StyledDiv>
     </StyledPlayer>
   );

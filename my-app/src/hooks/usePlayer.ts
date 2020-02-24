@@ -1,19 +1,18 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 
 interface Data {
   ref: any;
-  setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
-  isPlaying: boolean;
-  currentTime: number;
-  setCurrentTime: React.Dispatch<React.SetStateAction<number>>;
-  duration: number;
-  // setClickedTime: React.Dispatch<React.SetStateAction<number>>;
+  // setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
+  // isPlaying: boolean;
+  // currentTime: number;
+  // setCurrentTime: React.Dispatch<React.SetStateAction<number>>;
+  // duration: number;
 }
 
-export const usePlayer = (rangeInputProgress: number): Data => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [duration, setDuration] = useState(0);
-  const [currentTime, setCurrentTime] = useState(0);
+export const usePlayer = (isPlaying: boolean): Data => {
+  // const [isPlaying, setIsPlaying] = useState(false);
+  // const [duration, setDuration] = useState(0);
+  // const [currentTime, setCurrentTime] = useState(0);
   // Someone pressed the duration bar/icon/button
   // const [clickedTime, setClickedTime] = useState(0);
 
@@ -22,20 +21,23 @@ export const usePlayer = (rangeInputProgress: number): Data => {
     (node: HTMLAudioElement) => {
       if (node) {
         const load = () => {
-          setDuration(node.duration);
+          // setDuration(node.duration);
+          console.log('Loaded');
         };
         const timeUpdate = () => {
-          setCurrentTime(node.currentTime);
+          // setCurrentTime(node.currentTime);
+          console.log('time dude');
         };
-        const toggle = () => {
-          isPlaying ? node.play() : node.pause();
-        };
-        toggle();
+        // const toggle = () => {
+        //   isPlaying ? node.play() : node.pause();
+        // };
+        // toggle();
+        isPlaying ? node.play() : node.pause();
 
-        if (rangeInputProgress) {
-          console.log(rangeInputProgress);
-          node.currentTime = rangeInputProgress;
-        }
+        // if (rangeInputProgress) {
+        //   console.log(rangeInputProgress);
+        //   node.currentTime = rangeInputProgress;
+        // }
 
         node.addEventListener('loadeddata', load);
         node.addEventListener('timeupdate', timeUpdate);
@@ -46,14 +48,14 @@ export const usePlayer = (rangeInputProgress: number): Data => {
         };
       }
     },
-    [isPlaying, rangeInputProgress]
+    [isPlaying]
   );
   return {
-    ref,
-    setIsPlaying,
-    isPlaying,
-    currentTime,
-    setCurrentTime,
-    duration
+    ref
+    // setIsPlaying,
+    // isPlaying,
+    // currentTime,
+    // setCurrentTime,
+    // duration
   };
 };
