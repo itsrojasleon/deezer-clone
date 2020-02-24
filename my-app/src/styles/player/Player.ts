@@ -9,12 +9,12 @@ export const StyledPlayer = styled.div`
 export const StyledDiv = styled.div`
   width: 100%;
   height: 16px;
-  background-color: purple;
+  /* background-color: purple; */
 `;
 
 export const StyledElement = styled.div`
-  background: ${(props: { progress: number }) =>
-    `linear-gradient(to right, rgb(50, 50, 50) ${props.progress}%, white 0)`};
+  /* background: ${(props: { progress: number }) =>
+    `linear-gradient(to right, rgb(50, 50, 50) ${props.progress}%, white 0)`}; */
   width: 100%;
   height: 8px;
 `;

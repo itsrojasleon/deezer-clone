@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { usePlayer } from '../../hooks/usePlayer';
 import { useRangeInput } from '../../hooks/useRangeInput';
+import { Context as PlayerContext } from '../../contexts/player';
 import {
   StyledPlayer,
   StyledDiv,
@@ -12,39 +13,44 @@ const TRACK_URL =
   'https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3';
 
 const Player = (): JSX.Element => {
+  const { state, togglePlay } = useContext(PlayerContext);
+  console.log(state);
+  const inputData = useRangeInput();
   const {
     ref: playerRef,
     setIsPlaying,
     isPlaying,
     currentTime,
-    duration,
-    setClickedTime
-  } = usePlayer();
-
-  const inputData = useRangeInput(currentTime, setClickedTime);
+    duration
+  } = usePlayer(inputData.value);
 
   const progress = (currentTime / duration) * 100 || 0;
 
   return (
     <StyledPlayer>
       <audio ref={playerRef} src={TRACK_URL} />
-      {isPlaying ? (
-        <button onClick={() => setIsPlaying(false)}>Pause</button>
+      {state.isPlaying ? (
+        <button onClick={() => togglePlay()}>Pause</button>
       ) : (
-        <button onClick={() => setIsPlaying(true)}>Play</button>
+        <button onClick={() => togglePlay()}>Play</button>
       )}
       <StyledDiv>
-        <StyledElement progress={progress} />
+        <StyledElement
+          style={{
+            background: `linear-gradient(to right, rgb(50, 50, 50) ${progress}%, white 0)`
+          }}
+          progress={progress}
+        />
         <StyledInputRange
           type="range"
           max={duration}
           min={0}
           {...inputData}
-          step={0.00001}
+          step={0.5}
         />
         <h2>{inputData.value}</h2>
       </StyledDiv>
     </StyledPlayer>
   );
 };
-export default Player;
+export default React.memo(Player);
