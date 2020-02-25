@@ -8,10 +8,12 @@ import Spinner from './Spinner';
 
 import { StyledInputContainer } from '../styles/SearchBar';
 import SearchIcon from './SearchIcon';
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
 
 const SearchBar = (): JSX.Element => {
   const { state, fetchTracks } = useContext(TracksContext);
   const input = useFormInput('');
+  useDocumentTitle(input.value);
   const debouncedSearchTerm = useDebounce(input.value, 500);
 
   useEffect(() => {
