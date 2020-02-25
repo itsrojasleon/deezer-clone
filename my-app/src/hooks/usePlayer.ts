@@ -1,61 +1,80 @@
-import { useCallback } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
-interface Data {
-  ref: any;
-  // setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
-  // isPlaying: boolean;
-  // currentTime: number;
-  // setCurrentTime: React.Dispatch<React.SetStateAction<number>>;
-  // duration: number;
+export interface PlayerState {
+  duration: number;
+  currentTime: number;
+  volume: number;
+  isPlaying: boolean;
+  isMuted: boolean;
 }
 
-export const usePlayer = (isPlaying: boolean): Data => {
-  // const [isPlaying, setIsPlaying] = useState(false);
-  // const [duration, setDuration] = useState(0);
-  // const [currentTime, setCurrentTime] = useState(0);
-  // Someone pressed the duration bar/icon/button
-  // const [clickedTime, setClickedTime] = useState(0);
+export interface Controls {
+  play: () => void;
+  pause: () => void;
+}
 
-  // https://reactjs.org/docs/hooks-faq.html#how-can-i-measure-a-dom-node
-  const ref = useCallback(
-    (node: HTMLAudioElement) => {
-      if (node) {
-        const load = () => {
-          // setDuration(node.duration);
-          console.log('Loaded');
-        };
-        const timeUpdate = () => {
-          // setCurrentTime(node.currentTime);
-          console.log('time dude');
-        };
-        // const toggle = () => {
-        //   isPlaying ? node.play() : node.pause();
-        // };
-        // toggle();
-        isPlaying ? node.play() : node.pause();
+interface Data {
+  src: string;
+  autoPlay: boolean;
+}
 
-        // if (rangeInputProgress) {
-        //   console.log(rangeInputProgress);
-        //   node.currentTime = rangeInputProgress;
-        // }
+export const usePlayer = ({ src, autoPlay }: Data) => {
+  const [state, setState] = useState<PlayerState>({
+    duration: 0,
+    currentTime: 0,
+    volume: 1,
+    isPlaying: false,
+    isMuted: false
+  });
 
-        node.addEventListener('loadeddata', load);
-        node.addEventListener('timeupdate', timeUpdate);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
-        return () => {
-          node.removeEventListener('loadeddata', load);
-          node.removeEventListener('timeupdate', timeUpdate);
-        };
-      }
+  const controls = {
+    play: () => {
+      const node = audioRef.current;
+      if (!node) return;
+      setState(prevState => ({ ...prevState, isPlaying: true }));
+      node.play();
     },
-    [isPlaying]
-  );
-  return {
-    ref
-    // setIsPlaying,
-    // isPlaying,
-    // currentTime,
-    // setCurrentTime,
-    // duration
+    pause: () => {
+      const node = audioRef.current;
+      if (!node) return;
+      setState(prevState => ({ ...prevState, isPlaying: false }));
+      node.pause();
+    },
+    volume: (volume: number) => {
+      const node = audioRef.current;
+      if (!node) return;
+      let currentVolume = Math.min(1, Math.max(0, volume));
+      setState(prevState => ({ ...prevState, volume: currentVolume }));
+      node.volume = currentVolume;
+    },
+    timeUpdate: (time: number) => {
+      const node = audioRef.current;
+      if (!node) return;
+      const currentTime = Math.min(state.duration, Math.max(0, time));
+      setState(prevState => ({ ...prevState, currentTime }));
+      node.currentTime = currentTime;
+    }
   };
+
+  useEffect(() => {
+    const node = audioRef.current;
+    if (node) {
+      const load = () => {
+        setState(prevState => ({ ...prevState, duration: node.duration }));
+      };
+      node.addEventListener('loadeddata', load);
+
+      // Start audio, if autoPlay is requested
+      if (autoPlay) {
+        controls.play();
+      }
+      return () => {
+        node.removeEventListener('loadeddata', load);
+      };
+    }
+  }, [src]);
+
+  return { audioRef, state, controls };
 };
