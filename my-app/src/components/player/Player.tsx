@@ -1,76 +1,32 @@
 import React from 'react';
-import { usePlayer } from '../../hooks/usePlayer';
-import {
-  StyledPlayer,
-  StyledDiv
-  // StyledInputRange,
-  // StyledElement
-} from '../../styles/player/Player';
-
-const TRACK_URL =
-  'https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3';
+import { useAudio } from '../../hooks/useAudio';
 
 const Player = (): JSX.Element => {
-  // const inputData = useRangeInput();
-  const { audioRef, state, controls } = usePlayer({
-    src: TRACK_URL,
+  const [audio, state, controls] = useAudio({
+    src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
     autoPlay: false
   });
-  const [currentValue, setCurrentValue] = React.useState(0);
-
-  // const progress = (currentTime / duration) * 100 || 0;
 
   return (
-    <StyledPlayer>
-      <audio ref={audioRef} src={TRACK_URL} />
-      {/* <button onClick={togglePlay}>{state.isPlaying ? 'Pause' : 'Play'}</button> */}
-      {state.isPlaying ? (
-        <button onClick={() => controls.pause()}>Pause</button>
+    <div>
+      {audio}
+      <pre>{JSON.stringify(state, null, 2)}</pre>
+      {state.paused ? (
+        <button onClick={controls.play}>Play</button>
       ) : (
-        <button onClick={() => controls.play()}>Play</button>
+        <button onClick={controls.pause}>Pause</button>
       )}
-      <div>
-        <label>Duration: </label>
-        <input
-          type="range"
-          min={0}
-          max={state.duration}
-          step={1}
-          onChange={e => {
-            controls.timeUpdate(Number(e.target.value));
-            setCurrentValue(Number(e.target.value));
-          }}
-        />
-      </div>
-      <div>
-        <label>Volume:</label>
-        <input
-          type="range"
-          onChange={e => {
-            controls.volume(Number(e.target.value));
-          }}
-          min={0}
-          max={1}
-          step={0.1}
-        />
-      </div>
-      <StyledDiv>
-        {/* <StyledElement
-          style={{
-            background: `linear-gradient(to right, rgb(50, 50, 50) ${progress}%, white 0)`
-          }}
-          progress={progress}
-        /> */}
-        {/* <StyledInputRange
-          type="range"
-          max={duration}
-          min={0}
-          {...inputData}
-          step={0.5}
-        /> */}
-        {/* <h2>{inputData.value}</h2> */}
-      </StyledDiv>
-    </StyledPlayer>
+      <br />
+      <button onClick={controls.mute}>Mute</button>
+      <button onClick={controls.unmute}>Un-mute</button>
+      <br />
+      <button onClick={() => controls.volume(0.1)}>Volume: 10%</button>
+      <button onClick={() => controls.volume(0.5)}>Volume: 50%</button>
+      <button onClick={() => controls.volume(1)}>Volume: 100%</button>
+      <br />
+      <button onClick={() => controls.seek(state.time - 5)}>-5 sec</button>
+      <button onClick={() => controls.seek(state.time + 5)}>+5 sec</button>
+    </div>
   );
 };
-export default React.memo(Player);
+export default Player;
