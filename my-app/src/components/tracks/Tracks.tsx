@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Context as TracksContext } from '../../contexts/tracks';
+import { Context as PlayerContext } from '../../contexts/player';
 import TrackDetails from './TrackDetails';
 import { Tracks as TrackTypes } from '../../types/Tracks';
 import { StyledTracks } from '../../styles/tracks/Tracks';
@@ -10,10 +11,13 @@ interface Props {
 
 const Tracks = (): JSX.Element => {
   const { state }: Props = useContext(TracksContext);
+  const { state: playerState, selectTrack } = useContext(PlayerContext);
+  console.log(playerState);
+
   return (
     <StyledTracks>
       {state.tracks.map(track => (
-        <TrackDetails key={track.id} {...track} />
+        <TrackDetails selectTrack={selectTrack} key={track.id} track={track} />
       ))}
     </StyledTracks>
   );
