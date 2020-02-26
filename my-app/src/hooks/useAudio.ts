@@ -84,6 +84,7 @@ export const useAudio = (
   const onTimeUpdate = () => {
     const el = ref.current;
     if (!el) return;
+    // This if statement is going to be used if the element is a !input
     if (state.time >= state.duration) return;
     setState(prevState => ({ ...prevState, time: el.currentTime }));
   };

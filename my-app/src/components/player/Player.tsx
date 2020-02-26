@@ -12,6 +12,11 @@ const Player = (): JSX.Element => {
     autoPlay: false
   });
   const volumeInput = useRangeInput(1, controls.volume);
+  const durationInput = useRangeInput(
+    state.duration,
+    controls.seek,
+    state.time
+  );
 
   return (
     <StyledPlayer>
@@ -28,6 +33,8 @@ const Player = (): JSX.Element => {
       <br />
       {/* <button onClick={() => controls.volume(0.5)}>Volume: 50%</button> */}
       <input {...volumeInput} />
+      <br />
+      <input {...durationInput} />
       <br />
       <button onClick={() => controls.seek(state.time - 5)}>-5 sec</button>
       <button onClick={() => controls.seek(state.time + 5)}>+5 sec</button>

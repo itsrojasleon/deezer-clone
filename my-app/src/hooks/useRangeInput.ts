@@ -9,27 +9,28 @@ interface Values {
   max: number;
   type: string;
   step: number;
+  value: number | undefined;
 }
 
 export const useRangeInput = (
-  volume: number,
-  changeVolume: (value: number) => void
+  maxValue: number,
+  changeEvent: (value: number) => void,
+  time?: number
 ): Values => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = () => {
     const node = inputRef.current;
-    if (node) {
-      changeVolume(Number(node.value));
-    }
+    if (node) changeEvent(Number(node.value));
   };
 
   return {
     ref: inputRef,
     onChange: handleChange,
     min: 0,
-    max: volume,
+    max: maxValue,
     type: 'range',
-    step: 0.1
+    step: 0.5,
+    value: time
   };
 };
