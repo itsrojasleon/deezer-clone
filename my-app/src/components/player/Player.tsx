@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Context as PlayerContext } from '../../contexts/player';
 import { useAudio } from '../../hooks/useAudio';
 
 const Player = (): JSX.Element => {
+  const { state: playerState } = useContext(PlayerContext);
   const [audio, state, controls] = useAudio({
-    src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+    src: playerState?.track?.preview || '',
     autoPlay: false
   });
 

@@ -11,8 +11,7 @@ interface Props {
 
 const Tracks = (): JSX.Element => {
   const { state }: Props = useContext(TracksContext);
-  const { state: playerState, selectTrack } = useContext(PlayerContext);
-  console.log(playerState);
+  const { selectTrack } = useContext(PlayerContext);
 
   return (
     <StyledTracks>

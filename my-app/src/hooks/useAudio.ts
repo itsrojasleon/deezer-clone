@@ -155,7 +155,7 @@ export const useAudio = (
     },
     seek: (time: number) => {
       const el = ref.current;
-      if (!el || state.duration === undefined) {
+      if (!el || !state.duration) {
         return;
       }
       time = Math.min(state.duration, Math.max(0, time));

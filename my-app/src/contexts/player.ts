@@ -27,7 +27,6 @@ const playerReducer: Reducer<PlayerState, PlayerActions> = (state, action) => {
 };
 
 const selectTrack = (dispatch: Dispatch<PlayerActions>) => (track: any) => {
-  console.log(track);
   try {
     dispatch({ type: ActionTypes.SELECT_TRACK, payload: track });
   } catch (err) {
