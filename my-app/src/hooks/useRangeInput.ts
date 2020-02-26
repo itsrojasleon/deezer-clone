@@ -11,12 +11,21 @@ interface Values {
   step: number;
   value: number | undefined;
 }
+// maxValue: number,
+// changeEvent: (value: number) => void,
+// time?: number
 
-export const useRangeInput = (
-  maxValue: number,
-  changeEvent: (value: number) => void,
-  time?: number
-): Values => {
+interface Props {
+  maxValue: number;
+  changeEvent: (value: number) => void;
+  time?: number;
+}
+
+export const useRangeInput = ({
+  maxValue,
+  changeEvent,
+  time
+}: Props): Values => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = () => {
