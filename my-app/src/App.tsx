@@ -17,8 +17,8 @@ const App: React.FC = (): JSX.Element => {
   return (
     <>
       <Router>
+        <Header />
         <Suspense fallback={<h1>Loading...</h1>}>
-          <Header />
           <StyledContainer>
             <Switch>
               <Route path="/" exact component={Home} />
