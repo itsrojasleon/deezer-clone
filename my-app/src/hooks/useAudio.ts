@@ -84,6 +84,7 @@ export const useAudio = (
   const onTimeUpdate = () => {
     const el = ref.current;
     if (!el) return;
+    if (state.time >= state.duration) return;
     setState(prevState => ({ ...prevState, time: el.currentTime }));
   };
   const onProgress = () => {
@@ -192,7 +193,7 @@ export const useAudio = (
       paused: el.paused
     }));
 
-    // Start media, if autoPlay requested.
+    // Start media, if autoPlay is requested
     if (props.autoPlay && el.paused) {
       controls.play();
     }

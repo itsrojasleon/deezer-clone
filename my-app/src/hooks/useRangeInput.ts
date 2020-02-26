@@ -1,24 +1,35 @@
-import { useState } from 'react';
+import { useRef, MutableRefObject } from 'react';
 
-type InputRangeElement = React.ChangeEvent<HTMLInputElement>;
+// type InputRangeElement = React.ChangeEvent<HTMLInputElement>;
 
-interface Data {
-  value: number;
-  onChange: (event: InputRangeElement) => void;
+interface Values {
+  ref: MutableRefObject<HTMLInputElement | null>;
+  onChange: () => void;
+  min: number;
+  max: number;
+  type: string;
+  step: number;
 }
 
-export const useRangeInput = (): Data => {
-  const [time, setTime] = useState(0);
+export const useRangeInput = (
+  volume: number,
+  changeVolume: (value: number) => void
+): Values => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  // useEffect(() => {
-  //   setTime(currentTime);
-  // }, [currentTime]);
-
-  const handleChange = (e: InputRangeElement) => {
-    setTime(Number(e.target.value));
+  const handleChange = () => {
+    const node = inputRef.current;
+    if (node) {
+      changeVolume(Number(node.value));
+    }
   };
+
   return {
-    value: time,
-    onChange: handleChange
+    ref: inputRef,
+    onChange: handleChange,
+    min: 0,
+    max: volume,
+    type: 'range',
+    step: 0.1
   };
 };
