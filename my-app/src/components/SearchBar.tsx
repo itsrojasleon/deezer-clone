@@ -1,18 +1,16 @@
 import React, { useEffect, useContext } from 'react';
 import { Context as TracksContext } from '../contexts/tracks';
-import { useFormInput } from '../hooks/useFormInput';
+import { useTextInput } from '../hooks/useTextInput';
 import { useDebounce } from '../hooks/useDebounce';
-import { InputProps } from '../types/Elements';
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import TextInput from './TextInput';
 import Spinner from './Spinner';
-
-import { StyledInputContainer } from '../styles/SearchBar';
 import SearchIcon from './SearchIcon';
-import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { StyledInputContainer } from '../styles/SearchBar';
 
 const SearchBar = (): JSX.Element => {
   const { state, fetchTracks } = useContext(TracksContext);
-  const input = useFormInput('');
+  const input = useTextInput('');
   useDocumentTitle(input.value);
   const debouncedSearchTerm = useDebounce(input.value, 500);
 
@@ -22,20 +20,14 @@ const SearchBar = (): JSX.Element => {
     // And also we shouldn't run this effect if fetchTracks changes (that will case an infinite loop),
     // only once
     if (debouncedSearchTerm) {
-      fetchTracks(input.value);
+      fetchTracks(input.value, 6);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchTerm]);
 
-  const inputData: InputProps = {
-    ...input,
-    placeholder: 'Search dude',
-    type: 'text'
-  };
-
   return (
     <StyledInputContainer>
-      <TextInput {...inputData} />
+      <TextInput {...input} />
       {state.isLoading ? <Spinner /> : <SearchIcon />}
       {state.isError && <div>Something went wrong</div>}
     </StyledInputContainer>

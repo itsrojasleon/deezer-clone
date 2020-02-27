@@ -31,13 +31,14 @@ const songsReducer: Reducer<SongsState, SongActions> = (state, action) => {
 };
 
 const fetchTracks = (dispatch: Dispatch<SongActions>) => async (
-  value: string
+  value: string,
+  limit: number
 ) => {
   dispatch({ type: ActionType.IsLoading });
   try {
     const {
       data: { tracks }
-    } = await roslenAPI.get(`/search/tracks/${value}`);
+    } = await roslenAPI.get(`/search/tracks/${value}/${limit}`);
     dispatch({ type: ActionType.FetchedTracks, payload: tracks });
   } catch (err) {
     console.log('Something went wrong');

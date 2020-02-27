@@ -10,11 +10,11 @@ interface Props {
 const TrackDetails = (props: Props): JSX.Element => {
   return (
     <StyledTrack onClick={() => props.selectTrack(props.track)}>
-      <h2>{props.track.title}</h2>
       <StyledImage
         src={props.track.album.cover_medium}
         alt={props.track.album.title}
       />
+      <p>{props.track.title}</p>
     </StyledTrack>
   );
 };

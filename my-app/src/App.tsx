@@ -13,6 +13,9 @@ const StyledContainer = styled.div`
   }
 `;
 
+// This is my first time using "something" as a param
+// something means track, artist, album, etc.
+
 const App: React.FC = (): JSX.Element => {
   return (
     <>
@@ -21,7 +24,7 @@ const App: React.FC = (): JSX.Element => {
         <Suspense fallback={<h1>Loading...</h1>}>
           <StyledContainer>
             <Switch>
-              <Route path="/" exact component={Home} />
+              <Route path="/search/:something" exact component={Home} />
             </Switch>
           </StyledContainer>
           <Player />

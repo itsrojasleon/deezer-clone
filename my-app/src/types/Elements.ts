@@ -1,6 +1,8 @@
+export type InputElement = React.ChangeEvent<HTMLInputElement>;
+
 export interface InputProps {
   value: string;
-  onChange: React.FormEventHandler;
-  type: string;
-  placeholder?: string;
+  onChange: (event: InputElement) => void;
+  placeholder: string;
+  type: 'text';
 }
