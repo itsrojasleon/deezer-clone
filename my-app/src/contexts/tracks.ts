@@ -30,11 +30,17 @@ const songsReducer: Reducer<SongsState, SongActions> = (state, action) => {
   }
 };
 
-const fetchTracks = (dispatch: Dispatch<SongActions>) => async (
-  value: string,
-  limit: number,
-  callback: () => void
-) => {
+interface Params {
+  value: number;
+  limit: number;
+  callback: () => void;
+}
+
+const fetchTracks = (dispatch: Dispatch<SongActions>) => async ({
+  value,
+  limit,
+  callback
+}: Params) => {
   dispatch({ type: ActionType.IsLoading });
   try {
     const {

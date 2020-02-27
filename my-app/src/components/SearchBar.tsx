@@ -8,13 +8,14 @@ import TextInput from './TextInput';
 import Spinner from './Spinner';
 import SearchIcon from './SearchIcon';
 import { StyledInputContainer } from '../styles/SearchBar';
+import { useCountRenders } from '../hooks/useCountRenders';
 
 const SearchBar = (): JSX.Element => {
   const { state, fetchTracks } = useContext(TracksContext);
   const input = useTextInput('');
-  useDocumentTitle(input.value);
-  const debouncedSearchTerm = useDebounce(input.value, 500);
+  const debouncedSearchTerm = useDebounce({ value: input.value, delay: 500 });
   const history = useHistory();
+  useDocumentTitle(input.value);
 
   useEffect(() => {
     // I don't need to execute this effect when the value changes useDebounce hook already has
@@ -22,8 +23,12 @@ const SearchBar = (): JSX.Element => {
     // And also we shouldn't run this effect if fetchTracks changes (that will case an infinite loop),
     // only once
     if (debouncedSearchTerm) {
-      fetchTracks(input.value, 6, () => {
-        history.push(`/search/${input.value}`);
+      fetchTracks({
+        value: input.value,
+        limit: 6,
+        callback: () => {
+          history.push(`/search/${input.value}`);
+        }
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
