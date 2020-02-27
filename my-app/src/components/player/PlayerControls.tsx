@@ -1,5 +1,12 @@
 import React from 'react';
-import { FiPlay, FiPause, FiVolume2, FiVolumeX } from 'react-icons/fi';
+import {
+  FiPlay,
+  FiPause,
+  FiVolume2,
+  FiVolumeX,
+  FiSkipForward,
+  FiSkipBack
+} from 'react-icons/fi';
 import { useRangeInput } from '../../hooks/useRangeInput';
 import { HTMLMediaControls } from '../../hooks/useAudio';
 import {
@@ -13,31 +20,45 @@ interface Props {
   duration: number;
   time: number;
   paused: boolean;
+  volume: number;
   controls: HTMLMediaControls;
 }
 
-const PlayerControls = ({ duration, time, paused, controls }: Props) => {
+const PlayerControls = ({
+  duration,
+  time,
+  paused,
+  volume,
+  controls
+}: Props) => {
   const volumeInput = useRangeInput({
     maxValue: 1,
-    changeEvent: controls.volume
+    changeEvent: controls.volume,
+    timeOrVolume: volume
   });
   const durationInput = useRangeInput({
     maxValue: duration,
     changeEvent: controls.seek,
-    time: time
+    timeOrVolume: time
   });
 
   return (
     <StyledContainer>
       <LeftSideStyled>
+        <FiSkipBack />
         {paused ? (
           <FiPlay onClick={controls.play} />
         ) : (
           <FiPause onClick={controls.pause} />
         )}
+        <FiSkipForward />
       </LeftSideStyled>
       <CenterStyled>
-        <input {...durationInput} />
+        <div>
+          <span>{time}</span>
+          <input {...durationInput} />
+          <span>{duration}</span>
+        </div>
       </CenterStyled>
       <RightSideStyled>
         <div>

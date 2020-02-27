@@ -18,6 +18,7 @@ const Player = (): JSX.Element => {
         time={state.time}
         duration={state.duration}
         paused={state.paused}
+        volume={state.volume}
         controls={controls}
       />
     </StyledPlayer>

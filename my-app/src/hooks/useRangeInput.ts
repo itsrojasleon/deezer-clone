@@ -1,7 +1,5 @@
 import { useRef, MutableRefObject } from 'react';
 
-// type InputRangeElement = React.ChangeEvent<HTMLInputElement>;
-
 interface Values {
   ref: MutableRefObject<HTMLInputElement | null>;
   onChange: () => void;
@@ -11,20 +9,17 @@ interface Values {
   step: number;
   value: number | undefined;
 }
-// maxValue: number,
-// changeEvent: (value: number) => void,
-// time?: number
 
 interface Props {
   maxValue: number;
   changeEvent: (value: number) => void;
-  time?: number;
+  timeOrVolume?: number;
 }
 
 export const useRangeInput = ({
   maxValue,
   changeEvent,
-  time
+  timeOrVolume
 }: Props): Values => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -40,6 +35,6 @@ export const useRangeInput = ({
     max: maxValue,
     type: 'range',
     step: 0.5,
-    value: time
+    value: timeOrVolume
   };
 };
