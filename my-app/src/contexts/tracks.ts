@@ -47,7 +47,7 @@ const fetchTracks = (dispatch: Dispatch<SongActions>) => async ({
       data: { tracks }
     } = await roslenAPI.get(`/search/tracks/${value}/${limit}`);
     dispatch({ type: ActionType.FetchedTracks, payload: tracks });
-    callback();
+    if (callback) callback();
   } catch (err) {
     console.log('Something went wrong');
     dispatch({ type: ActionType.IsError, payload: err.message });

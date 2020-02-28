@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Header from './components/Header';
 import Player from './components/player/Player';
 const Home = lazy(() => import('./screens/Home'));
+const Results = lazy(() => import('./screens/Results'));
 
 const StyledContainer = styled.div`
   width: 90%;
@@ -24,7 +25,8 @@ const App: React.FC = (): JSX.Element => {
         <Suspense fallback={<h1>Loading...</h1>}>
           <StyledContainer>
             <Switch>
-              <Route path="/search/:something" exact component={Home} />
+              <Route path="/" exact component={Home} />
+              <Route path="/search/:something" exact component={Results} />
             </Switch>
           </StyledContainer>
           <Player />

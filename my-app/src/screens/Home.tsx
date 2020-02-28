@@ -1,11 +1,10 @@
-import React, { Suspense, lazy } from 'react';
-const Tracks = lazy(() => import('../components/tracks/Tracks'));
+import React from 'react';
 
 const Home: React.FC = (): JSX.Element => {
   return (
-    <Suspense fallback={<div>LOADING DUDE...</div>}>
-      <Tracks />
-    </Suspense>
+    <div>
+      <div>hello there</div>
+    </div>
   );
 };
 export default Home;
