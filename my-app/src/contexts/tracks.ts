@@ -1,26 +1,33 @@
 import { Reducer, Dispatch } from 'react';
 import createDataContext from './createData';
 import { roslenAPI } from '../api/deezer';
+import { Track } from '../types/Tracks';
+import { Album } from '../types/Albums';
 
 enum ActionType {
-  FetchedTracks = 'fetched_tracks',
-  IsLoading = 'is_loading',
-  IsError = 'is_error'
+  FetchedTracks,
+  FetchedAlbums,
+  IsLoading,
+  IsError
 }
 
-interface SongsState {
-  tracks: [];
-  error: '';
+interface TracksState {
+  tracks: Track[];
+  albums: Album[];
+  isLoading: boolean;
+  isError: string;
 }
 interface SongActions {
   type: ActionType;
   payload?: any;
 }
 
-const songsReducer: Reducer<SongsState, SongActions> = (state, action) => {
+const songsReducer: Reducer<TracksState, SongActions> = (state, action) => {
   switch (action.type) {
     case ActionType.FetchedTracks:
       return { ...state, tracks: action.payload, isLoading: false };
+    case ActionType.FetchedAlbums:
+      return { ...state, albums: action.payload, isLoading: false };
     case ActionType.IsLoading:
       return { ...state, isLoading: true };
     case ActionType.IsError:
@@ -33,13 +40,11 @@ const songsReducer: Reducer<SongsState, SongActions> = (state, action) => {
 interface Params {
   value: number;
   limit: number;
-  callback: () => void;
 }
 
 const fetchTracks = (dispatch: Dispatch<SongActions>) => async ({
   value,
-  limit,
-  callback
+  limit
 }: Params) => {
   dispatch({ type: ActionType.IsLoading });
   try {
@@ -47,15 +52,29 @@ const fetchTracks = (dispatch: Dispatch<SongActions>) => async ({
       data: { tracks }
     } = await roslenAPI.get(`/search/tracks/${value}/${limit}`);
     dispatch({ type: ActionType.FetchedTracks, payload: tracks });
-    if (callback) callback();
   } catch (err) {
     console.log('Something went wrong');
     dispatch({ type: ActionType.IsError, payload: err.message });
   }
 };
 
+const fetchAlbums = (dispatch: Dispatch<SongActions>) => async ({
+  value,
+  limit
+}: Params) => {
+  dispatch({ type: ActionType.IsLoading });
+  try {
+    const {
+      data: { albums }
+    } = await roslenAPI.get(`/search/albums/${value}/${limit}`);
+    dispatch({ type: ActionType.FetchedAlbums, payload: albums });
+  } catch (err) {
+    dispatch({ type: ActionType.IsError, payload: err.message });
+  }
+};
+
 export const { Provider, Context } = createDataContext(
   songsReducer,
-  { fetchTracks },
-  { tracks: [], isLoading: false, isError: '' }
+  { fetchTracks, fetchAlbums },
+  { tracks: [], albums: [], isLoading: false, isError: '' }
 );

@@ -18,7 +18,20 @@ router.get('/search/tracks/:track/:limit', async (req, res) => {
   }
 });
 
-router.get('/search/artists/:artist', async (req, res) => {
+router.get('/search/albums/:album/:limit', async (req, res) => {
+  try {
+    const {
+      data: { data: albums }
+    } = await axios.get(
+      `${URL}/search/album?q=${req.params.album}&limit=${req.params.limit}`
+    );
+    res.json({ albums });
+  } catch (err) {
+    res.send(err.message);
+  }
+});
+
+router.get('/search/artists/:artist/:limit', async (req, res) => {
   try {
     const {
       data: { data: artists }

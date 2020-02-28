@@ -1,13 +1,5 @@
-export interface Album {
-  id: number;
-  title: string;
-  cover_medium: string;
-}
-
-export interface Artist {
-  id: number;
-  name: string;
-}
+import { Album } from './Albums';
+import { Artist } from './Artist';
 
 export interface Track {
   id: number;
