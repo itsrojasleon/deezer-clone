@@ -7,6 +7,7 @@ import { Album } from '../types/Albums';
 enum ActionType {
   FetchedTracks,
   FetchedAlbums,
+  FetchedArtists,
   IsLoading,
   IsError
 }
@@ -17,17 +18,19 @@ interface TracksState {
   isLoading: boolean;
   isError: string;
 }
-interface SongActions {
+interface TrackActions {
   type: ActionType;
   payload?: any;
 }
 
-const songsReducer: Reducer<TracksState, SongActions> = (state, action) => {
+const songsReducer: Reducer<TracksState, TrackActions> = (state, action) => {
   switch (action.type) {
     case ActionType.FetchedTracks:
       return { ...state, tracks: action.payload, isLoading: false };
     case ActionType.FetchedAlbums:
       return { ...state, albums: action.payload, isLoading: false };
+    case ActionType.FetchedArtists:
+      return { ...state, artists: action.payload, isLoading: false };
     case ActionType.IsLoading:
       return { ...state, isLoading: true };
     case ActionType.IsError:
@@ -42,7 +45,7 @@ interface Params {
   limit: number;
 }
 
-const fetchTracks = (dispatch: Dispatch<SongActions>) => async ({
+const fetchTracks = (dispatch: Dispatch<TrackActions>) => async ({
   value,
   limit
 }: Params) => {
@@ -58,7 +61,7 @@ const fetchTracks = (dispatch: Dispatch<SongActions>) => async ({
   }
 };
 
-const fetchAlbums = (dispatch: Dispatch<SongActions>) => async ({
+const fetchAlbums = (dispatch: Dispatch<TrackActions>) => async ({
   value,
   limit
 }: Params) => {
@@ -73,8 +76,24 @@ const fetchAlbums = (dispatch: Dispatch<SongActions>) => async ({
   }
 };
 
+const fetchArtists = (dispatch: Dispatch<TrackActions>) => async ({
+  value,
+  limit
+}: Params) => {
+  dispatch({ type: ActionType.IsLoading });
+  try {
+    const {
+      data: { artists }
+    } = await roslenAPI.get(`/search/artists/${value}/${limit}`);
+    console.log(artists);
+    dispatch({ type: ActionType.FetchedArtists, payload: artists });
+  } catch (err) {
+    dispatch({ type: ActionType.IsError, payload: err.message });
+  }
+};
+
 export const { Provider, Context } = createDataContext(
   songsReducer,
-  { fetchTracks, fetchAlbums },
-  { tracks: [], albums: [], isLoading: false, isError: '' }
+  { fetchTracks, fetchAlbums, fetchArtists },
+  { tracks: [], albums: [], artists: [], isLoading: false, isError: '' }
 );

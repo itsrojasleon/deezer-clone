@@ -35,8 +35,10 @@ router.get('/search/artists/:artist/:limit', async (req, res) => {
   try {
     const {
       data: { data: artists }
-    } = await axios.get(`${URL}/search/artist?q=${req.params.artist}`);
-    res.send(artists);
+    } = await axios.get(
+      `${URL}/search/artist?q=${req.params.artist}&limit=${req.params.limit}`
+    );
+    res.json({ artists });
   } catch (err) {
     res.send(err.message);
   }
