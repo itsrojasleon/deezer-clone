@@ -9,10 +9,31 @@ export const StyledTrack = styled.div`
   padding: 9px;
   &:hover {
     background-color: ${gray20};
+    & > span {
+      display: none;
+    }
+    & > svg {
+      display: block;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  }
+  & > svg {
+    display: none;
   }
 `;
 
-export const StyledImage = styled.img`
-  width: 3%;
+interface Props {
+  image: string;
+}
+
+export const Icon = styled.span`
+  background-image: url("${(props: Props) => props.image}");
+  background-repeat: no-repeat;
+  background-size: cover;
   border-radius: 8px;
+  width: 35px;
+  height: 35px;
 `;

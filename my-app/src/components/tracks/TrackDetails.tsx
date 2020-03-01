@@ -1,6 +1,7 @@
 import React from 'react';
 import { Track } from '../../types/Tracks';
-import { StyledTrack, StyledImage } from '../../styles/tracks/TrackDetails';
+import { StyledTrack, Icon } from '../../styles/tracks/TrackDetails';
+import { AiFillPlayCircle } from 'react-icons/ai';
 
 interface Props {
   selectTrack: (track: any) => void;
@@ -10,10 +11,8 @@ interface Props {
 const TrackDetails = (props: Props): JSX.Element => {
   return (
     <StyledTrack onClick={() => props.selectTrack(props.track)}>
-      <StyledImage
-        src={props.track.album.cover_medium}
-        alt={props.track.album.title}
-      />
+      <Icon image={props.track.album.cover_medium} />
+      <AiFillPlayCircle />
       <p>{props.track.title}</p>
     </StyledTrack>
   );
