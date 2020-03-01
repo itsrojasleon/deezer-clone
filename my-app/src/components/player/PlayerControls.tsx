@@ -1,12 +1,10 @@
 import React from 'react';
+import { FiPause, FiVolume2, FiVolumeX } from 'react-icons/fi';
 import {
-  FiPlay,
-  FiPause,
-  FiVolume2,
-  FiVolumeX,
-  FiSkipForward,
-  FiSkipBack
-} from 'react-icons/fi';
+  AiOutlineCaretRight,
+  AiOutlineStepForward,
+  AiOutlineStepBackward
+} from 'react-icons/ai';
 import { useRangeInput } from '../../hooks/useRangeInput';
 import { HTMLMediaControls } from '../../hooks/useAudio';
 import {
@@ -45,13 +43,13 @@ const PlayerControls = ({
   return (
     <StyledContainer>
       <LeftSideStyled>
-        <FiSkipBack />
+        <AiOutlineStepBackward />
         {paused ? (
-          <FiPlay onClick={controls.play} />
+          <AiOutlineCaretRight onClick={controls.play} />
         ) : (
           <FiPause onClick={controls.pause} />
         )}
-        <FiSkipForward />
+        <AiOutlineStepForward />
       </LeftSideStyled>
       <CenterStyled>
         <div>

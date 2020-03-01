@@ -9,6 +9,7 @@ export const StyledTrack = styled.div`
   padding: 9px;
   &:hover {
     background-color: ${gray20};
+    transition: 0.2s;
     & > span {
       display: none;
     }
