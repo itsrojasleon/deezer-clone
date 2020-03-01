@@ -11,8 +11,8 @@ const Results = () => {
 
   useEffect(() => {
     fetchTracks({ value: something, limit: 6 });
-    fetchAlbums({ value: something, limit: 6 });
-    fetchArtists({ value: something, limit: 6 });
+    fetchAlbums({ value: something, limit: 5 });
+    fetchArtists({ value: something, limit: 5 });
   }, [something]);
 
   return (

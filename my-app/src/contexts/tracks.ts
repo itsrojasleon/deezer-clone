@@ -85,7 +85,6 @@ const fetchArtists = (dispatch: Dispatch<TrackActions>) => async ({
     const {
       data: { artists }
     } = await roslenAPI.get(`/search/artists/${value}/${limit}`);
-    console.log(artists);
     dispatch({ type: ActionType.FetchedArtists, payload: artists });
   } catch (err) {
     dispatch({ type: ActionType.IsError, payload: err.message });

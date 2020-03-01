@@ -3,18 +3,20 @@ import { Context as TracksContext } from '../../contexts/tracks';
 import ArtistDetails from './ArtistDetails';
 import Subtitle from '../Subtitile';
 import { Artist } from '../../types/Artist';
+import { StyledContainer } from '../../styles/artists/Artists';
 
 const Artists = () => {
   const { state } = useContext(TracksContext);
-  console.log(state);
 
   return (
-    <div>
+    <>
       {state.artists.length ? <Subtitle title="Artists" /> : null}
-      {state.artists.map((artist: Artist) => (
-        <ArtistDetails artist={artist} />
-      ))}
-    </div>
+      <StyledContainer>
+        {state.artists.map((artist: Artist) => (
+          <ArtistDetails key={artist.id} artist={artist} />
+        ))}
+      </StyledContainer>
+    </>
   );
 };
 export default Artists;
