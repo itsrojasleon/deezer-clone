@@ -10,7 +10,7 @@ import SearchIcon from './SearchIcon';
 import { StyledInputContainer } from '../styles/SearchBar';
 
 const SearchBar = (): JSX.Element => {
-  const { state, fetchTracks } = useContext(TracksContext);
+  const { state } = useContext(TracksContext);
   const input = useTextInput('');
   const debouncedSearchTerm = useDebounce({ value: input.value, delay: 500 });
   const history = useHistory();

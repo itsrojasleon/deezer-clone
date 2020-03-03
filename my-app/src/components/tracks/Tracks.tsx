@@ -12,9 +12,15 @@ const Tracks = (): JSX.Element => {
   return (
     <>
       {state.tracks.length ? <Subtitle title="Tracks" /> : null}
-      {state.tracks.map((track: TrackTypes) => (
-        <TrackDetails selectTrack={selectTrack} key={track.id} track={track} />
-      ))}
+      {state.tracks
+        .filter((track: TrackTypes) => track.preview !== null)
+        .map((track: TrackTypes) => (
+          <TrackDetails
+            selectTrack={selectTrack}
+            key={track.id}
+            track={track}
+          />
+        ))}
     </>
   );
 };
