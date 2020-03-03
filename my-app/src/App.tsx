@@ -6,6 +6,7 @@ import Player from './components/player/Player';
 const Home = lazy(() => import('./screens/Home'));
 const Results = lazy(() => import('./screens/Results'));
 const TracksScreen = lazy(() => import('./screens/Tracks'));
+const AlbumsScreen = lazy(() => import('./screens/Albums'));
 
 const StyledContainer = styled.div`
   width: 90%;
@@ -32,6 +33,11 @@ const App: React.FC = (): JSX.Element => {
                 path="/search/:something/tracks"
                 exact
                 component={TracksScreen}
+              />
+              <Route
+                path="/search/:something/albums"
+                exact
+                component={AlbumsScreen}
               />
             </Switch>
           </StyledContainer>

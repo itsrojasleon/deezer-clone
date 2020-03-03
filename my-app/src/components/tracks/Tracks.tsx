@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Context as TracksContext } from '../../contexts/tracks';
 import { Context as PlayerContext } from '../../contexts/player';
 import TrackDetails from './TrackDetails';
-import Subtitle from '../Subtitile';
+import Subtitle from '../Subtitle';
 import { Track as TrackTypes } from '../../types/Tracks';
 
 const Tracks = (): JSX.Element => {
@@ -11,7 +11,7 @@ const Tracks = (): JSX.Element => {
 
   return (
     <>
-      {state.tracks.length ? <Subtitle title="Tracks" /> : null}
+      {state.tracks.length ? <Subtitle title="Tracks" type="tracks" /> : null}
       {state.tracks
         .filter((track: TrackTypes) => track.preview !== null)
         .map((track: TrackTypes) => (

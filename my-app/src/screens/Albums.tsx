@@ -1,17 +1,17 @@
 import React, { useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Context as TracksContext } from '../contexts/tracks';
-import Tracks from '../components/tracks/Tracks';
+import Albums from '../components/albums/Albums';
 
-const TracksScreen = () => {
+const AlbumsScreen = () => {
   const { something } = useParams();
-  const { fetchTracks } = useContext(TracksContext);
+  const { fetchAlbums } = useContext(TracksContext);
 
   useEffect(() => {
-    fetchTracks({ value: something, limit: 20 });
+    fetchAlbums({ value: something, limit: 20 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <Tracks />;
+  return <Albums />;
 };
-export default TracksScreen;
+export default AlbumsScreen;
