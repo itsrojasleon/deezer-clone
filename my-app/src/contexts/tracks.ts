@@ -4,6 +4,21 @@ import { roslenAPI } from '../api/deezer';
 import { Track } from '../types/Tracks';
 import { Album } from '../types/Albums';
 
+interface Params {
+  value: string;
+  limit: number;
+}
+
+export interface State {
+  tracks: Track[];
+  albums: Album[];
+  isLoading: boolean;
+  isError: string;
+  fetchTracks: (params: Params) => void;
+  fetchAlbums: (params: Params) => void;
+  fetchArtists: (params: Params) => void;
+}
+
 enum ActionType {
   FetchedTracks,
   FetchedAlbums,
@@ -40,11 +55,6 @@ const songsReducer: Reducer<TracksState, TrackActions> = (state, action) => {
   }
 };
 
-interface Params {
-  value: number;
-  limit: number;
-}
-
 const fetchTracks = (dispatch: Dispatch<TrackActions>) => async ({
   value,
   limit
@@ -56,7 +66,6 @@ const fetchTracks = (dispatch: Dispatch<TrackActions>) => async ({
     } = await roslenAPI.get(`/search/tracks/${value}/${limit}`);
     dispatch({ type: ActionType.FetchedTracks, payload: tracks });
   } catch (err) {
-    console.log('Something went wrong');
     dispatch({ type: ActionType.IsError, payload: err.message });
   }
 };
