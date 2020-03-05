@@ -20,6 +20,7 @@ interface Props {
   paused: boolean;
   volume: number;
   controls: HTMLMediaControls;
+  title?: string;
 }
 
 const PlayerControls = ({
@@ -27,7 +28,8 @@ const PlayerControls = ({
   time,
   paused,
   volume,
-  controls
+  controls,
+  title = ''
 }: Props) => {
   const volumeInput = useRangeInput({
     maxValue: 1,
@@ -52,11 +54,16 @@ const PlayerControls = ({
         <AiOutlineStepForward />
       </LeftSideStyled>
       <CenterStyled>
-        <div>
-          <span>{time}</span>
-          <input {...durationInput} />
-          <span>{duration}</span>
-        </div>
+        <>
+          <div>
+            <span>{title}</span>
+          </div>
+          <div>
+            <span>{time.toFixed(2)}</span>
+            <input {...durationInput} />
+            <span>{duration.toFixed(2)}</span>
+          </div>
+        </>
       </CenterStyled>
       <RightSideStyled>
         <div>

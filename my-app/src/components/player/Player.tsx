@@ -6,9 +6,10 @@ import { StyledPlayer } from '../../styles/player/Player';
 
 const Player = (): JSX.Element => {
   const { state: playerState } = useContext(PlayerContext);
+  let play = Boolean(playerState?.track?.preview);
   const [audio, state, controls] = useAudio({
     src: playerState?.track?.preview || '',
-    autoPlay: false
+    autoPlay: play
   });
 
   return (
@@ -20,6 +21,7 @@ const Player = (): JSX.Element => {
         paused={state.paused}
         volume={state.volume}
         controls={controls}
+        title={playerState?.track?.title}
       />
     </StyledPlayer>
   );
