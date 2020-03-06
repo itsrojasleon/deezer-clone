@@ -2,5 +2,5 @@
 // But if the url is "search/Despacito/tracks/tracks" we need to return true, that means we need to hide a
 // some content in Subtitle component.
 export const hideSubtitle = (url: string) => {
-  return url.split('/').length > 3 ? true : false;
+  return url.split('/').filter(char => char !== '').length > 2;
 };

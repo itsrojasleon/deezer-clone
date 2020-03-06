@@ -1,6 +1,6 @@
 import React from 'react';
 import { Album } from '../../types/Albums';
-import { StyledAlbum, StyledImage } from '../../styles/albums/AlbumDetails';
+import { StyledAlbum } from '../../styles/albums/AlbumDetails';
 
 interface Props {
   album: Album;
@@ -9,7 +9,7 @@ interface Props {
 const AlbumDetails = ({ album }: Props) => {
   return (
     <StyledAlbum>
-      <StyledImage src={album.cover_medium} alt={album.title} />
+      <img src={album.cover_medium} alt={album.title} />
       <p>{album.title}</p>
     </StyledAlbum>
   );

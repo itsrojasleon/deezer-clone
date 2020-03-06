@@ -12,7 +12,7 @@ export const StyledAlbum = styled.div`
   &:first-child {
     margin: 0;
   }
-`;
-export const StyledImage = styled.img`
-  width: 100%;
+  & > img {
+    border-radius: 3px;
+  }
 `;
