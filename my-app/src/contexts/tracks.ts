@@ -3,26 +3,33 @@ import createDataContext from './createData';
 import { roslenAPI } from '../api/deezer';
 import { Track } from '../types/Tracks';
 import { Album } from '../types/Albums';
+import { Artist } from '../types/Artist';
 
 interface Params {
   value: string;
-  limit: number;
+  limit?: number;
 }
 
 export interface State {
-  tracks: Track[];
-  albums: Album[];
-  isLoading: boolean;
-  isError: string;
+  state: {
+    tracks: Track[];
+    albums: Album[];
+    artists: Artist[];
+    artist: Artist;
+    isLoading: boolean;
+    isError: string;
+  };
   fetchTracks: (params: Params) => void;
   fetchAlbums: (params: Params) => void;
   fetchArtists: (params: Params) => void;
+  fetchArtist: (params: Params) => void;
 }
 
 enum ActionType {
   FetchedTracks,
   FetchedAlbums,
   FetchedArtists,
+  FetchedArtist,
   IsLoading,
   IsError
 }
@@ -46,6 +53,8 @@ const songsReducer: Reducer<TracksState, TrackActions> = (state, action) => {
       return { ...state, albums: action.payload, isLoading: false };
     case ActionType.FetchedArtists:
       return { ...state, artists: action.payload, isLoading: false };
+    case ActionType.FetchedArtist:
+      return { ...state, artist: { ...action.payload }, isLoading: false };
     case ActionType.IsLoading:
       return { ...state, isLoading: true };
     case ActionType.IsError:
@@ -100,8 +109,27 @@ const fetchArtists = (dispatch: Dispatch<TrackActions>) => async ({
   }
 };
 
+const fetchArtist = (dispatch: Dispatch<TrackActions>) => async ({
+  value
+}: Params) => {
+  dispatch({ type: ActionType.IsLoading });
+  try {
+    const { data: artist } = await roslenAPI.get(`/artist/${value}`);
+    dispatch({ type: ActionType.FetchedArtist, payload: artist });
+  } catch (err) {
+    dispatch({ type: ActionType.IsError, payload: err.message });
+  }
+};
+
 export const { Provider, Context } = createDataContext(
   songsReducer,
-  { fetchTracks, fetchAlbums, fetchArtists },
-  { tracks: [], albums: [], artists: [], isLoading: false, isError: '' }
+  { fetchTracks, fetchAlbums, fetchArtists, fetchArtist },
+  {
+    tracks: [],
+    albums: [],
+    artists: [],
+    artist: {},
+    isLoading: false,
+    isError: ''
+  }
 );

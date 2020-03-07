@@ -8,6 +8,7 @@ const Results = lazy(() => import('./screens/Results'));
 const TracksScreen = lazy(() => import('./screens/Tracks'));
 const AlbumsScreen = lazy(() => import('./screens/Albums'));
 const ArtistsScreen = lazy(() => import('./screens/Artists'));
+const ArtistScreen = lazy(() => import('./screens/Artist'));
 
 const StyledContainer = styled.div`
   width: 90%;
@@ -45,6 +46,7 @@ const App: React.FC = (): JSX.Element => {
                 exact
                 component={ArtistsScreen}
               />
+              <Route path="/artist/:artistId" exact component={ArtistScreen} />
             </Switch>
           </StyledContainer>
           <Player />

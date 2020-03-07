@@ -44,4 +44,15 @@ router.get('/search/artists/:artist/:limit', async (req, res) => {
   }
 });
 
+router.get('/artist/:artistId', async (req, res) => {
+  try {
+    const { data: artist } = await axios.get(
+      `${URL}/artist/${req.params.artistId}`
+    );
+    res.json({ ...artist });
+  } catch (err) {
+    res.send(err.message);
+  }
+});
+
 module.exports = router;
