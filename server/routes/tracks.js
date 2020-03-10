@@ -55,4 +55,15 @@ router.get('/artist/:artistId', async (req, res) => {
   }
 });
 
+router.get('/album/:albumId', async (req, res) => {
+  try {
+    const { data: album } = await axios.get(
+      `${URL}/album/${req.params.albumId}`
+    );
+    res.json({ ...album });
+  } catch (err) {
+    res.send(err.message);
+  }
+});
+
 module.exports = router;

@@ -16,6 +16,7 @@ export interface State {
     albums: Album[];
     artists: Artist[];
     artist: Artist;
+    album: Album;
     isLoading: boolean;
     isError: string;
   };
@@ -23,6 +24,7 @@ export interface State {
   fetchAlbums: (params: Params) => void;
   fetchArtists: (params: Params) => void;
   fetchArtist: (params: Params) => void;
+  fetchAlbum: (params: Params) => void;
 }
 
 enum ActionType {
@@ -30,6 +32,7 @@ enum ActionType {
   FetchedAlbums,
   FetchedArtists,
   FetchedArtist,
+  FetchedAlbum,
   IsLoading,
   IsError
 }
@@ -55,6 +58,8 @@ const songsReducer: Reducer<TracksState, TrackActions> = (state, action) => {
       return { ...state, artists: action.payload, isLoading: false };
     case ActionType.FetchedArtist:
       return { ...state, artist: { ...action.payload }, isLoading: false };
+    case ActionType.FetchedAlbum:
+      return { ...state, album: { ...action.payload }, isLoading: false };
     case ActionType.IsLoading:
       return { ...state, isLoading: true };
     case ActionType.IsError:
@@ -121,12 +126,25 @@ const fetchArtist = (dispatch: Dispatch<TrackActions>) => async ({
   }
 };
 
+const fetchAlbum = (dispatch: Dispatch<TrackActions>) => async ({
+  value
+}: Params) => {
+  dispatch({ type: ActionType.IsLoading });
+  try {
+    const { data: album } = await roslenAPI.get(`/album/${value}`);
+    dispatch({ type: ActionType.FetchedAlbum, payload: album });
+  } catch (err) {
+    dispatch({ type: ActionType.IsError, payload: err.message });
+  }
+};
+
 export const { Provider, Context } = createDataContext(
   songsReducer,
-  { fetchTracks, fetchAlbums, fetchArtists, fetchArtist },
+  { fetchTracks, fetchAlbums, fetchArtists, fetchArtist, fetchAlbum },
   {
     tracks: [],
     albums: [],
+    album: {},
     artists: [],
     artist: {},
     isLoading: false,
