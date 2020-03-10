@@ -16,3 +16,21 @@ export const StyledAlbum = styled.div`
     border-radius: 3px;
   }
 `;
+
+export const StyledWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  & > span {
+    margin-left: 20px;
+  }
+`;
+
+export const StyledPersonalInfo = styled.span`
+  display: flex;
+  flex-direction: column;
+  & > img {
+    width: 25px;
+    border-radius: 50%;
+  }
+`;
