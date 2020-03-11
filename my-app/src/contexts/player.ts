@@ -1,9 +1,16 @@
 import { Reducer, Dispatch } from 'react';
 import createDataContext from './createData';
+import { Track } from '../types/Tracks';
 
 enum ActionTypes {
   SELECT_TRACK,
   IS_ERROR
+}
+
+export interface State {
+  track: null;
+  isError: string;
+  selectTrack: (track: Track) => void;
 }
 
 interface PlayerState {

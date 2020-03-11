@@ -5,8 +5,8 @@ export interface Track {
   id: number;
   title: string;
   preview: string;
-  artist: Artist;
-  album: Album;
+  artist?: Artist;
+  album?: Album;
 }
 
 export interface Tracks {

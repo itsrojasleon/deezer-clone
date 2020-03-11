@@ -8,12 +8,12 @@ interface Props {
   track: Track;
 }
 
-const TrackDetails = (props: Props): JSX.Element => {
+const TrackDetails = ({ track, selectTrack }: Props): JSX.Element => {
   return (
-    <StyledTrack onClick={() => props.selectTrack(props.track)}>
-      <Icon image={props.track.album.cover_medium} />
+    <StyledTrack onClick={() => selectTrack(track)}>
+      {track.album ? <Icon image={track.album.cover_medium} /> : null}
       <AiFillPlayCircle />
-      <p>{props.track.title}</p>
+      <p>{track.title}</p>
     </StyledTrack>
   );
 };
