@@ -28,9 +28,13 @@ export const StyledWrapper = styled.div`
 
 export const StyledPersonalInfo = styled.span`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   & > img {
     width: 25px;
     border-radius: 50%;
+    margin-right: 10px;
+  }
+  & > a:hover {
+    color: red;
   }
 `;

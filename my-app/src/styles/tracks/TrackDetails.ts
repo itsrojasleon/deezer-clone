@@ -2,14 +2,13 @@ import styled from 'styled-components';
 import { gray10, gray20 } from '../colors';
 
 export const StyledTrack = styled.div`
-  border-bottom: 1px solid ${gray10};
+  box-shadow: 5px 5px 12px 0px ${gray20};
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 9px;
+  margin: 18px 0 0 18px;
   &:hover {
-    background-color: ${gray20};
-    transition: 0.2s;
     & > img,
     > span {
       display: none;
