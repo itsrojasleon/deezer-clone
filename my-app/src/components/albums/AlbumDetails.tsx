@@ -36,13 +36,16 @@ const AlbumDetails = ({ album, hideLink }: Props) => {
               </StyledPersonalInfo>
             </span>
           </StyledWrapper>
-          {album.tracks?.data.map(track => (
-            <TrackDetails
-              key={track.id}
-              track={track}
-              selectTrack={selectTrack}
-            />
-          ))}
+          <div style={{ width: '100%' }}>
+            {album.tracks?.data.map((track, idx) => (
+              <TrackDetails
+                key={track.id}
+                track={track}
+                selectTrack={selectTrack}
+                index={idx}
+              />
+            ))}
+          </div>
         </>
       ) : (
         <Link to={`/album/${album.id}`}>

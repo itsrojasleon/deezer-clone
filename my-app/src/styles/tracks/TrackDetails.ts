@@ -10,7 +10,8 @@ export const StyledTrack = styled.div`
   &:hover {
     background-color: ${gray20};
     transition: 0.2s;
-    & > span {
+    & > img,
+    > span {
       display: none;
     }
     & > svg {
@@ -24,17 +25,8 @@ export const StyledTrack = styled.div`
   & > svg {
     display: none;
   }
-`;
-
-interface Props {
-  image: string;
-}
-
-export const Icon = styled.span`
-  background-image: url("${(props: Props) => props.image}");
-  background-repeat: no-repeat;
-  background-size: cover;
-  border-radius: 8px;
-  width: 35px;
-  height: 35px;
+  & > img {
+    width: 35px;
+    height: 35px;
+  }
 `;
