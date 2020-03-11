@@ -42,7 +42,7 @@ const AlbumDetails = ({ album, hideLink }: Props) => {
                 key={track.id}
                 track={track}
                 selectTrack={selectTrack}
-                index={idx}
+                index={idx + 1}
               />
             ))}
           </div>
