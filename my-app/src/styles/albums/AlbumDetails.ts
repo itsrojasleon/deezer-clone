@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {secondary} from '../colors';
 
 export const StyledAlbum = styled.div`
   display: flex;
@@ -35,6 +36,6 @@ export const StyledPersonalInfo = styled.span`
     margin-right: 10px;
   }
   & > a:hover {
-    color: red;
+    color: ${secondary};
   }
 `;

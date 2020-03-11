@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { gray10, gray20 } from '../colors';
+import { gray20 } from '../colors';
 
 export const StyledTrack = styled.div`
   box-shadow: 5px 5px 12px 0px ${gray20};
@@ -9,11 +9,11 @@ export const StyledTrack = styled.div`
   padding: 9px;
   margin: 18px 0 0 18px;
   &:hover {
-    & > img,
-    > span {
+    & > div > img,
+    > div > span {
       display: none;
     }
-    & > svg {
+    & > div > svg {
       display: block;
       width: 35px;
       height: 35px;
@@ -21,11 +21,22 @@ export const StyledTrack = styled.div`
       cursor: pointer;
     }
   }
-  & > svg {
+  & > div {
+    display: flex;
+    align-items: center;
+  }
+  & > div > svg {
     display: none;
   }
-  & > img {
+  & > div img {
     width: 35px;
     height: 35px;
+  }
+  & > div > span {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
