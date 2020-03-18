@@ -8,10 +8,17 @@ export const useTextInput = (defaultText: string): InputProps => {
     setText(e.target.value);
   };
 
+  const reset = () => {
+    setText('');
+  };
+
   return {
-    value: text,
-    onChange: handleChange,
-    placeholder: 'Search',
-    type: 'text'
+    bind: {
+      value: text,
+      onChange: handleChange,
+      placeholder: 'Search',
+      type: 'text'
+    },
+    reset
   };
 };

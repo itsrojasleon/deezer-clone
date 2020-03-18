@@ -6,15 +6,18 @@ import { useDebounce } from '../hooks/useDebounce';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import TextInput from './TextInput';
 import Spinner from './Spinner';
-import SearchIcon from './SearchIcon';
+import SearchBarIcon from './SearchBarIcon';
 import { StyledInputContainer } from '../styles/SearchBar';
 
 const SearchBar = (): JSX.Element => {
   const { state } = useContext(TracksContext);
   const input = useTextInput('');
-  const debouncedSearchTerm = useDebounce({ value: input.value, delay: 500 });
+  const debouncedSearchTerm = useDebounce({
+    value: input.bind.value,
+    delay: 500
+  });
   const history = useHistory();
-  useDocumentTitle(input.value);
+  useDocumentTitle(input.bind.value);
 
   useEffect(() => {
     // I don't need to execute this effect when the value changes, useDebounce hook already has
@@ -22,7 +25,7 @@ const SearchBar = (): JSX.Element => {
     // And also we shouldn't run this effect if fetchTracks changes (that will case an infinite loop),
     // only once
     if (debouncedSearchTerm) {
-      history.push(`/search/${input.value}`);
+      history.push(`/search/${input.bind.value}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchTerm]);
@@ -30,7 +33,14 @@ const SearchBar = (): JSX.Element => {
   return (
     <StyledInputContainer>
       <TextInput {...input} />
-      {state.isLoading ? <Spinner /> : <SearchIcon />}
+      {state.isLoading ? (
+        <Spinner />
+      ) : (
+        <SearchBarIcon
+          itHasText={debouncedSearchTerm}
+          cleanText={input.reset}
+        />
+      )}
       {state.isError && <div>Something went wrong</div>}
     </StyledInputContainer>
   );
