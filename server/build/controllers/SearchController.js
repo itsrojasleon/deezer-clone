@@ -61,7 +61,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = __importDefault(require("axios"));
 var decorators_1 = require("./decorators");
-var URL = 'https://api.deezer.com';
+var API_URL = 'https://api.deezer.com';
 // This is a bad explanation
 // But I'm learning how to use Typescript with Express, so, don't pay in that sense 😊
 var ERROR_MESSAGE = 'Something went wrong';
@@ -79,7 +79,7 @@ var TracksController = /** @class */ (function () {
                     case 0:
                         _b.trys.push([0, 2, , 3]);
                         _a = req.params, track = _a.track, limit = _a.limit;
-                        return [4 /*yield*/, axios_1.default.get(URL + "/search/track?q=" + track + "&limit=" + limit)];
+                        return [4 /*yield*/, axios_1.default.get(API_URL + "/search/track?q=" + track + "&limit=" + limit)];
                     case 1:
                         tracks = (_b.sent()).data.data;
                         res.status(OK).json({ tracks: tracks });
@@ -101,7 +101,7 @@ var TracksController = /** @class */ (function () {
                     case 0:
                         _b.trys.push([0, 2, , 3]);
                         _a = req.params, artist = _a.artist, limit = _a.limit;
-                        return [4 /*yield*/, axios_1.default.get(URL + "/search/artist?q=" + artist + "&limit=" + limit)];
+                        return [4 /*yield*/, axios_1.default.get(API_URL + "/search/artist?q=" + artist + "&limit=" + limit)];
                     case 1:
                         artists = (_b.sent()).data.data;
                         res.status(OK).json({ artists: artists });
@@ -123,7 +123,7 @@ var TracksController = /** @class */ (function () {
                     case 0:
                         _b.trys.push([0, 2, , 3]);
                         _a = req.params, album = _a.album, limit = _a.limit;
-                        return [4 /*yield*/, axios_1.default.get(URL + "/search/album?q=" + album + "&limit=" + limit)];
+                        return [4 /*yield*/, axios_1.default.get(API_URL + "/search/album?q=" + album + "&limit=" + limit)];
                     case 1:
                         albums = (_b.sent()).data.data;
                         res.status(OK).json({ albums: albums });
@@ -146,7 +146,7 @@ var TracksController = /** @class */ (function () {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
                         artistId = req.params.artistId;
-                        return [4 /*yield*/, axios_1.default.get(URL + "/artist/" + artistId)];
+                        return [4 /*yield*/, axios_1.default.get(API_URL + "/artist/" + artistId)];
                     case 1:
                         artist = (_a.sent()).data;
                         res.status(OK).json(__assign({}, artist));
@@ -168,7 +168,7 @@ var TracksController = /** @class */ (function () {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
                         albumId = req.params.albumId;
-                        return [4 /*yield*/, axios_1.default.get(URL + "/album/" + albumId)];
+                        return [4 /*yield*/, axios_1.default.get(API_URL + "/album/" + albumId)];
                     case 1:
                         album = (_a.sent()).data;
                         res.status(OK).json(__assign({}, album));

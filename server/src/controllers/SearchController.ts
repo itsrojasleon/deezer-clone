@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Request, Response } from 'express';
 import { controller, get } from './decorators';
 
-const URL = 'https://api.deezer.com';
+const API_URL = 'https://api.deezer.com';
 
 // This is a bad explanation
 // But I'm learning how to use Typescript with Express, so, don't pay in that sense 😊
@@ -20,7 +20,7 @@ export class TracksController {
       const { track, limit } = req.params;
       const {
         data: { data: tracks }
-      } = await axios.get(`${URL}/search/track?q=${track}&limit=${limit}`);
+      } = await axios.get(`${API_URL}/search/track?q=${track}&limit=${limit}`);
       res.status(OK).json({ tracks });
     } catch (err) {
       res.status(UNPROCESSABLE_ENTITY).send(ERROR_MESSAGE);
@@ -33,7 +33,9 @@ export class TracksController {
       const { artist, limit } = req.params;
       const {
         data: { data: artists }
-      } = await axios.get(`${URL}/search/artist?q=${artist}&limit=${limit}`);
+      } = await axios.get(
+        `${API_URL}/search/artist?q=${artist}&limit=${limit}`
+      );
       res.status(OK).json({ artists });
     } catch (err) {
       res.status(UNPROCESSABLE_ENTITY).send(ERROR_MESSAGE);
@@ -46,7 +48,7 @@ export class TracksController {
       const { album, limit } = req.params;
       const {
         data: { data: albums }
-      } = await axios.get(`${URL}/search/album?q=${album}&limit=${limit}`);
+      } = await axios.get(`${API_URL}/search/album?q=${album}&limit=${limit}`);
       res.status(OK).json({ albums });
     } catch (err) {
       res.status(UNPROCESSABLE_ENTITY).send(ERROR_MESSAGE);
@@ -59,7 +61,7 @@ export class TracksController {
   async getArtist(req: Request, res: Response) {
     try {
       const { artistId } = req.params;
-      const { data: artist } = await axios.get(`${URL}/artist/${artistId}`);
+      const { data: artist } = await axios.get(`${API_URL}/artist/${artistId}`);
       res.status(OK).json({ ...artist });
     } catch (err) {
       res.status(UNPROCESSABLE_ENTITY).send(ERROR_MESSAGE);
@@ -70,7 +72,7 @@ export class TracksController {
   async getAlbum(req: Request, res: Response) {
     try {
       const { albumId } = req.params;
-      const { data: album } = await axios.get(`${URL}/album/${albumId}`);
+      const { data: album } = await axios.get(`${API_URL}/album/${albumId}`);
       res.status(OK).json({ ...album });
     } catch (err) {
       res.status(UNPROCESSABLE_ENTITY).send(ERROR_MESSAGE);
