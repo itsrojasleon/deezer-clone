@@ -4,18 +4,22 @@
   "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "start:build": "tsc -w",
+    "start:run": "nodemon build/index.js",
+    "start": "concurrently npm:start:*"
   },
   "dependencies": {
     "@types/body-parser": "^1.17.1",
     "@types/cors": "^2.8.6",
     "@types/express": "^4.17.2",
+    "@types/mongoose": "^5.7.7",
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongoose": "^5.9.3",
-    "nodemon": "^2.0.2"
+    "mongoose": "^5.9.5",
+    "nodemon": "^2.0.2",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "concurrently": "^5.1.0",
