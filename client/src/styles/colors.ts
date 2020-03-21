@@ -2,6 +2,7 @@ export const base: string = '#ffffff';
 export const secondary: string = 'rgb(7, 195, 203)';
 export const secondary10: string = 'rgb(161, 223, 227)';
 export const secondary20: string = 'rgb(229, 249, 250)';
+export const textSecondary: string = '#92929d';
 export const gray: string = '#cccccc';
 export const gray10: string = 'rgb(234, 234, 234)';
 export const gray20: string = 'rgb(244, 244, 244)';

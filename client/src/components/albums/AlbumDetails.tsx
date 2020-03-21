@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import { Album } from '../../types/Albums';
 import TrackDetails from '../tracks/TrackDetails';
 import { Context as PlayerContext, State } from '../../contexts/player';
+import { isPlural } from '../../utils/isPlural';
 import {
   StyledAlbum,
   StyledWrapper,
+  StyledInfo,
+  StyledAlbumInfo,
   StyledPersonalInfo
 } from '../../styles/albums/AlbumDetails';
 
@@ -23,18 +26,31 @@ const AlbumDetails = ({ album, hideLink }: Props) => {
         <>
           <StyledWrapper>
             <img src={album.cover_medium} alt={album.title} />
-            <span>
-              <h1>{album.title}</h1>
+            <StyledInfo>
               <StyledPersonalInfo>
-                <img
-                  src={album.artist?.picture_medium}
-                  alt={album.artist?.name}
-                />
-                <Link to={`/artist/${album.artist?.id}`}>
-                  <p>{album.artist?.name}</p>
-                </Link>
+                <h1>{album.title}</h1>
+                <span>
+                  <img
+                    src={album.artist?.picture_medium}
+                    alt={album.artist?.name}
+                  />
+                  <Link to={`/artist/${album.artist?.id}`}>
+                    <p>{album.artist?.name}</p>
+                  </Link>
+                </span>
               </StyledPersonalInfo>
-            </span>
+              <StyledAlbumInfo>
+                <span>
+                  {album.tracks?.data.length} track
+                  {isPlural(album.tracks?.data.length)}
+                </span>
+                <span>{album.duration}</span>
+                <span>{album.release_date}</span>
+                <span>
+                  {album.fans} fan{isPlural(album.fans)}
+                </span>
+              </StyledAlbumInfo>
+            </StyledInfo>
           </StyledWrapper>
           <div style={{ width: '100%' }}>
             {album.tracks?.data.map((track, idx) => (

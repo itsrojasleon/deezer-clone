@@ -7,4 +7,7 @@ export interface Album {
   cover_medium: string;
   artist: Artist;
   tracks: { data: Track[] };
+  fans: number;
+  release_date: string;
+  duration: number;
 }
