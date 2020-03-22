@@ -6,7 +6,7 @@ import { API_URL, ERROR_MESSAGE, statusCodes } from '../utils/helpers';
 @controller('/search')
 export class TracksController {
   @get('/tracks/:track/:limit')
-  async getTracks(req: Request, res: Response) {
+  async getTracks(req: Request, res: Response): Promise<any> {
     try {
       const { track, limit } = req.params;
       const {
@@ -19,7 +19,7 @@ export class TracksController {
   }
 
   @get('/artists/:artist/:limit')
-  async getArtists(req: Request, res: Response) {
+  async getArtists(req: Request, res: Response): Promise<any> {
     try {
       const { artist, limit } = req.params;
       const {
@@ -34,7 +34,7 @@ export class TracksController {
   }
 
   @get('/albums/:album/:limit')
-  async getAlbums(req: Request, res: Response) {
+  async getAlbums(req: Request, res: Response): Promise<any> {
     try {
       const { album, limit } = req.params;
       const {

@@ -11,7 +11,7 @@ export class RootController {
   }
 
   @get('/artist/:artistId')
-  async getArtist(req: Request, res: Response) {
+  async getArtist(req: Request, res: Response): Promise<any> {
     try {
       const { artistId } = req.params;
       const { data: artist } = await axios.get(`${API_URL}/artist/${artistId}`);
@@ -22,7 +22,7 @@ export class RootController {
   }
 
   @get('/album/:albumId')
-  async getAlbum(req: Request, res: Response) {
+  async getAlbum(req: Request, res: Response): Promise<any> {
     try {
       const { albumId } = req.params;
       const { data: album } = await axios.get(`${API_URL}/album/${albumId}`);
