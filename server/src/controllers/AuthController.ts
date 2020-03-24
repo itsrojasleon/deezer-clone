@@ -1,23 +1,28 @@
-import mongoose from 'mongoose';
+import passport from 'passport';
 import { Request, Response } from 'express';
-import { get, controller, bodyValidator, post } from './decorators';
-import { ERROR_MESSAGE } from '../utils/helpers';
-
-const User = mongoose.model('users');
+import { get, controller, bodyValidator, post, use } from './decorators';
 
 @controller('/auth')
 export class AuthController {
-  @post('/signup')
-  @bodyValidator('id', 'username')
-  async getLogin(req: Request, res: Response): Promise<any> {
-    const { id, username } = req.body;
+  @get('/google')
+  @use(() => {
+    passport.authenticate('google', {
+      scope: ['profile', 'email']
+    });
+  })
+  doNothing() {}
 
-    if (id === 'hey' && username === 'hey') {
-      const newUser = new User({ id, username });
-      await newUser.save();
-      console.log('everything good bro');
-    }
+  @get('/google/callback')
+  @use(() => {
+    passport.authenticate('google');
+  })
+  getCallback(req: Request, res: Response) {
+    res.redirect('/');
+  }
 
-    res.status(422).send(ERROR_MESSAGE);
+  @get('/logout')
+  getLogout(req: Request, res: Response) {
+    req.logout();
+    res.redirect('/');
   }
 }

@@ -7,6 +7,7 @@ import './models/User';
 import './controllers/RootController';
 import './controllers/SearchController';
 import './controllers/AuthController';
+import './controllers/ApiController';
 
 mongoose.connect(
   'mongodb://rojasleon:Lionelmessi10@ds163294.mlab.com:63294/deezer-clone',
