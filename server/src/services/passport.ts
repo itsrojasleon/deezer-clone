@@ -1,6 +1,6 @@
 import passport from 'passport';
 import mongoose from 'mongoose';
-import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { config } from '../config/keys';
 
 const User = mongoose.model('users');
@@ -17,27 +17,24 @@ passport.deserializeUser(async (id, done) => {
 passport.use(
   new GoogleStrategy(
     {
-      clientID: config.googleClientID || '',
-      clientSecret: config.googleClientSecret,
-      callbackURL: 'auth/google/callback'
+      clientID:
+        '449889541936-ktq8q8fcoc93qcbju9ogp62826udqd43.apps.googleusercontent.com',
+      clientSecret: 'yxFR_hMFeWg51AOfjxgtxgwf',
+      callbackURL: '/auth/google/callback'
     },
-    async function(accessToken, refreshToken, profile, done) {
-      try {
-        const existingUser = await User.findOne({ googleId: profile.id });
+    async function(accessToken, refreshToken, profile, done): Promise<any> {
+      const existingUser = await User.findOne({ googleId: profile.id });
 
-        if (existingUser) {
-          return done(null, existingUser);
-        }
-
-        const newUser = await new User({
-          googleId: profile.id,
-          displayName: profile.displayName
-        }).save();
-
-        done(null, newUser);
-      } catch (err) {
-        done(err, null);
+      if (existingUser) {
+        return done(undefined, existingUser);
       }
+
+      const newUser = await new User({
+        googleId: profile.id,
+        displayName: profile.displayName
+      }).save();
+
+      done(undefined, newUser);
     }
   )
 );

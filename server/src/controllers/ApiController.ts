@@ -9,4 +9,10 @@ export class ApiController {
   getCurrentUser(req: Request, res: Response) {
     res.send(req.user);
   }
+
+  @get('/logout')
+  logout(req: Request, res: Response) {
+    req.logout();
+    res.redirect('/');
+  }
 }
