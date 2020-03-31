@@ -9,6 +9,7 @@ const ArtistScreen = () => {
     state: { artist }
   } = useContext<State>(TracksContext);
   const { artistId } = useParams();
+
   useEffect(() => {
     fetchArtist({ value: artistId || '' });
   }, []);

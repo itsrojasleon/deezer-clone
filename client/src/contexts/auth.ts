@@ -3,7 +3,7 @@ import createDataContext from './createData';
 import { roslenAPI } from '../api/deezer';
 
 enum ActionType {
-  SIGNED_UP
+  SIGNIN
 }
 
 interface AuthActions {
@@ -17,17 +17,17 @@ interface AuthState {
 
 const authReducer: Reducer<AuthState, AuthActions> = (state, action) => {
   switch (action.type) {
-    case ActionType.SIGNED_UP:
-      return { ...state, user: action.payload };
+    case ActionType.SIGNIN:
+      return { ...state, ...action.payload };
     default:
       return state;
   }
 };
 
-const signup = (dispatch: Dispatch<AuthActions>) => async () => {
+const signin = (dispatch: Dispatch<AuthActions>) => async () => {
   try {
-    await roslenAPI.post(`/auth/signup`, { id: 'hey', username: 'hey' });
-    dispatch({ type: ActionType.SIGNED_UP, payload: 'hey' });
+    const { data } = await roslenAPI.get(`/search/user`);
+    dispatch({ type: ActionType.SIGNIN, payload: data });
   } catch (err) {
     console.log('Something went wrong');
   }
@@ -35,6 +35,6 @@ const signup = (dispatch: Dispatch<AuthActions>) => async () => {
 
 export const { Provider, Context } = createDataContext(
   authReducer,
-  { signup },
+  { signin },
   {}
 );

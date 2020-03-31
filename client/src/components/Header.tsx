@@ -21,6 +21,9 @@ const Header = () => {
           <Link to="/">
             <FiUser />
           </Link>
+          <a href="http://localhost:4000/auth/google">
+            <div style={{ backgroundColor: 'red' }}>Login with Google</div>
+          </a>
         </StyledRightSide>
       </StyledNav>
     </StyledHeader>

@@ -2,10 +2,10 @@ import React, { useContext, useEffect } from 'react';
 import { Context as AuthContext } from '../contexts/auth';
 
 const Home: React.FC = (): JSX.Element => {
-  const { state, signup } = useContext(AuthContext);
+  const { state, signin } = useContext(AuthContext);
 
   useEffect(() => {
-    signup();
+    signin();
   }, []);
 
   console.log(state);
