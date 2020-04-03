@@ -1,14 +1,15 @@
 import React, { useContext, useEffect } from 'react';
-import { Context as AuthContext } from '../contexts/auth';
+import { Context as AuthContext, State } from '../contexts/auth';
 
 const Home: React.FC = (): JSX.Element => {
-  const { state, tryLocalSignin } = useContext(AuthContext);
+  const { state, signup } = useContext<State>(AuthContext);
 
   useEffect(() => {
-    tryLocalSignin();
+    // signup({ email: 'rojasleon', password: 'hey' });
+    console.log('rendering');
   }, []);
 
-  console.log(state);
+  // console.log(state);
 
   return (
     <div>

@@ -3,17 +3,17 @@ import TextInput from './TextInput';
 import { useTextInput } from '../hooks/useTextInput';
 import { FormElement } from '../types/Elements';
 
-const AuthForm = (onSubmit: any) => {
+const AuthForm = ({ onSubmit }: any) => {
   const email = useTextInput('', 'Email');
   const password = useTextInput('', 'Password');
 
-  const submit = (e: FormElement) => {
+  const handleSubmit = (e: FormElement) => {
     e.preventDefault();
     onSubmit({ email: email.bind.value, password: password.bind.value });
   };
 
   return (
-    <form onSubmit={submit}>
+    <form onSubmit={handleSubmit}>
       <TextInput {...email} />
       <TextInput {...password} />
       <button>Submit</button>

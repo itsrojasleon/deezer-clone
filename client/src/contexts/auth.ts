@@ -2,6 +2,23 @@ import { Reducer, Dispatch } from 'react';
 import createDataContext from './createData';
 import deezerAPI from '../api/deezer';
 
+export interface Params {
+  email: string;
+  password: string;
+}
+
+interface AuthState {
+  token: string | null;
+  errorMessage: string;
+}
+
+export interface State {
+  state: AuthState;
+  tryLocalSignin: () => void;
+  signin: (props: Params) => void;
+  signup: (props: Params) => void;
+}
+
 enum ActionType {
   SIGNIN,
   ERROR
@@ -10,10 +27,6 @@ enum ActionType {
 interface AuthActions {
   type: ActionType;
   payload?: any;
-}
-
-interface AuthState {
-  user: null;
 }
 
 const authReducer: Reducer<AuthState, AuthActions> = (state, action) => {
@@ -27,11 +40,6 @@ const authReducer: Reducer<AuthState, AuthActions> = (state, action) => {
   }
 };
 
-interface Props {
-  email: string;
-  password: string;
-}
-
 const tryLocalSignin = (dispatch: Dispatch<AuthActions>) => async () => {
   const token = await window.localStorage.getItem('token');
   if (!token) {
@@ -44,7 +52,7 @@ const tryLocalSignin = (dispatch: Dispatch<AuthActions>) => async () => {
 const signin = (dispatch: Dispatch<AuthActions>) => async ({
   email,
   password
-}: Props) => {
+}: Params) => {
   try {
     const {
       data: { token }
@@ -63,8 +71,7 @@ const signin = (dispatch: Dispatch<AuthActions>) => async ({
 const signup = (dispatch: Dispatch<AuthActions>) => async ({
   email,
   password
-}: Props) => {
-  console.log(email, password);
+}: Params) => {
   try {
     const { data } = await deezerAPI.post('/signup', {
       email,

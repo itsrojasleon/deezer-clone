@@ -10,16 +10,18 @@ interface Params {
   limit?: number;
 }
 
+interface TracksState {
+  tracks: Track[];
+  albums: Album[];
+  artists: Artist[];
+  artist: Artist;
+  album: Album;
+  isLoading: boolean;
+  isError: string;
+}
+
 export interface State {
-  state: {
-    tracks: Track[];
-    albums: Album[];
-    artists: Artist[];
-    artist: Artist;
-    album: Album;
-    isLoading: boolean;
-    isError: string;
-  };
+  state: TracksState;
   fetchTracks: (params: Params) => void;
   fetchAlbums: (params: Params) => void;
   fetchArtists: (params: Params) => void;
@@ -37,12 +39,6 @@ enum ActionType {
   IsError
 }
 
-interface TracksState {
-  tracks: Track[];
-  albums: Album[];
-  isLoading: boolean;
-  isError: string;
-}
 interface TrackActions {
   type: ActionType;
   payload?: any;
