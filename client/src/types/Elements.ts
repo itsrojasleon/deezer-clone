@@ -1,4 +1,5 @@
 export type InputElement = React.ChangeEvent<HTMLInputElement>;
+export type FormElement = React.ChangeEvent<HTMLFormElement>;
 
 export interface InputProps {
   bind: {

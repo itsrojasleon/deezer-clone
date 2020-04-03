@@ -2,10 +2,10 @@ import React, { useContext, useEffect } from 'react';
 import { Context as AuthContext } from '../contexts/auth';
 
 const Home: React.FC = (): JSX.Element => {
-  const { state, signin } = useContext(AuthContext);
+  const { state, tryLocalSignin } = useContext(AuthContext);
 
   useEffect(() => {
-    signin();
+    tryLocalSignin();
   }, []);
 
   console.log(state);

@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { InputProps, InputElement } from '../types/Elements';
 
-export const useTextInput = (defaultText: string): InputProps => {
+export const useTextInput = (
+  defaultText: string,
+  placeholder: string = 'Search'
+): InputProps => {
   const [text, setText] = useState(defaultText);
 
   const handleChange = (e: InputElement) => {
@@ -16,7 +19,7 @@ export const useTextInput = (defaultText: string): InputProps => {
     bind: {
       value: text,
       onChange: handleChange,
-      placeholder: 'Search',
+      placeholder,
       type: 'text'
     },
     reset

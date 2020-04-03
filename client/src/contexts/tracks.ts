@@ -1,6 +1,6 @@
 import { Reducer, Dispatch } from 'react';
 import createDataContext from './createData';
-import { roslenAPI } from '../api/deezer';
+import deezerAPI from '../api/deezer';
 import { Track } from '../types/Tracks';
 import { Album } from '../types/Albums';
 import { Artist } from '../types/Artist';
@@ -77,7 +77,7 @@ const fetchTracks = (dispatch: Dispatch<TrackActions>) => async ({
   try {
     const {
       data: { tracks }
-    } = await roslenAPI.get(`/search/tracks/${value}/${limit}`);
+    } = await deezerAPI.get(`/search/tracks/${value}/${limit}`);
     dispatch({ type: ActionType.FetchedTracks, payload: tracks });
   } catch (err) {
     dispatch({ type: ActionType.IsError, payload: err.message });
@@ -92,7 +92,7 @@ const fetchAlbums = (dispatch: Dispatch<TrackActions>) => async ({
   try {
     const {
       data: { albums }
-    } = await roslenAPI.get(`/search/albums/${value}/${limit}`);
+    } = await deezerAPI.get(`/search/albums/${value}/${limit}`);
     dispatch({ type: ActionType.FetchedAlbums, payload: albums });
   } catch (err) {
     dispatch({ type: ActionType.IsError, payload: err.message });
@@ -107,7 +107,7 @@ const fetchArtists = (dispatch: Dispatch<TrackActions>) => async ({
   try {
     const {
       data: { artists }
-    } = await roslenAPI.get(`/search/artists/${value}/${limit}`);
+    } = await deezerAPI.get(`/search/artists/${value}/${limit}`);
     dispatch({ type: ActionType.FetchedArtists, payload: artists });
   } catch (err) {
     dispatch({ type: ActionType.IsError, payload: err.message });
@@ -119,7 +119,7 @@ const fetchArtist = (dispatch: Dispatch<TrackActions>) => async ({
 }: Params) => {
   dispatch({ type: ActionType.IsLoading });
   try {
-    const { data: artist } = await roslenAPI.get(`/artist/${value}`);
+    const { data: artist } = await deezerAPI.get(`/artist/${value}`);
     dispatch({ type: ActionType.FetchedArtist, payload: artist });
   } catch (err) {
     dispatch({ type: ActionType.IsError, payload: err.message });
@@ -131,7 +131,7 @@ const fetchAlbum = (dispatch: Dispatch<TrackActions>) => async ({
 }: Params) => {
   dispatch({ type: ActionType.IsLoading });
   try {
-    const { data: album } = await roslenAPI.get(`/album/${value}`);
+    const { data: album } = await deezerAPI.get(`/album/${value}`);
     dispatch({ type: ActionType.FetchedAlbum, payload: album });
   } catch (err) {
     dispatch({ type: ActionType.IsError, payload: err.message });
