@@ -6,7 +6,6 @@ const Home: React.FC = (): JSX.Element => {
 
   useEffect(() => {
     // signup({ email: 'rojasleon', password: 'hey' });
-    console.log('rendering');
   }, []);
 
   // console.log(state);

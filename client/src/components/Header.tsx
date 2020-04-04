@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
+import { Context as AuthContext, State } from '../contexts/auth';
 import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import { FiUser } from 'react-icons/fi';
@@ -11,6 +12,12 @@ import {
 } from '../styles/Header';
 
 const Header = () => {
+  const { state, tryLocalSignin } = useContext<State>(AuthContext);
+
+  useEffect(() => {
+    tryLocalSignin();
+  }, []);
+
   return (
     <StyledHeader>
       <StyledNav>
@@ -21,9 +28,7 @@ const Header = () => {
           <Link to="/">
             <FiUser />
           </Link>
-          <a href="http://localhost:4000/auth/google">
-            <div style={{ backgroundColor: 'red' }}>Login with Google</div>
-          </a>
+          {state.token ? state.token : <a href="/signup">Signup</a>}
         </StyledRightSide>
       </StyledNav>
     </StyledHeader>

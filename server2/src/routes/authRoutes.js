@@ -1,8 +1,14 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/User';
+import requireAuth from '../middlewares/requireAuth';
 
 const router = express.Router();
+
+router.get('/current_user', (req, res) => {
+  console.log(req.user);
+  res.send(req.user);
+});
 
 router.post('/signup', async (req, res) => {
   const { email, password } = req.body;
