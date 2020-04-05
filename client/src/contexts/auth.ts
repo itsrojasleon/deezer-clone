@@ -93,7 +93,7 @@ const signup = (dispatch: Dispatch<AuthActions>) => async ({
 
 export const fetchUser = (dispatch: Dispatch<AuthActions>) => async () => {
   try {
-    const { data } = await deezerAPI.get('/current_user');
+    const { data } = await deezerAPI.get('/');
     dispatch({ type: ActionType.FETCH_USER, payload: data });
   } catch (err) {
     dispatch({ type: ActionType.ERROR, payload: err.message });
