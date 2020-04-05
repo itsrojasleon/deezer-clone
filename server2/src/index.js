@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import authRoutes from './routes/authRoutes';
 import searchRoutes from './routes/searchRoutes';
+import requireAuth from './middlewares/requireAuth';
 
 const app = express();
 
@@ -16,7 +17,7 @@ mongoose.connection.on('connected', () => {
   console.log('Connected to mongo instance');
 });
 
-mongoose.connection.on('error', error => {
+mongoose.connection.on('error', (error) => {
   console.log('Error connecting to Mongo', error);
 });
 
@@ -25,6 +26,11 @@ app.use(bodyParser.json());
 
 app.use(authRoutes);
 app.use(searchRoutes);
+
+app.get('/', requireAuth, (req, res) => {
+  console.log(req.user);
+  res.send(req.user);
+});
 
 const PORT = process.env.PORT || 4000;
 

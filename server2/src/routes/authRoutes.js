@@ -1,14 +1,8 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/User';
-import requireAuth from '../middlewares/requireAuth';
 
 const router = express.Router();
-
-router.get('/current_user', (req, res) => {
-  console.log(req.user);
-  res.send(req.user);
-});
 
 router.post('/signup', async (req, res) => {
   const { email, password } = req.body;
@@ -21,6 +15,8 @@ router.post('/signup', async (req, res) => {
     } catch (err) {
       return res.status(422).send('Email already exists');
     }
+
+    req.user = user;
 
     const token = jwt.sign({ userId: user._id }, 'MY_SECRET_KEY_YOLO');
     res.send(token);
@@ -49,6 +45,10 @@ router.post('/signin', async (req, res) => {
   } catch (err) {
     res.status(422).send({ error: 'Invalid password or email' });
   }
+});
+
+router.get('/logout', (req, res) => {
+  req.user = undefined;
 });
 
 export default router;
