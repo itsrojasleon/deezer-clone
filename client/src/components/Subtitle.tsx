@@ -6,7 +6,7 @@ import { hideSubtitle } from '../utils/hide-subtitle';
 
 interface Props {
   title: string;
-  type: string;
+  type?: string;
 }
 
 const Subtitle = ({ title, type }: Props) => {

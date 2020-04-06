@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import { Context as AuthContext, State } from '../contexts/auth';
 import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
-import { FaUser } from 'react-icons/fa';
+import { FaUser, FaHome } from 'react-icons/fa';
 
 import {
   StyledHeader,
@@ -23,11 +23,18 @@ const Header = () => {
     return !state.token ? (
       <Link to="/signup">Signup</Link>
     ) : (
-      <Link to="/profile">
-        <StyledIconUser>
-          <FaUser />
-        </StyledIconUser>
-      </Link>
+      <>
+        <Link to="/">
+          <StyledIconUser>
+            <FaHome />
+          </StyledIconUser>
+        </Link>
+        <Link to="/profile">
+          <StyledIconUser>
+            <FaUser />
+          </StyledIconUser>
+        </Link>
+      </>
     );
   };
 

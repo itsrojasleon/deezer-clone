@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import authRoutes from './routes/authRoutes';
 import searchRoutes from './routes/searchRoutes';
+import userRoutes from './routes/userRoutes';
 import requireAuth from './middlewares/requireAuth';
 
 const app = express();
@@ -26,6 +27,7 @@ app.use(bodyParser.json());
 
 app.use(authRoutes);
 app.use(searchRoutes);
+app.use(userRoutes);
 
 app.get('/', requireAuth, (req, res) => {
   console.log(req.user);

@@ -28,4 +28,5 @@ export const StyledIconUser = styled.span`
   padding: 10px;
   border-radius: 50%;
   color: ${dark};
+  margin-left: 20px;
 `;

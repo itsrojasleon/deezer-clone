@@ -20,8 +20,11 @@ export const StyledWrapper = styled.div`
 `;
 
 export const StyledInputContainer = styled.div`
-  transform: scale(0.8);
   width: 80%;
   @media (max-width: 769px) {
   }
+`;
+
+export const StyledTitle = styled.h2`
+  margin: 10px 0 20px 0;
 `;
