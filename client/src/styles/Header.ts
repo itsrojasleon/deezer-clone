@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { gray10 } from './colors';
+import { gray10, graySecondary, dark } from './colors';
 
 export const StyledHeader = styled.header`
   width: 100%;
@@ -20,4 +20,12 @@ export const StyledLeftSide = styled.div`
 export const StyledRightSide = styled.div`
   width: 20%;
   text-align: right;
+`;
+
+export const StyledIconUser = styled.span`
+  width: 50px;
+  background-color: ${graySecondary};
+  padding: 10px;
+  border-radius: 50%;
+  color: ${dark};
 `;
