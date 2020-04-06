@@ -9,4 +9,5 @@ export interface InputProps {
     type: 'text';
   };
   reset: () => void;
+  isBig?: boolean;
 }
