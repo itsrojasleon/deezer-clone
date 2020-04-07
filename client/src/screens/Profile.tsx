@@ -2,20 +2,18 @@ import React, { useEffect, useContext } from 'react';
 import { Context as UserContext, State } from '../contexts/user';
 import TextInput from '../components/TextInput';
 import { useTextInput } from '../hooks/useTextInput';
-import Button from '../components/Button';
 import {
   StyledProfile,
   StyledWrapper,
   StyledInputContainer,
-  StyledTitle
+  StyledTitle,
+  StyledButton
 } from '../styles/Profile';
 
 const ProfileScreen = () => {
   const { state, fetchUser, updateUser } = useContext<State>(UserContext);
   const email = useTextInput('', state.user?.email);
   const password = useTextInput('', '*****');
-
-  console.log(state);
 
   useEffect(() => {
     fetchUser();
@@ -29,22 +27,26 @@ const ProfileScreen = () => {
     });
   };
 
+  const isDisabled = !email.bind.value && !password.bind.value;
+
   return (
     <StyledProfile>
       <StyledTitle>Your personal data</StyledTitle>
       <StyledWrapper>
+        <label>Email</label>
         <StyledInputContainer>
           <TextInput {...email} />
         </StyledInputContainer>
-        <Button title="Update" />
       </StyledWrapper>
       <StyledWrapper>
+        <label>Password</label>
         <StyledInputContainer>
           <TextInput {...password} />
         </StyledInputContainer>
-        <Button title="Update" />
       </StyledWrapper>
-      <button onClick={update}>Save changes</button>
+      <StyledButton disabled={isDisabled} onClick={update}>
+        Save changes
+      </StyledButton>
     </StyledProfile>
   );
 };

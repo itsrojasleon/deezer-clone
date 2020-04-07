@@ -55,7 +55,6 @@ export const fetchUser = (dispatch: Dispatch<UserActions>) => async () => {
 export const updateUser = (dispatch: Dispatch<UserActions>) => async (
   updatedUser: User
 ) => {
-  console.log(updatedUser);
   try {
     const { data } = await deezerAPI.post(`/user/${updatedUser._id}`, {
       ...updatedUser
