@@ -7,6 +7,7 @@ router.post('/user/:userId', async (req, res) => {
   try {
     const { userId } = req.params;
     const newData = req.body;
+    console.log('New data: ', newData);
     const updatedUser = await User.findOneAndUpdate(
       { _id: userId },
       { ...newData },

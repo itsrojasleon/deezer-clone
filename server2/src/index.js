@@ -11,7 +11,12 @@ const app = express();
 
 mongoose.connect(
   'mongodb://rojasleon:Lionelmessi10@ds163294.mlab.com:63294/deezer-clone',
-  { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }
+  {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+  }
 );
 
 mongoose.connection.on('connected', () => {

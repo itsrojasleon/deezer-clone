@@ -16,11 +16,13 @@ interface UserState {
 export interface State {
   state: UserState;
   fetchUser: () => void;
+  updateUser: (params: User) => void;
 }
 
 enum ActionType {
   ERROR,
-  FETCH_USER
+  FETCH_USER,
+  UPDATE_USER
 }
 
 interface UserActions {
@@ -31,6 +33,8 @@ interface UserActions {
 const userReducer: Reducer<UserState, UserActions> = (state, action) => {
   switch (action.type) {
     case ActionType.FETCH_USER:
+      return { ...state, user: action.payload };
+    case ActionType.UPDATE_USER:
       return { ...state, user: action.payload };
     case ActionType.ERROR:
       return { ...state, errorMessage: action.payload };
@@ -48,8 +52,22 @@ export const fetchUser = (dispatch: Dispatch<UserActions>) => async () => {
   }
 };
 
+export const updateUser = (dispatch: Dispatch<UserActions>) => async (
+  updatedUser: User
+) => {
+  console.log(updatedUser);
+  try {
+    const { data } = await deezerAPI.post(`/user/${updatedUser._id}`, {
+      ...updateUser
+    });
+    dispatch({ type: ActionType.UPDATE_USER, payload: data });
+  } catch (err) {
+    dispatch({ type: ActionType.ERROR, payload: err.message });
+  }
+};
+
 export const { Provider, Context } = createDataContext(
   userReducer,
-  { fetchUser },
+  { fetchUser, updateUser },
   { errorMessage: '', user: null }
 );

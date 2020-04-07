@@ -11,13 +11,23 @@ import {
 } from '../styles/Profile';
 
 const ProfileScreen = () => {
-  const { state, fetchUser } = useContext<State>(UserContext);
+  const { state, fetchUser, updateUser } = useContext<State>(UserContext);
   const email = useTextInput('', state.user?.email);
   const password = useTextInput('', '*****');
+
+  console.log(state);
 
   useEffect(() => {
     fetchUser();
   }, []);
+
+  const update = () => {
+    updateUser({
+      email: email.bind.value,
+      _id: state.user?._id || '',
+      password: password.bind.value
+    });
+  };
 
   return (
     <StyledProfile>
@@ -34,6 +44,7 @@ const ProfileScreen = () => {
         </StyledInputContainer>
         <Button title="Update" />
       </StyledWrapper>
+      <button onClick={update}>Save changes</button>
     </StyledProfile>
   );
 };
