@@ -13,3 +13,4 @@ export const darkness: string = 'rgba(0, 0, 0, 0.1)';
 export const darkness10: string = 'rgba(26, 26, 29, 0.08)';
 export const shadow: string = 'rgba(0, 0, 0, 0.05)';
 export const blue: string = 'rgb(22, 108, 240)';
+export const red: string = 'rgb(197, 0, 1)';

@@ -1,42 +1,49 @@
 import styled from 'styled-components';
-import { gray20 } from '../colors';
+import { gray, gray20, red } from '../colors';
 
 export const StyledTrack = styled.div`
-  box-shadow: 5px 5px 12px 0px ${gray20};
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 9px;
-  margin: 18px 0 0 18px;
+  border-bottom: 1px solid ${gray20};
   &:hover {
-    & > div > img,
-    > div > span {
+    background-color: ${gray20};
+  }
+`;
+
+export const StyledFirstElement = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  & > img {
+    width: 35px;
+    border-radius: 4px;
+    margin-right: 15px;
+  }
+  & > .play {
+    display: none;
+  }
+  & > .heart {
+    color: ${gray};
+    margin-right: 15px;
+    &:hover {
+      color: ${red};
+      cursor: pointer;
+    }
+  }
+  &:hover {
+    & > img,
+    > span {
       display: none;
     }
-    & > div > svg {
+    & > .play {
       display: block;
       width: 35px;
       height: 35px;
       border-radius: 50%;
       cursor: pointer;
+      margin-right: 15px;
     }
-  }
-  & > div {
-    display: flex;
-    align-items: center;
-  }
-  & > div > svg {
-    display: none;
-  }
-  & > div img {
-    width: 35px;
-    height: 35px;
-  }
-  & > div > span {
-    width: 35px;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 `;
