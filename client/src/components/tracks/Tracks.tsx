@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Context as TracksContext } from '../../contexts/tracks';
 import { Context as PlayerContext } from '../../contexts/player';
+import { Context as FavoriteContext, State } from '../../contexts/favorites';
 import TrackDetails from './TrackDetails';
 import Subtitle from '../Subtitle';
 import { Track as TrackTypes } from '../../types/Tracks';
@@ -8,6 +9,7 @@ import { Track as TrackTypes } from '../../types/Tracks';
 const Tracks = (): JSX.Element => {
   const { state } = useContext(TracksContext);
   const { selectTrack } = useContext(PlayerContext);
+  const { createFavorite } = useContext<State>(FavoriteContext);
 
   return (
     <>
@@ -17,6 +19,7 @@ const Tracks = (): JSX.Element => {
         .map((track: TrackTypes) => (
           <TrackDetails
             selectTrack={selectTrack}
+            selectFavoriteTrack={createFavorite}
             key={track.id}
             track={track}
           />
@@ -24,4 +27,5 @@ const Tracks = (): JSX.Element => {
     </>
   );
 };
+
 export default Tracks;

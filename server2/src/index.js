@@ -5,6 +5,7 @@ import cors from 'cors';
 import authRoutes from './routes/authRoutes';
 import searchRoutes from './routes/searchRoutes';
 import userRoutes from './routes/userRoutes';
+import favoriteRoutes from './routes/favoriteRoutes';
 import requireAuth from './middlewares/requireAuth';
 
 const app = express();
@@ -34,6 +35,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(authRoutes);
 app.use(searchRoutes);
 app.use(userRoutes);
+app.use(favoriteRoutes);
 
 app.get('/', requireAuth, (req, res) => {
   console.log(req.user);

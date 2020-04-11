@@ -2,7 +2,14 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Album } from '../../types/Albums';
 import TrackDetails from '../tracks/TrackDetails';
-import { Context as PlayerContext, State } from '../../contexts/player';
+import {
+  Context as PlayerContext,
+  State as PlayerState
+} from '../../contexts/player';
+import {
+  Context as FavoriteContext,
+  State as FavoriteState
+} from '../../contexts/favorites';
 import { isPlural } from '../../utils/isPlural';
 import {
   StyledAlbum,
@@ -18,7 +25,8 @@ interface Props {
 }
 
 const AlbumDetails = ({ album, hideLink }: Props) => {
-  const { selectTrack } = useContext<State>(PlayerContext);
+  const { selectTrack } = useContext<PlayerState>(PlayerContext);
+  const { createFavorite } = useContext<FavoriteState>(FavoriteContext);
 
   return (
     <StyledAlbum>
@@ -58,6 +66,7 @@ const AlbumDetails = ({ album, hideLink }: Props) => {
                 key={track.id}
                 track={track}
                 selectTrack={selectTrack}
+                selectFavoriteTrack={createFavorite}
                 index={idx + 1}
               />
             ))}
@@ -72,4 +81,5 @@ const AlbumDetails = ({ album, hideLink }: Props) => {
     </StyledAlbum>
   );
 };
+
 export default AlbumDetails;

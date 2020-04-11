@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
 import bcrypt from 'bcrypt';
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   email: {
     type: String,
     unique: true,
@@ -54,4 +54,4 @@ userSchema.methods.comparePassword = function (candidatePassword) {
   });
 };
 
-export const User = mongoose.model('users', userSchema);
+export const User = model('users', userSchema);

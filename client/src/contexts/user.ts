@@ -43,7 +43,7 @@ const userReducer: Reducer<UserState, UserActions> = (state, action) => {
   }
 };
 
-export const fetchUser = (dispatch: Dispatch<UserActions>) => async () => {
+const fetchUser = (dispatch: Dispatch<UserActions>) => async () => {
   try {
     const { data } = await deezerAPI.get('/');
     dispatch({ type: ActionType.FETCH_USER, payload: data });
@@ -52,7 +52,7 @@ export const fetchUser = (dispatch: Dispatch<UserActions>) => async () => {
   }
 };
 
-export const updateUser = (dispatch: Dispatch<UserActions>) => async (
+const updateUser = (dispatch: Dispatch<UserActions>) => async (
   updatedUser: User
 ) => {
   try {

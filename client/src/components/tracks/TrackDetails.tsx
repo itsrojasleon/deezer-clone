@@ -9,21 +9,30 @@ import { FiHeart } from 'react-icons/fi';
 
 interface Props {
   selectTrack: (track: any) => void;
+  selectFavoriteTrack: (trackId: string) => void;
   track: Track;
   index?: number;
 }
 
-const TrackDetails = ({ track, selectTrack, index }: Props): JSX.Element => {
+const TrackDetails = ({
+  track,
+  selectTrack,
+  selectFavoriteTrack,
+  index
+}: Props): JSX.Element => {
   return (
-    <StyledTrack onClick={() => selectTrack(track)}>
+    <StyledTrack>
       <StyledFirstElement>
         {track.album ? (
           <img src={track.album.cover_medium} alt={track.album.title} />
         ) : (
           <span>{index}</span>
         )}
-        <AiFillPlayCircle className="play" />
-        <FiHeart className="heart" />
+        <AiFillPlayCircle onClick={() => selectTrack(track)} className="play" />
+        <FiHeart
+          onClick={() => selectFavoriteTrack(String(track.id))}
+          className="heart"
+        />
         <p>{track.title}</p>
       </StyledFirstElement>
       <p>{track.artist?.name}</p>
