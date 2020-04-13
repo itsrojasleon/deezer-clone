@@ -22,7 +22,7 @@ export const StyledRightSide = styled.div`
   text-align: right;
 `;
 
-export const StyledIconUser = styled.span`
+export const StyledIcon = styled.span`
   width: 50px;
   background-color: ${graySecondary};
   padding: 10px;

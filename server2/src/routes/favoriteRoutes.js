@@ -5,9 +5,8 @@ import requireAuth from '../middlewares/requireAuth';
 const router = express.Router();
 
 router.get('/favorites', requireAuth, async (req, res) => {
-  console.log(req.user);
-  // const tracks = await Favorite.find({});
-  res.send('ok');
+  const tracks = await Favorite.find({ user_email: req.user.email });
+  res.send(tracks);
 });
 
 router.post('/favorites', requireAuth, async (req, res) => {

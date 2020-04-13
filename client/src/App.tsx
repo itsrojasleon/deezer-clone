@@ -12,6 +12,7 @@ const ArtistScreen = lazy(() => import('./screens/Artist'));
 const AlbumScreen = lazy(() => import('./screens/Album'));
 const SignupScreen = lazy(() => import('./screens/Signup'));
 const ProfileScreen = lazy(() => import('./screens/Profile'));
+const FavoriteScreen = lazy(() => import('./screens/Favorite'));
 
 const StyledContainer = styled.div`
   width: 90%;
@@ -53,6 +54,7 @@ const App: React.FC = (): JSX.Element => {
               <Route path="/album/:albumId" exact component={AlbumScreen} />
               <Route path="/signup" component={SignupScreen} />
               <Route path="/profile" component={ProfileScreen} />
+              <Route path="/favorites" component={FavoriteScreen} />
             </Switch>
           </StyledContainer>
           <Player />

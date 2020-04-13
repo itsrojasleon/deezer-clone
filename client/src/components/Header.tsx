@@ -2,14 +2,14 @@ import React, { useEffect, useContext } from 'react';
 import { Context as AuthContext, State } from '../contexts/auth';
 import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
-import { FaUser, FaHome } from 'react-icons/fa';
+import { FaUser, FaHome, FaHeart } from 'react-icons/fa';
 
 import {
   StyledHeader,
   StyledNav,
   StyledLeftSide,
   StyledRightSide,
-  StyledIconUser
+  StyledIcon
 } from '../styles/Header';
 
 const Header = () => {
@@ -25,14 +25,19 @@ const Header = () => {
     ) : (
       <>
         <Link to="/">
-          <StyledIconUser>
+          <StyledIcon>
             <FaHome />
-          </StyledIconUser>
+          </StyledIcon>
+        </Link>
+        <Link to="/favorites">
+          <StyledIcon>
+            <FaHeart />
+          </StyledIcon>
         </Link>
         <Link to="/profile">
-          <StyledIconUser>
+          <StyledIcon>
             <FaUser />
-          </StyledIconUser>
+          </StyledIcon>
         </Link>
       </>
     );
