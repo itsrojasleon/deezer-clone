@@ -1,12 +1,24 @@
 import express from 'express';
+import axios from 'axios';
 import { Favorite } from '../models/Favorite';
 import requireAuth from '../middlewares/requireAuth';
+
+const API_URL = 'https://api.deezer.com';
 
 const router = express.Router();
 
 router.get('/favorites', requireAuth, async (req, res) => {
-  const tracks = await Favorite.find({ user_email: req.user.email });
-  res.send(tracks);
+  const tracksInfo = await Favorite.find({ user_email: req.user.email });
+
+  let tracks = [];
+
+  for (let trackInfo of tracksInfo) {
+    const { data } = await axios.get(`${API_URL}/track/${trackInfo.track_id}`);
+
+    tracks.push(data);
+  }
+
+  res.json(tracks);
 });
 
 router.post('/favorites', requireAuth, async (req, res) => {

@@ -1,21 +1,39 @@
 import React, { useEffect, useContext } from 'react';
-import { Context as FavoriteContext, State } from '../contexts/favorites';
+import {
+  Context as FavoriteContext,
+  State as FavoriteState
+} from '../contexts/favorites';
+import {
+  Context as PlayerContext,
+  State as PlayerState
+} from '../contexts/player';
 
-const FavoriteScreen: React.FC = (): JSX.Element => {
+import TrackDetails from '../components/tracks/TrackDetails';
+
+const FavoriteScreen = () => {
   const {
-    state: { favorties },
+    state: { favorites },
     fetchFavorites
-  } = useContext<State>(FavoriteContext);
+  } = useContext<FavoriteState>(FavoriteContext);
+  const { selectTrack } = useContext<PlayerState>(PlayerContext);
 
   useEffect(() => {
     fetchFavorites();
   }, []);
 
-  console.log(favorties);
-
   return (
     <div>
-      <div>Favorites</div>
+      {favorites.map((track, idx: number) => (
+        <TrackDetails
+          key={track.id}
+          track={track}
+          selectTrack={selectTrack}
+          index={idx}
+        />
+      ))}
+      {/* {favorites.map((track: any) => (
+        <div>{track.title}</div>
+      ))} */}
     </div>
   );
 };

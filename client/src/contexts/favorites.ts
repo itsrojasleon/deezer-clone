@@ -1,10 +1,10 @@
 import { Reducer, Dispatch } from 'react';
 import createDataContext from './createData';
 import deezerAPI from '../api/deezer';
-import { Favorite } from '../types/Favorite';
+import { Track } from '../types/Tracks';
 
 interface FavoriteState {
-  favorties: [] | Favorite[];
+  favorites: Track[];
   errorMessage: string;
 }
 
@@ -31,9 +31,9 @@ const favoriteReducer: Reducer<FavoriteState, FavoriteActions> = (
 ) => {
   switch (action.type) {
     case ActionType.FETCH_FAVORITES:
-      return { ...state, favorties: action.payload };
+      return { ...state, favorites: action.payload };
     case ActionType.CREATE_FAVORITE:
-      return { ...state, favorties: action.payload };
+      return { ...state, favorites: action.payload };
     default:
       return state;
   }
@@ -53,7 +53,6 @@ const createFavorite = (dispatch: Dispatch<FavoriteActions>) => async (
 ) => {
   try {
     const { data } = await deezerAPI.post('/favorites', { trackId });
-    console.log(data);
   } catch (err) {
     dispatch({ type: ActionType.CREATE_FAVORITE, payload: err.message });
   }

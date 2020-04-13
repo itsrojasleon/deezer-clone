@@ -14,4 +14,5 @@ const TracksScreen = () => {
 
   return <Tracks />;
 };
+
 export default TracksScreen;
