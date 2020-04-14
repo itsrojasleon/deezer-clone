@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   StyledImage,
   StyledTitle,
@@ -14,8 +15,10 @@ interface Props {
 const PlaylistDetails = ({ playlist }: Props) => {
   return (
     <div>
-      <StyledImage src={playlist.picture_medium} alt={playlist.title} />
-      <StyledTitle>{playlist.title}</StyledTitle>
+      <Link to={`/playlist/${playlist.id}`}>
+        <StyledImage src={playlist.picture_medium} alt={playlist.title} />
+        <StyledTitle>{playlist.title}</StyledTitle>
+      </Link>
       <StyledNB>
         {playlist.nb_tracks} track{isPlural(playlist.nb_tracks)}
       </StyledNB>

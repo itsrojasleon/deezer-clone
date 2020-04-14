@@ -18,6 +18,7 @@ interface TracksState {
   playlists: Playlist[];
   artist: Artist;
   album: Album;
+  playlist: Playlist;
   isLoading: boolean;
   isError: string;
 }
@@ -30,6 +31,7 @@ export interface State {
   fetchPlaylists: (params: Params) => void;
   fetchArtist: (params: Params) => void;
   fetchAlbum: (params: Params) => void;
+  fetchPlaylist: (params: Params) => void;
 }
 
 enum ActionType {
@@ -39,6 +41,7 @@ enum ActionType {
   FETCH_PLAYLISTS,
   FETCH_ARTIST,
   FETCH_ALBUM,
+  FETCH_PLAYLIST,
   IS_LOADING,
   IS_ERROR
 }
@@ -62,6 +65,8 @@ const songsReducer: Reducer<TracksState, TrackActions> = (state, action) => {
       return { ...state, artist: { ...action.payload }, isLoading: false };
     case ActionType.FETCH_ALBUM:
       return { ...state, album: { ...action.payload }, isLoading: false };
+    case ActionType.FETCH_PLAYLIST:
+      return { ...state, playlist: { ...action.payload }, isLoading: false };
     case ActionType.IS_LOADING:
       return { ...state, isLoading: true };
     case ActionType.IS_ERROR:
@@ -76,6 +81,7 @@ const fetchTracks = (dispatch: Dispatch<TrackActions>) => async ({
   limit
 }: Params) => {
   dispatch({ type: ActionType.IS_LOADING });
+
   try {
     const {
       data: { tracks }
@@ -91,6 +97,7 @@ const fetchAlbums = (dispatch: Dispatch<TrackActions>) => async ({
   limit
 }: Params) => {
   dispatch({ type: ActionType.IS_LOADING });
+
   try {
     const {
       data: { albums }
@@ -106,6 +113,7 @@ const fetchArtists = (dispatch: Dispatch<TrackActions>) => async ({
   limit
 }: Params) => {
   dispatch({ type: ActionType.IS_LOADING });
+
   try {
     const {
       data: { artists }
@@ -121,6 +129,7 @@ const fetchPlaylists = (dispatch: Dispatch<TrackActions>) => async ({
   limit
 }: Params) => {
   dispatch({ type: ActionType.IS_LOADING });
+
   try {
     const {
       data: { playlists }
@@ -135,6 +144,7 @@ const fetchArtist = (dispatch: Dispatch<TrackActions>) => async ({
   value
 }: Params) => {
   dispatch({ type: ActionType.IS_LOADING });
+
   try {
     const { data: artist } = await deezerAPI.get(`/artist/${value}`);
     dispatch({ type: ActionType.FETCH_ARTIST, payload: artist });
@@ -147,9 +157,23 @@ const fetchAlbum = (dispatch: Dispatch<TrackActions>) => async ({
   value
 }: Params) => {
   dispatch({ type: ActionType.IS_LOADING });
+
   try {
     const { data: album } = await deezerAPI.get(`/album/${value}`);
     dispatch({ type: ActionType.FETCH_ALBUM, payload: album });
+  } catch (err) {
+    dispatch({ type: ActionType.IS_ERROR, payload: err.message });
+  }
+};
+
+const fetchPlaylist = (dispatch: Dispatch<TrackActions>) => async ({
+  value
+}: Params) => {
+  dispatch({ type: ActionType.IS_LOADING });
+
+  try {
+    const { data: playlist } = await deezerAPI.get(`/playlist/${value}`);
+    dispatch({ type: ActionType.FETCH_PLAYLIST, payload: playlist });
   } catch (err) {
     dispatch({ type: ActionType.IS_ERROR, payload: err.message });
   }
@@ -163,15 +187,17 @@ export const { Provider, Context } = createDataContext(
     fetchArtists,
     fetchPlaylists,
     fetchArtist,
-    fetchAlbum
+    fetchAlbum,
+    fetchPlaylist
   },
   {
     tracks: [],
     albums: [],
-    album: {},
     artists: [],
     playlists: [],
+    album: {},
     artist: {},
+    platlist: {},
     isLoading: false,
     isError: ''
   }

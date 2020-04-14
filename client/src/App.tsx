@@ -8,9 +8,10 @@ const Results = lazy(() => import('./screens/Results'));
 const TracksScreen = lazy(() => import('./screens/Tracks'));
 const AlbumsScreen = lazy(() => import('./screens/Albums'));
 const ArtistsScreen = lazy(() => import('./screens/Artists'));
-const PlaylistScreen = lazy(() => import('./screens/Playlists'));
+const PlaylistsScreen = lazy(() => import('./screens/Playlists'));
 const ArtistScreen = lazy(() => import('./screens/Artist'));
 const AlbumScreen = lazy(() => import('./screens/Album'));
+const PlaylistScreen = lazy(() => import('./screens/Playlist'));
 const SignupScreen = lazy(() => import('./screens/Signup'));
 const ProfileScreen = lazy(() => import('./screens/Profile'));
 const FavoriteScreen = lazy(() => import('./screens/Favorite'));
@@ -22,9 +23,6 @@ const StyledContainer = styled.div`
     width: 100%;
   }
 `;
-
-// This is my first time using "something" as a param
-// something means track, artist, album, etc.
 
 const App: React.FC = (): JSX.Element => {
   return (
@@ -54,10 +52,15 @@ const App: React.FC = (): JSX.Element => {
               <Route
                 path="/search/:something/playlists"
                 exact
-                component={PlaylistScreen}
+                component={PlaylistsScreen}
               />
               <Route path="/artist/:artistId" exact component={ArtistScreen} />
               <Route path="/album/:albumId" exact component={AlbumScreen} />
+              <Route
+                path="/playlist/:playlistId"
+                exact
+                component={PlaylistScreen}
+              />
               <Route path="/signup" component={SignupScreen} />
               <Route path="/profile" component={ProfileScreen} />
               <Route path="/favorites" component={FavoriteScreen} />
