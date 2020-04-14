@@ -8,5 +8,6 @@ export interface Playlist {
   title: string;
   picture_medium: string;
   creation_date: string;
+  nb_tracks: number;
   user: User;
 }

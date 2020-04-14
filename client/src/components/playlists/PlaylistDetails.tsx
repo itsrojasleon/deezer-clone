@@ -1,6 +1,11 @@
 import React from 'react';
-import { StyledPlaylist } from '../../styles/playlists/PlaylistDetails';
+import {
+  StyledImage,
+  StyledTitle,
+  StyledNB
+} from '../../styles/playlists/PlaylistDetails';
 import { Playlist } from '../../types/Playlist';
+import { isPlural } from '../../utils/isPlural';
 
 interface Props {
   playlist: Playlist;
@@ -8,9 +13,13 @@ interface Props {
 
 const PlaylistDetails = ({ playlist }: Props) => {
   return (
-    <StyledPlaylist>
-      <img src={playlist.picture_medium} alt={playlist.title} />
-    </StyledPlaylist>
+    <div>
+      <StyledImage src={playlist.picture_medium} alt={playlist.title} />
+      <StyledTitle>{playlist.title}</StyledTitle>
+      <StyledNB>
+        {playlist.nb_tracks} track{isPlural(playlist.nb_tracks)}
+      </StyledNB>
+    </div>
   );
 };
 
