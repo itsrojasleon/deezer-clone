@@ -21,7 +21,7 @@ const Results = () => {
   }, [something]);
 
   return (
-    <Suspense fallback={<div>LOADING DUDE...</div>}>
+    <Suspense fallback={<div>LOADING...</div>}>
       <Tracks />
       <Albums />
       <Artists />
@@ -29,4 +29,5 @@ const Results = () => {
     </Suspense>
   );
 };
+
 export default Results;

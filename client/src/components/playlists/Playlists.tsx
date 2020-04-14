@@ -3,18 +3,12 @@ import {
   Context as TracksContext,
   State as TrackState
 } from '../../contexts/tracks';
-import { Context as PlayerContext } from '../../contexts/player';
-import {
-  Context as FavoriteContext,
-  State as FavoriteState
-} from '../../contexts/favorites';
-// import PlaylistDetails from './PlaylistDetails';
+import PlaylistDetails from './PlaylistDetails';
 import Subtitle from '../Subtitle';
+import { StyledContainer } from '../../styles/playlists/Playlists';
 
-const Tracks = (): JSX.Element => {
+const Playlists = (): JSX.Element => {
   const { state } = useContext<TrackState>(TracksContext);
-  const { selectTrack } = useContext(PlayerContext);
-  const { createFavorite } = useContext<FavoriteState>(FavoriteContext);
 
   return (
     <>
@@ -22,11 +16,13 @@ const Tracks = (): JSX.Element => {
         <Subtitle title="Playlists" type="playlists" />
       ) : null}
 
-      {state.playlists.map((playlist) => (
-        <div key={playlist.id}>{playlist.title}</div>
-      ))}
+      <StyledContainer>
+        {state.playlists.map((playlist) => (
+          <PlaylistDetails key={playlist.id} playlist={playlist} />
+        ))}
+      </StyledContainer>
     </>
   );
 };
 
-export default Tracks;
+export default Playlists;

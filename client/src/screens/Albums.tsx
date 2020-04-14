@@ -14,4 +14,5 @@ const AlbumsScreen = () => {
 
   return <Albums />;
 };
+
 export default AlbumsScreen;

@@ -1,10 +1,16 @@
 import React from 'react';
+import { StyledPlaylist } from '../../styles/playlists/PlaylistDetails';
+import { Playlist } from '../../types/Playlist';
 
-const PlaylistDetails = () => {
+interface Props {
+  playlist: Playlist;
+}
+
+const PlaylistDetails = ({ playlist }: Props) => {
   return (
-    <div>
-      <div>Details</div>
-    </div>
+    <StyledPlaylist>
+      <img src={playlist.picture_medium} alt={playlist.title} />
+    </StyledPlaylist>
   );
 };
 

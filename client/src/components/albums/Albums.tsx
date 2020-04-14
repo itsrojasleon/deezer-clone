@@ -10,6 +10,7 @@ import { StyledContainer } from '../../styles/albums/Albums';
 
 const Albums = () => {
   const { state } = useContext<TracksState>(TracksContext);
+
   return (
     <>
       {state.tracks.length ? <Subtitle title="Albums" type="albums" /> : null}

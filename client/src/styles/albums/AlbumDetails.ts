@@ -13,9 +13,6 @@ export const StyledAlbum = styled.div`
   &:first-child {
     margin: 0;
   }
-  & > img {
-    border-radius: 3px;
-  }
 `;
 
 export const StyledWrapper = styled.div`
@@ -24,6 +21,9 @@ export const StyledWrapper = styled.div`
   flex-direction: row;
   & > span {
     margin-left: 20px;
+  }
+  & > img {
+    border-radius: 40px;
   }
 `;
 
