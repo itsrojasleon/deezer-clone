@@ -55,4 +55,39 @@ router.get('/search/playlists/:playlist/:limit', async (req, res) => {
   }
 });
 
+router.get('/artist/:artistId', async (req, res) => {
+  try {
+    const { artistId } = req.params;
+    const { data: artist } = await axios.get(`${API_URL}/artist/${artistId}`);
+
+    res.status(200).json({ ...artist });
+  } catch (err) {
+    res.status(422).send(err.message);
+  }
+});
+
+router.get('/album/:albumId', async (req, res) => {
+  try {
+    const { albumId } = req.params;
+    const { data: album } = await axios.get(`${API_URL}/album/${albumId}`);
+
+    res.status(200).json({ ...album });
+  } catch (err) {
+    res.status(422).send(err.message);
+  }
+});
+
+router.get('/playlist/:playlistId', async (req, res) => {
+  try {
+    const { playlistId } = req.params;
+    const { data: playlist } = await axios.get(
+      `${API_URL}/playlist/${playlistId}`
+    );
+
+    res.status(200).json({ ...playlist });
+  } catch (err) {
+    res.status(422).send(err.message);
+  }
+});
+
 export default router;
