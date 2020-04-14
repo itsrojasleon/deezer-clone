@@ -4,6 +4,7 @@ import deezerAPI from '../api/deezer';
 import { Track } from '../types/Tracks';
 import { Album } from '../types/Albums';
 import { Artist } from '../types/Artist';
+import { Playlist } from '../types/Playlist';
 
 interface Params {
   value: string;
@@ -14,6 +15,7 @@ interface TracksState {
   tracks: Track[];
   albums: Album[];
   artists: Artist[];
+  playlists: Playlist[];
   artist: Artist;
   album: Album;
   isLoading: boolean;
@@ -25,18 +27,20 @@ export interface State {
   fetchTracks: (params: Params) => void;
   fetchAlbums: (params: Params) => void;
   fetchArtists: (params: Params) => void;
+  fetchPlaylists: (params: Params) => void;
   fetchArtist: (params: Params) => void;
   fetchAlbum: (params: Params) => void;
 }
 
 enum ActionType {
-  FetchedTracks,
-  FetchedAlbums,
-  FetchedArtists,
-  FetchedArtist,
-  FetchedAlbum,
-  IsLoading,
-  IsError
+  FETCH_TRACKS,
+  FETCH_ALBUMS,
+  FETCH_ARTISTS,
+  FETCH_PLAYLISTS,
+  FETCH_ARTIST,
+  FETCH_ALBUM,
+  IS_LOADING,
+  IS_ERROR
 }
 
 interface TrackActions {
@@ -46,19 +50,21 @@ interface TrackActions {
 
 const songsReducer: Reducer<TracksState, TrackActions> = (state, action) => {
   switch (action.type) {
-    case ActionType.FetchedTracks:
+    case ActionType.FETCH_TRACKS:
       return { ...state, tracks: action.payload, isLoading: false };
-    case ActionType.FetchedAlbums:
+    case ActionType.FETCH_ALBUMS:
       return { ...state, albums: action.payload, isLoading: false };
-    case ActionType.FetchedArtists:
+    case ActionType.FETCH_ARTISTS:
       return { ...state, artists: action.payload, isLoading: false };
-    case ActionType.FetchedArtist:
+    case ActionType.FETCH_PLAYLISTS:
+      return { ...state, playlists: action.payload, isLoading: false };
+    case ActionType.FETCH_ARTIST:
       return { ...state, artist: { ...action.payload }, isLoading: false };
-    case ActionType.FetchedAlbum:
+    case ActionType.FETCH_ALBUM:
       return { ...state, album: { ...action.payload }, isLoading: false };
-    case ActionType.IsLoading:
+    case ActionType.IS_LOADING:
       return { ...state, isLoading: true };
-    case ActionType.IsError:
+    case ActionType.IS_ERROR:
       return { ...state, error: action.payload, isLoading: false };
     default:
       return state;
@@ -69,14 +75,14 @@ const fetchTracks = (dispatch: Dispatch<TrackActions>) => async ({
   value,
   limit
 }: Params) => {
-  dispatch({ type: ActionType.IsLoading });
+  dispatch({ type: ActionType.IS_LOADING });
   try {
     const {
       data: { tracks }
     } = await deezerAPI.get(`/search/tracks/${value}/${limit}`);
-    dispatch({ type: ActionType.FetchedTracks, payload: tracks });
+    dispatch({ type: ActionType.FETCH_TRACKS, payload: tracks });
   } catch (err) {
-    dispatch({ type: ActionType.IsError, payload: err.message });
+    dispatch({ type: ActionType.IS_ERROR, payload: err.message });
   }
 };
 
@@ -84,14 +90,14 @@ const fetchAlbums = (dispatch: Dispatch<TrackActions>) => async ({
   value,
   limit
 }: Params) => {
-  dispatch({ type: ActionType.IsLoading });
+  dispatch({ type: ActionType.IS_LOADING });
   try {
     const {
       data: { albums }
     } = await deezerAPI.get(`/search/albums/${value}/${limit}`);
-    dispatch({ type: ActionType.FetchedAlbums, payload: albums });
+    dispatch({ type: ActionType.FETCH_ALBUMS, payload: albums });
   } catch (err) {
-    dispatch({ type: ActionType.IsError, payload: err.message });
+    dispatch({ type: ActionType.IS_ERROR, payload: err.message });
   }
 };
 
@@ -99,49 +105,72 @@ const fetchArtists = (dispatch: Dispatch<TrackActions>) => async ({
   value,
   limit
 }: Params) => {
-  dispatch({ type: ActionType.IsLoading });
+  dispatch({ type: ActionType.IS_LOADING });
   try {
     const {
       data: { artists }
     } = await deezerAPI.get(`/search/artists/${value}/${limit}`);
-    dispatch({ type: ActionType.FetchedArtists, payload: artists });
+    dispatch({ type: ActionType.FETCH_ARTISTS, payload: artists });
   } catch (err) {
-    dispatch({ type: ActionType.IsError, payload: err.message });
+    dispatch({ type: ActionType.IS_ERROR, payload: err.message });
+  }
+};
+
+const fetchPlaylists = (dispatch: Dispatch<TrackActions>) => async ({
+  value,
+  limit
+}: Params) => {
+  dispatch({ type: ActionType.IS_LOADING });
+  try {
+    const {
+      data: { playlists }
+    } = await deezerAPI.get(`/search/playlists/${value}/${limit}`);
+    dispatch({ type: ActionType.FETCH_PLAYLISTS, payload: playlists });
+  } catch (err) {
+    dispatch({ type: ActionType.IS_ERROR, payload: err.message });
   }
 };
 
 const fetchArtist = (dispatch: Dispatch<TrackActions>) => async ({
   value
 }: Params) => {
-  dispatch({ type: ActionType.IsLoading });
+  dispatch({ type: ActionType.IS_LOADING });
   try {
     const { data: artist } = await deezerAPI.get(`/artist/${value}`);
-    dispatch({ type: ActionType.FetchedArtist, payload: artist });
+    dispatch({ type: ActionType.FETCH_ARTIST, payload: artist });
   } catch (err) {
-    dispatch({ type: ActionType.IsError, payload: err.message });
+    dispatch({ type: ActionType.IS_ERROR, payload: err.message });
   }
 };
 
 const fetchAlbum = (dispatch: Dispatch<TrackActions>) => async ({
   value
 }: Params) => {
-  dispatch({ type: ActionType.IsLoading });
+  dispatch({ type: ActionType.IS_LOADING });
   try {
     const { data: album } = await deezerAPI.get(`/album/${value}`);
-    dispatch({ type: ActionType.FetchedAlbum, payload: album });
+    dispatch({ type: ActionType.FETCH_ALBUM, payload: album });
   } catch (err) {
-    dispatch({ type: ActionType.IsError, payload: err.message });
+    dispatch({ type: ActionType.IS_ERROR, payload: err.message });
   }
 };
 
 export const { Provider, Context } = createDataContext(
   songsReducer,
-  { fetchTracks, fetchAlbums, fetchArtists, fetchArtist, fetchAlbum },
+  {
+    fetchTracks,
+    fetchAlbums,
+    fetchArtists,
+    fetchPlaylists,
+    fetchArtist,
+    fetchAlbum
+  },
   {
     tracks: [],
     albums: [],
     album: {},
     artists: [],
+    playlists: [],
     artist: {},
     isLoading: false,
     isError: ''

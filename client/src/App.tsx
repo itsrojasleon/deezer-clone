@@ -8,6 +8,7 @@ const Results = lazy(() => import('./screens/Results'));
 const TracksScreen = lazy(() => import('./screens/Tracks'));
 const AlbumsScreen = lazy(() => import('./screens/Albums'));
 const ArtistsScreen = lazy(() => import('./screens/Artists'));
+const PlaylistScreen = lazy(() => import('./screens/Playlists'));
 const ArtistScreen = lazy(() => import('./screens/Artist'));
 const AlbumScreen = lazy(() => import('./screens/Album'));
 const SignupScreen = lazy(() => import('./screens/Signup'));
@@ -49,6 +50,11 @@ const App: React.FC = (): JSX.Element => {
                 path="/search/:something/artists"
                 exact
                 component={ArtistsScreen}
+              />
+              <Route
+                path="/search/:something/playlists"
+                exact
+                component={PlaylistScreen}
               />
               <Route path="/artist/:artistId" exact component={ArtistScreen} />
               <Route path="/album/:albumId" exact component={AlbumScreen} />

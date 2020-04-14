@@ -41,4 +41,18 @@ router.get('/search/albums/:album/:limit', async (req, res) => {
   }
 });
 
+router.get('/search/playlists/:playlist/:limit', async (req, res) => {
+  try {
+    const { playlist, limit } = req.params;
+    const {
+      data: { data: playlists }
+    } = await axios.get(
+      `${API_URL}/search/playlist?q=${playlist}&limit=${limit}`
+    );
+    res.status(200).json({ playlists });
+  } catch (err) {
+    res.status(422).send(err.message);
+  }
+});
+
 export default router;
