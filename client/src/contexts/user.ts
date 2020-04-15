@@ -1,7 +1,7 @@
 import { Reducer, Dispatch } from 'react';
 import createDataContext from './createData';
 import deezerAPI from '../api/deezer';
-import { User } from '../types/User';
+import { Profile } from '../types/Profile';
 
 export interface Params {
   email: string;
@@ -9,14 +9,14 @@ export interface Params {
 }
 
 interface UserState {
-  user: null | User;
+  user: null | Profile;
   errorMessage: string;
 }
 
 export interface State {
   state: UserState;
   fetchUser: () => void;
-  updateUser: (params: User) => void;
+  updateUser: (params: Profile) => void;
 }
 
 enum ActionType {
@@ -53,7 +53,7 @@ const fetchUser = (dispatch: Dispatch<UserActions>) => async () => {
 };
 
 const updateUser = (dispatch: Dispatch<UserActions>) => async (
-  updatedUser: User
+  updatedUser: Profile
 ) => {
   try {
     const { data } = await deezerAPI.post(`/user/${updatedUser._id}`, {

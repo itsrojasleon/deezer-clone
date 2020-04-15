@@ -1,7 +1,7 @@
 import { Reducer, Dispatch } from 'react';
 import createDataContext from './createData';
 import deezerAPI from '../api/deezer';
-import { User } from '../types/User';
+import { Profile } from '../types/Profile';
 
 export interface Params {
   email: string;
@@ -10,7 +10,7 @@ export interface Params {
 
 interface AuthState {
   token: null | string;
-  user: null | User;
+  user: null | Profile;
   errorMessage: string;
 }
 

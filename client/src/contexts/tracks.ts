@@ -5,6 +5,7 @@ import { Track } from '../types/Tracks';
 import { Album } from '../types/Albums';
 import { Artist } from '../types/Artist';
 import { Playlist } from '../types/Playlist';
+import { User } from '../types/User';
 
 interface Params {
   value: string;
@@ -16,9 +17,11 @@ interface TracksState {
   albums: Album[];
   artists: Artist[];
   playlists: Playlist[];
+  users: User[];
   artist: Artist;
   album: Album;
   playlist: Playlist;
+  user: User;
   isLoading: boolean;
   isError: string;
 }
@@ -29,9 +32,11 @@ export interface State {
   fetchAlbums: (params: Params) => void;
   fetchArtists: (params: Params) => void;
   fetchPlaylists: (params: Params) => void;
+  fetchUsers: (params: Params) => void;
   fetchArtist: (params: Params) => void;
   fetchAlbum: (params: Params) => void;
   fetchPlaylist: (params: Params) => void;
+  fetchUser: (params: Params) => void;
 }
 
 enum ActionType {
@@ -39,9 +44,11 @@ enum ActionType {
   FETCH_ALBUMS,
   FETCH_ARTISTS,
   FETCH_PLAYLISTS,
+  FETCH_USERS,
   FETCH_ARTIST,
   FETCH_ALBUM,
   FETCH_PLAYLIST,
+  FETCH_USER,
   IS_LOADING,
   IS_ERROR
 }
@@ -61,12 +68,16 @@ const songsReducer: Reducer<TracksState, TrackActions> = (state, action) => {
       return { ...state, artists: action.payload, isLoading: false };
     case ActionType.FETCH_PLAYLISTS:
       return { ...state, playlists: action.payload, isLoading: false };
+    case ActionType.FETCH_USERS:
+      return { ...state, users: action.payload, isLoading: false };
     case ActionType.FETCH_ARTIST:
       return { ...state, artist: { ...action.payload }, isLoading: false };
     case ActionType.FETCH_ALBUM:
       return { ...state, album: { ...action.payload }, isLoading: false };
     case ActionType.FETCH_PLAYLIST:
       return { ...state, playlist: { ...action.payload }, isLoading: false };
+    case ActionType.FETCH_USER:
+      return { ...state, user: { ...action.payload }, isLoading: false };
     case ActionType.IS_LOADING:
       return { ...state, isLoading: true };
     case ActionType.IS_ERROR:
@@ -140,6 +151,22 @@ const fetchPlaylists = (dispatch: Dispatch<TrackActions>) => async ({
   }
 };
 
+const fetchUsers = (dispatch: Dispatch<TrackActions>) => async ({
+  value,
+  limit
+}: Params) => {
+  dispatch({ type: ActionType.IS_LOADING });
+
+  try {
+    const {
+      data: { users }
+    } = await deezerAPI.get(`/search/users/${value}/${limit}`);
+    dispatch({ type: ActionType.FETCH_USERS, payload: users });
+  } catch (err) {
+    dispatch({ type: ActionType.IS_ERROR, payload: err.message });
+  }
+};
+
 const fetchArtist = (dispatch: Dispatch<TrackActions>) => async ({
   value
 }: Params) => {
@@ -179,6 +206,19 @@ const fetchPlaylist = (dispatch: Dispatch<TrackActions>) => async ({
   }
 };
 
+const fetchUser = (dispatch: Dispatch<TrackActions>) => async ({
+  value
+}: Params) => {
+  dispatch({ type: ActionType.IS_LOADING });
+
+  try {
+    const { data: user } = await deezerAPI.get(`/user/${value}`);
+    dispatch({ type: ActionType.FETCH_USER, payload: user });
+  } catch (err) {
+    dispatch({ type: ActionType.IS_ERROR, payload: err.message });
+  }
+};
+
 export const { Provider, Context } = createDataContext(
   songsReducer,
   {
@@ -186,18 +226,22 @@ export const { Provider, Context } = createDataContext(
     fetchAlbums,
     fetchArtists,
     fetchPlaylists,
+    fetchUsers,
     fetchArtist,
     fetchAlbum,
-    fetchPlaylist
+    fetchPlaylist,
+    fetchUser
   },
   {
     tracks: [],
     albums: [],
     artists: [],
     playlists: [],
+    users: [],
     album: {},
     artist: {},
     platlist: {},
+    user: {},
     isLoading: false,
     isError: ''
   }
