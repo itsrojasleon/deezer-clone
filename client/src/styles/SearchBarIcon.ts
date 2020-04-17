@@ -7,4 +7,7 @@ export const StyledSearchBarIcon = styled.i`
   right: 10px;
   font-size: 17px;
   color: ${gray};
+  &:hover {
+    cursor: pointer;
+  }
 `;
