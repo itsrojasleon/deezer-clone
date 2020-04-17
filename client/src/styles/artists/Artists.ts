@@ -1,7 +1,6 @@
 import styled from 'styled-components';
+import { gridContainer } from '../shared/gridContainer';
 
 export const StyledContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 247px);
-  grid-gap: 15px;
+  ${gridContainer}
 `;

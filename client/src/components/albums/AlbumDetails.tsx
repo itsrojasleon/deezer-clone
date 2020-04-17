@@ -16,7 +16,9 @@ import {
   StyledWrapper,
   StyledInfo,
   StyledAlbumInfo,
-  StyledPersonalInfo
+  StyledPersonalInfo,
+  StyledTitle,
+  StyledArtistName
 } from '../../styles/albums/AlbumDetails';
 
 interface Props {
@@ -75,7 +77,8 @@ const AlbumDetails = ({ album, hideLink }: Props) => {
       ) : (
         <Link to={`/album/${album.id}`}>
           <img src={album.cover_medium} alt={album.title} />
-          <p>{album.title}</p>
+          <StyledTitle>{album.title}</StyledTitle>
+          <StyledArtistName>By {album.artist.name}</StyledArtistName>
         </Link>
       )}
     </StyledAlbum>

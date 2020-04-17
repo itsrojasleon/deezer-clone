@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { User } from '../../types/User';
+import { StyledImage, StyledName } from '../../styles/users/UserDetails';
 
 interface Props {
   user: User;
@@ -10,10 +11,9 @@ const UserDetails = ({ user }: Props) => {
   return (
     <div>
       <Link to={`/playlist/${user.id}`}>
-        <img src={user.picture_medium} alt={user.name} />
-        <h1>{user.name}</h1>
+        <StyledImage src={user.picture_medium} alt={user.name} />
+        <StyledName>{user.name}</StyledName>
       </Link>
-      <p>{user.id}</p>
     </div>
   );
 };

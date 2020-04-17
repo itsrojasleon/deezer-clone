@@ -5,21 +5,20 @@ import {
 } from '../../contexts/tracks';
 import UserDetails from './UserDetails';
 import Subtitle from '../Subtitle';
+import { StyledContainer } from '../../styles/users/Users';
 
 const User = (): JSX.Element => {
   const { state } = useContext<TrackState>(TracksContext);
 
   return (
     <>
-      {state.users.length ? (
-        <Subtitle title="Playlists" type="playlists" />
-      ) : null}
+      {state.users.length ? <Subtitle title="Users" type="users" /> : null}
 
-      <div>
+      <StyledContainer>
         {state.users.map((user) => (
           <UserDetails key={user.id} user={user} />
         ))}
-      </div>
+      </StyledContainer>
     </>
   );
 };

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { secondary, textSecondary } from '../colors';
+import { smallBlackText, smallText } from '../shared/fontStyles';
 
 export const StyledAlbum = styled.div`
   display: flex;
@@ -59,4 +60,12 @@ export const StyledPersonalInfo = styled.span`
   & > a:hover {
     color: ${secondary};
   }
+`;
+
+export const StyledTitle = styled.p`
+  ${smallBlackText}
+`;
+
+export const StyledArtistName = styled.p`
+  ${smallText}
 `;
