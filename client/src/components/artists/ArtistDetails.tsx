@@ -1,7 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Artist } from '../../types/Artist';
-import { StyledImage, StyledArtist } from '../../styles/artists/ArtistDetails';
+import {
+  StyledImage,
+  StyledArtist,
+  StyledName,
+  StyledNB
+} from '../../styles/artists/ArtistDetails';
 
 interface Props {
   artist: Artist;
@@ -20,8 +25,8 @@ const ArtistDetails = ({ artist, hideLink }: Props) => {
       ) : (
         <Link to={`/artist/${artist.id}`}>
           <StyledImage src={artist.picture_medium} alt={artist.name} />
-          <p>{artist.name}</p>
-          <p>{artist.nb_fan}</p>
+          <StyledName>{artist.name}</StyledName>
+          <StyledNB>{artist.nb_fan}</StyledNB>
         </Link>
       )}
     </StyledArtist>
