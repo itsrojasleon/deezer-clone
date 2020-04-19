@@ -22,4 +22,5 @@ const Albums = () => {
     </>
   );
 };
+
 export default memo(Albums);

@@ -23,12 +23,17 @@ router.get('/favorites', requireAuth, async (req, res) => {
 
 router.post('/favorites', requireAuth, async (req, res) => {
   try {
+    const tracksLength = Favorite.countDocuments();
+
+    if (tracksLength > 9) {
+      return res.status(422).send('You only can save 10 tracks per user');
+    }
+
     const favorite = await new Favorite({
       user_email: req.user.email,
       track_id: req.body.trackId
     });
 
-    console.log(favorite);
     await favorite.save();
 
     res.status(200).send(favorite);
