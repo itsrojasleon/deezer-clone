@@ -45,4 +45,5 @@ const SearchBar = (): JSX.Element => {
     </StyledInputContainer>
   );
 };
+
 export default SearchBar;

@@ -32,4 +32,5 @@ const ArtistDetails = ({ artist, hideLink }: Props) => {
     </StyledArtist>
   );
 };
+
 export default ArtistDetails;

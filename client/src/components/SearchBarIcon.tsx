@@ -14,4 +14,5 @@ const SearchBarIcon = ({ itHasText, cleanText }: Props) => {
     </StyledSearchBarIcon>
   );
 };
+
 export default SearchBarIcon;

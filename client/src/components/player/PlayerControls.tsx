@@ -75,4 +75,5 @@ const PlayerControls = ({
     </StyledContainer>
   );
 };
+
 export default PlayerControls;

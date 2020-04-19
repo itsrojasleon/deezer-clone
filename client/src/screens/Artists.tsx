@@ -14,4 +14,5 @@ const ArtistsScreen = () => {
 
   return <Artists />;
 };
+
 export default ArtistsScreen;

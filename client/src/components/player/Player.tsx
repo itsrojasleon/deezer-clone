@@ -26,4 +26,5 @@ const Player = (): JSX.Element => {
     </StyledPlayer>
   );
 };
+
 export default Player;

@@ -20,4 +20,5 @@ const ArtistScreen = () => {
     </div>
   );
 };
+
 export default ArtistScreen;

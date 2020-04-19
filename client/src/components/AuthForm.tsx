@@ -20,4 +20,5 @@ const AuthForm = ({ onSubmit }: any) => {
     </form>
   );
 };
+
 export default AuthForm;

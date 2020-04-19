@@ -19,4 +19,5 @@ const AlbumScreen = () => {
     </div>
   );
 };
+
 export default AlbumScreen;

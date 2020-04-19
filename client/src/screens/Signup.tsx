@@ -3,7 +3,7 @@ import { Context as AuthContext, State } from '../contexts/auth';
 import AuthForm from '../components/AuthForm';
 
 const SignupScreen = () => {
-  const { state, signup } = useContext<State>(AuthContext);
+  const { signup } = useContext<State>(AuthContext);
 
   return (
     <div>

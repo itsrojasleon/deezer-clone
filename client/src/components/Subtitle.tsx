@@ -26,4 +26,5 @@ const Subtitle = ({ title, type }: Props) => {
     </StyledContainer>
   );
 };
+
 export default Subtitle;

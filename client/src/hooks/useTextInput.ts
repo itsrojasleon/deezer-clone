@@ -7,11 +7,11 @@ export const useTextInput = (
 ): InputProps => {
   const [text, setText] = useState(defaultText);
 
-  const handleChange = (e: InputElement) => {
+  const handleChange = (e: InputElement): void => {
     setText(e.target.value);
   };
 
-  const reset = () => {
+  const reset = (): void => {
     setText('');
   };
 

@@ -31,9 +31,6 @@ const FavoriteScreen = () => {
           index={idx}
         />
       ))}
-      {/* {favorites.map((track: any) => (
-        <div>{track.title}</div>
-      ))} */}
     </div>
   );
 };

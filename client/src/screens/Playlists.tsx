@@ -4,13 +4,11 @@ import { useParams } from 'react-router-dom';
 
 const Playlists = () => {
   const { something } = useParams();
-  const { state, fetchPlaylists } = useContext<State>(SearchContext);
+  const { fetchPlaylists } = useContext<State>(SearchContext);
 
   useEffect(() => {
     fetchPlaylists({ value: something || '' });
   }, []);
-
-  console.log(state);
 
   return (
     <div>
