@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Album } from '../../types/Albums';
 import TrackDetails from '../tracks/TrackDetails';
@@ -28,7 +28,17 @@ interface Props {
 
 const AlbumDetails = ({ album, hideLink }: Props) => {
   const { selectTrack } = useContext<PlayerState>(PlayerContext);
-  const { createFavorite } = useContext<FavoriteState>(FavoriteContext);
+  const {
+    state: { favorites },
+    fetchFavorites,
+    createFavorite
+  } = useContext<FavoriteState>(FavoriteContext);
+
+  const ids = favorites.map((fav) => fav.id);
+
+  useEffect(() => {
+    fetchFavorites();
+  }, []);
 
   return (
     <StyledAlbum>
@@ -68,7 +78,7 @@ const AlbumDetails = ({ album, hideLink }: Props) => {
                 key={track.id}
                 track={track}
                 selectTrack={selectTrack}
-                isFavorite
+                isFavorite={ids.includes(track.id)}
                 selectFavoriteTrack={createFavorite}
                 index={idx + 1}
               />
