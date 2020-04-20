@@ -68,6 +68,7 @@ const AlbumDetails = ({ album, hideLink }: Props) => {
                 key={track.id}
                 track={track}
                 selectTrack={selectTrack}
+                isFavorite
                 selectFavoriteTrack={createFavorite}
                 index={idx + 1}
               />

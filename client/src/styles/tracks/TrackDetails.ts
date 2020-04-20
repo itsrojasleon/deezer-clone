@@ -32,6 +32,14 @@ export const StyledFirstElement = styled.div`
       cursor: pointer;
     }
   }
+  & > .heart-filled {
+    color: ${red};
+    margin-right: 15px;
+    font-size: 18px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
   &:hover {
     & > img,
     > span {

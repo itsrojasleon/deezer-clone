@@ -27,6 +27,7 @@ const FavoriteScreen = () => {
         <TrackDetails
           key={track.id}
           track={track}
+          isFavorite
           selectTrack={selectTrack}
           index={idx}
         />

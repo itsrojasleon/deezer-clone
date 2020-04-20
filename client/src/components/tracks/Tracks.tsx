@@ -1,15 +1,34 @@
-import React, { useContext } from 'react';
-import { Context as TracksContext } from '../../contexts/tracks';
-import { Context as PlayerContext } from '../../contexts/player';
-import { Context as FavoriteContext, State } from '../../contexts/favorites';
+import React, { useEffect, useContext } from 'react';
+import {
+  Context as TracksContext,
+  State as TracksState
+} from '../../contexts/tracks';
+import {
+  Context as PlayerContext,
+  State as PlayerState
+} from '../../contexts/player';
+import {
+  Context as FavoriteContext,
+  State as FavoriteState
+} from '../../contexts/favorites';
 import TrackDetails from './TrackDetails';
 import Subtitle from '../Subtitle';
 import { Track as TrackTypes } from '../../types/Tracks';
 
 const Tracks = (): JSX.Element => {
-  const { state } = useContext(TracksContext);
-  const { selectTrack } = useContext(PlayerContext);
-  const { createFavorite } = useContext<State>(FavoriteContext);
+  const { state } = useContext<TracksState>(TracksContext);
+  const { selectTrack } = useContext<PlayerState>(PlayerContext);
+  const {
+    state: { favorites },
+    createFavorite,
+    fetchFavorites
+  } = useContext<FavoriteState>(FavoriteContext);
+
+  let ids = favorites.map((fav) => fav.id);
+
+  useEffect(() => {
+    fetchFavorites();
+  }, []);
 
   return (
     <>
@@ -20,6 +39,7 @@ const Tracks = (): JSX.Element => {
           <TrackDetails
             selectTrack={selectTrack}
             selectFavoriteTrack={createFavorite}
+            isFavorite={ids.includes(track.id)}
             key={track.id}
             track={track}
           />
