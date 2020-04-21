@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Track } from '../../types/Tracks';
 import {
   StyledTrack,
   StyledFirstElement
 } from '../../styles/tracks/TrackDetails';
+import Alert from '../Alert';
 import { AiFillPlayCircle, AiFillHeart } from 'react-icons/ai';
 import { FiHeart } from 'react-icons/fi';
 
@@ -22,6 +23,8 @@ const TrackDetails = ({
   selectFavoriteTrack,
   index
 }: Props): JSX.Element => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   const renderHeart = () => {
     if (isFavorite) {
       return <AiFillHeart className="heart-filled" />;
@@ -30,7 +33,10 @@ const TrackDetails = ({
     if (selectFavoriteTrack) {
       return (
         <FiHeart
-          onClick={() => selectFavoriteTrack(String(track.id))}
+          onClick={() => {
+            setIsOpen(true);
+            selectFavoriteTrack(String(track.id));
+          }}
           className="heart"
         />
       );
@@ -51,6 +57,7 @@ const TrackDetails = ({
       </StyledFirstElement>
       <p>{track.artist?.name}</p>
       <p>{track.album?.title}</p>
+      {isOpen && <Alert />}
     </StyledTrack>
   );
 };

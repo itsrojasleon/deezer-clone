@@ -6,6 +6,7 @@ import { Track } from '../types/Tracks';
 interface FavoriteState {
   favorites: Track[];
   errorMessage: string;
+  successfulMesage: string;
 }
 
 export interface State {
@@ -33,7 +34,7 @@ const favoriteReducer: Reducer<FavoriteState, FavoriteActions> = (
     case ActionType.FETCH_FAVORITES:
       return { ...state, favorites: action.payload };
     case ActionType.CREATE_FAVORITE:
-      return { ...state, favorites: action.payload };
+      return { ...state, successfulMesage: action.payload };
     default:
       return state;
   }
@@ -62,5 +63,5 @@ const createFavorite = (dispatch: Dispatch<FavoriteActions>) => async (
 export const { Provider, Context } = createDataContext(
   favoriteReducer,
   { fetchFavorites, createFavorite },
-  { errorMessage: '', favorites: [] }
+  { errorMessage: '', favorites: [], successfulMesage: '' }
 );
