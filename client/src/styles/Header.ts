@@ -5,6 +5,7 @@ export const StyledHeader = styled.header`
   width: 100%;
   border-bottom: 1px solid ${gray10};
   padding: 0 10px 0 10px;
+  margin-bottom: 20px;
 `;
 
 export const StyledNav = styled.nav`

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Album } from '../../types/Albums';
 import TrackDetails from '../tracks/TrackDetails';
@@ -30,15 +30,10 @@ const AlbumDetails = ({ album, hideLink }: Props) => {
   const { selectTrack } = useContext<PlayerState>(PlayerContext);
   const {
     state: { favorites },
-    fetchFavorites,
     createFavorite
   } = useContext<FavoriteState>(FavoriteContext);
 
   const ids = favorites.map((fav) => fav.id);
-
-  useEffect(() => {
-    fetchFavorites();
-  }, []);
 
   return (
     <StyledAlbum>

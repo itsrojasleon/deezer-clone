@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import {
   Context as TracksContext,
   State as TracksState
@@ -12,7 +12,6 @@ import {
   State as FavoriteState
 } from '../../contexts/favorites';
 import TrackDetails from './TrackDetails';
-import Subtitle from '../Subtitle';
 import { Track as TrackTypes } from '../../types/Tracks';
 
 const Tracks = (): JSX.Element => {
@@ -20,19 +19,14 @@ const Tracks = (): JSX.Element => {
   const { selectTrack } = useContext<PlayerState>(PlayerContext);
   const {
     state: { favorites },
-    createFavorite,
-    fetchFavorites
+    createFavorite
   } = useContext<FavoriteState>(FavoriteContext);
 
+  // Get only the track id to see if is already marked as a favorite track
   let ids = favorites.map((fav) => fav.id);
-
-  useEffect(() => {
-    fetchFavorites();
-  }, []);
 
   return (
     <>
-      {state.tracks.length ? <Subtitle title="Tracks" type="tracks" /> : null}
       {state.tracks
         .filter((track: TrackTypes) => track.preview !== null)
         .map((track: TrackTypes) => (

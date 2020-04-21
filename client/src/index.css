@@ -4,8 +4,9 @@
   box-sizing: border-box;
 }
 body {
-  font-family: -apple-system, system-ui, 'Segoe UI', Helvetica,
-    'Apple Color Emoji', Arial, sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-family: 'sf pro text', -apple-system, system-ui, 'segoe ui', Roboto,
+    Helvetica, Arial, sans-serif, 'apple color emoji', 'segoe ui emoji',
+    'segoe ui symbol';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   padding-bottom: 90px;
