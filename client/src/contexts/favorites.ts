@@ -53,6 +53,7 @@ const createFavorite = (dispatch: Dispatch<FavoriteActions>) => async (
 ) => {
   try {
     const { data } = await deezerAPI.post('/favorites', { trackId });
+    dispatch({ type: ActionType.CREATE_FAVORITE, payload: data });
   } catch (err) {
     dispatch({ type: ActionType.CREATE_FAVORITE, payload: err.message });
   }

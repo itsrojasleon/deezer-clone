@@ -8,6 +8,7 @@ const Playlists = () => {
 
   useEffect(() => {
     fetchPlaylists({ value: something || '' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

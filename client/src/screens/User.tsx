@@ -8,6 +8,7 @@ const User = () => {
 
   useEffect(() => {
     fetchUser({ value: userId || '' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <div>User</div>;

@@ -9,8 +9,10 @@ const AlbumScreen = () => {
     fetchAlbum
   } = useContext<State>(TracksContext);
   const { albumId } = useParams();
+
   useEffect(() => {
     fetchAlbum({ value: albumId || '' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
