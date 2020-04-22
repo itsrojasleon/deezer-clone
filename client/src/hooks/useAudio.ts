@@ -61,12 +61,14 @@ export const useAudio = (
     };
   };
 
-  const onPlay = () => setState(prevState => ({ ...prevState, paused: false }));
-  const onPause = () => setState(prevState => ({ ...prevState, paused: true }));
+  const onPlay = () =>
+    setState((prevState) => ({ ...prevState, paused: false }));
+  const onPause = () =>
+    setState((prevState) => ({ ...prevState, paused: true }));
   const onVolumeChange = () => {
     const el = ref.current;
     if (!el) return;
-    setState(prevState => ({
+    setState((prevState) => ({
       ...prevState,
       muted: el.muted,
       volume: el.volume
@@ -76,7 +78,7 @@ export const useAudio = (
     const el = ref.current;
     if (!el) return;
     const { duration } = el;
-    setState(prevState => ({
+    setState((prevState) => ({
       ...prevState,
       duration
     }));
@@ -86,12 +88,12 @@ export const useAudio = (
     if (!el) return;
     // This if statement is going to be used if the element is a !input
     if (state.time >= state.duration) return;
-    setState(prevState => ({ ...prevState, time: el.currentTime }));
+    setState((prevState) => ({ ...prevState, time: el.currentTime }));
   };
   const onProgress = () => {
     const el = ref.current;
     if (!el) return;
-    setState(prevState => ({
+    setState((prevState) => ({
       ...prevState
     }));
   };
@@ -168,7 +170,7 @@ export const useAudio = (
       if (!el) return;
       volume = Math.min(1, Math.max(0, volume));
       el.volume = volume;
-      setState(prevState => ({ ...prevState, volume }));
+      setState((prevState) => ({ ...prevState, volume }));
     },
     mute: () => {
       const el = ref.current;
@@ -187,7 +189,7 @@ export const useAudio = (
 
     if (!el) return;
 
-    setState(prevState => ({
+    setState((prevState) => ({
       ...prevState,
       volume: el.volume,
       muted: el.muted,
@@ -198,6 +200,8 @@ export const useAudio = (
     if (props.autoPlay && el.paused) {
       controls.play();
     }
+    // We can add props.autoPlay and run this effect when the user clicks some autoplay button.
+    // But nope, I don't want it.
   }, [props.src]);
 
   return [element, state, controls, ref];

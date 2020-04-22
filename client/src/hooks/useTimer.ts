@@ -9,7 +9,7 @@ export const useTimer = (defaultTime: number = 3000): boolean => {
     return (): void => {
       clearInterval(timer);
     };
-  }, []);
+  }, [defaultTime]);
 
   return isOpen;
 };
