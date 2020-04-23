@@ -12,7 +12,7 @@ import TrackDetails from '../components/tracks/TrackDetails';
 
 const FavoriteScreen = () => {
   const {
-    state: { favorites },
+    state: { favorites, isLoading },
     fetchFavorites
   } = useContext<FavoriteState>(FavoriteContext);
   const { selectTrack } = useContext<PlayerState>(PlayerContext);
@@ -24,6 +24,7 @@ const FavoriteScreen = () => {
 
   return (
     <div>
+      {isLoading && <div>Loading</div>}
       {favorites.map((track, idx: number) => (
         <TrackDetails
           key={track.id}

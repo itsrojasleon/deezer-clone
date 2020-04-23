@@ -7,6 +7,7 @@ interface FavoriteState {
   favorites: Track[];
   errorMessage: string;
   successfulMesage: string;
+  isLoading: boolean;
 }
 
 export interface State {
@@ -18,7 +19,8 @@ export interface State {
 enum ActionType {
   ERROR,
   FETCH_FAVORITES,
-  CREATE_FAVORITE
+  CREATE_FAVORITE,
+  LOADING
 }
 
 interface FavoriteActions {
@@ -32,15 +34,19 @@ const favoriteReducer: Reducer<FavoriteState, FavoriteActions> = (
 ) => {
   switch (action.type) {
     case ActionType.FETCH_FAVORITES:
-      return { ...state, favorites: action.payload };
+      return { ...state, favorites: action.payload, isLoading: false };
     case ActionType.CREATE_FAVORITE:
-      return { ...state, successfulMesage: action.payload };
+      return { ...state, successfulMesage: action.payload, isLoading: false };
+    case ActionType.LOADING:
+      return { ...state, isLoading: true };
     default:
       return state;
   }
 };
 
 const fetchFavorites = (dispatch: Dispatch<FavoriteActions>) => async () => {
+  dispatch({ type: ActionType.LOADING });
+
   try {
     const { data } = await deezerAPI.get('/favorites');
     dispatch({ type: ActionType.FETCH_FAVORITES, payload: data });
@@ -52,6 +58,7 @@ const fetchFavorites = (dispatch: Dispatch<FavoriteActions>) => async () => {
 const createFavorite = (dispatch: Dispatch<FavoriteActions>) => async (
   trackId: string
 ) => {
+  // add me dude
   try {
     const { data } = await deezerAPI.post('/favorites', { trackId });
     dispatch({ type: ActionType.CREATE_FAVORITE, payload: data });
@@ -63,5 +70,5 @@ const createFavorite = (dispatch: Dispatch<FavoriteActions>) => async (
 export const { Provider, Context } = createDataContext(
   favoriteReducer,
   { fetchFavorites, createFavorite },
-  { errorMessage: '', favorites: [], successfulMesage: '' }
+  { errorMessage: '', favorites: [], successfulMesage: '', isLoading: false }
 );
