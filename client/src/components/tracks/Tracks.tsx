@@ -15,7 +15,9 @@ import TrackDetails from './TrackDetails';
 import { Track as TrackTypes } from '../../types/Tracks';
 
 const Tracks = (): JSX.Element => {
-  const { state } = useContext<TracksState>(TracksContext);
+  const {
+    state: { tracks, isLoading }
+  } = useContext<TracksState>(TracksContext);
   const { selectTrack } = useContext<PlayerState>(PlayerContext);
   const {
     state: { favorites },
@@ -23,11 +25,13 @@ const Tracks = (): JSX.Element => {
   } = useContext<FavoriteState>(FavoriteContext);
 
   // Get only the track id to see if is already marked as a favorite track
-  let ids = favorites.map((fav) => fav.id);
+  const ids = favorites.map((fav) => fav.id);
+  const loading = tracks.length === 0 && isLoading;
 
   return (
     <>
-      {state.tracks
+      {loading && <div>Loading...</div>}
+      {tracks
         .filter((track: TrackTypes) => track.preview !== null)
         .map((track: TrackTypes) => (
           <TrackDetails

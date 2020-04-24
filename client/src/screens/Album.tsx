@@ -12,7 +12,7 @@ import AlbumDetails from '../components/albums/AlbumDetails';
 
 const AlbumScreen = () => {
   const {
-    state: { album },
+    state: { album, isLoading },
     fetchAlbum
   } = useContext<TrackState>(TracksContext);
   const { fetchFavorites } = useContext<FavoriteState>(FavoriteContext);
@@ -24,8 +24,11 @@ const AlbumScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const loading = Object.keys(album).length === 0 && isLoading;
+
   return (
     <div>
+      {loading && <div>Loading...</div>}
       <AlbumDetails album={album} hideLink />
     </div>
   );

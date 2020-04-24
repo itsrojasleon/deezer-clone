@@ -22,9 +22,11 @@ const FavoriteScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const loading = favorites.length === 0 && isLoading;
+
   return (
     <div>
-      {isLoading && <div>Loading</div>}
+      {loading && <div>Loading</div>}
       {favorites.map((track, idx: number) => (
         <TrackDetails
           key={track.id}

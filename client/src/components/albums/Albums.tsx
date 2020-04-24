@@ -8,12 +8,17 @@ import { Album } from '../../types/Albums';
 import { StyledContainer } from '../../styles/albums/Albums';
 
 const Albums = () => {
-  const { state } = useContext<TracksState>(TracksContext);
+  const {
+    state: { albums, isLoading }
+  } = useContext<TracksState>(TracksContext);
+
+  const loading = albums.length === 0 && isLoading;
 
   return (
     <>
+      {loading && <div>Loading...</div>}
       <StyledContainer>
-        {state.albums.map((album: Album) => (
+        {albums.map((album: Album) => (
           <AlbumDetails key={album.id} album={album} />
         ))}
       </StyledContainer>

@@ -6,7 +6,7 @@ import ArtistDetails from '../components/artists/ArtistDetails';
 const ArtistScreen = () => {
   const {
     fetchArtist,
-    state: { artist }
+    state: { artist, isLoading }
   } = useContext<State>(TracksContext);
   const { artistId } = useParams();
 
@@ -15,8 +15,11 @@ const ArtistScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const loading = Object.keys(artist).length === 0 && isLoading;
+
   return (
     <div>
+      {loading && <div>Loading...</div>}
       <ArtistDetails artist={artist} hideLink />
     </div>
   );

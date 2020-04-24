@@ -7,12 +7,17 @@ import UserDetails from './UserDetails';
 import { StyledContainer } from '../../styles/users/Users';
 
 const User = (): JSX.Element => {
-  const { state } = useContext<TrackState>(TracksContext);
+  const {
+    state: { users, isLoading }
+  } = useContext<TrackState>(TracksContext);
+
+  const loading = users.length === 0 && isLoading;
 
   return (
     <>
+      {loading && <div>Loading...</div>}
       <StyledContainer>
-        {state.users.map((user) => (
+        {users.map((user) => (
           <UserDetails key={user.id} user={user} />
         ))}
       </StyledContainer>
