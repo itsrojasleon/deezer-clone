@@ -1,8 +1,9 @@
 import React, { useEffect, useContext } from 'react';
 import { Context as SearchContext, State } from '../contexts/tracks';
 import { useParams } from 'react-router-dom';
+import Playlists from '../components/playlists/Playlists';
 
-const Playlists = () => {
+const PlaylistsScreen = () => {
   const { something } = useParams();
   const { fetchPlaylists } = useContext<State>(SearchContext);
 
@@ -13,9 +14,9 @@ const Playlists = () => {
 
   return (
     <div>
-      <div>Hey Playlist</div>
+      <Playlists />
     </div>
   );
 };
 
-export default Playlists;
+export default PlaylistsScreen;

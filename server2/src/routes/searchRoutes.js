@@ -94,10 +94,12 @@ router.get('/album/:albumId', async (req, res) => {
   }
 });
 
-router.get('/playlist/:userId', async (req, res) => {
+router.get('/playlist/:playlistId', async (req, res) => {
   try {
-    const { userId } = req.params;
-    const { data: playlist } = await axios.get(`${API_URL}/playlist/${userId}`);
+    const { playlistId } = req.params;
+    const { data: playlist } = await axios.get(
+      `${API_URL}/playlist/${playlistId}`
+    );
 
     res.status(200).json({ ...playlist });
   } catch (err) {

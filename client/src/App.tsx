@@ -66,9 +66,9 @@ const App: React.FC = (): JSX.Element => {
               <Route
                 path="/playlist/:playlistId"
                 exact
-                component={UserScreen}
+                component={PlaylistScreen}
               />
-              <Route path="/user/:userId" exact component={PlaylistScreen} />
+              <Route path="/user/:userId" exact component={UserScreen} />
               <Route path="/signup" component={SignupScreen} />
               <Route path="/profile" component={ProfileScreen} />
               <Route path="/favorites" component={FavoriteScreen} />

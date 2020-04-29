@@ -240,7 +240,7 @@ export const { Provider, Context } = createDataContext(
     users: [],
     album: {},
     artist: {},
-    platlist: {},
+    playlist: {},
     user: {},
     isLoading: false,
     isError: ''
