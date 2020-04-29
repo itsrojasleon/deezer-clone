@@ -12,6 +12,7 @@ import {
 import { Album } from '../../types/Albums';
 import {
   StyledWrapper,
+  StyledAlbumImage,
   StyledInfo,
   StyledPersonalInfo,
   StyledAlbumInfo
@@ -34,7 +35,7 @@ const AlbumList = ({ album }: Props) => {
   return (
     <>
       <StyledWrapper>
-        <img src={album.cover_medium} alt={album.title} />
+        <StyledAlbumImage src={album.cover_medium} alt={album.title} />
         <StyledInfo>
           <StyledPersonalInfo>
             <h1>{album.title}</h1>

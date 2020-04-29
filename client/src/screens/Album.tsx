@@ -27,10 +27,7 @@ const AlbumScreen = () => {
   const loading = Object.keys(album).length === 0 && isLoading;
 
   return (
-    <div>
-      {loading && <div>Loading...</div>}
-      {!loading && <AlbumList album={album} />}
-    </div>
+    <div>{loading ? <div>Loading...</div> : <AlbumList album={album} />}</div>
   );
 };
 

@@ -5,12 +5,14 @@ export const StyledWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
+  margin-bottom: 20px;
   & > span {
     margin-left: 20px;
   }
-  & > img {
-    border-radius: 40px;
-  }
+`;
+
+export const StyledAlbumImage = styled.img`
+  border-radius: 4px;
 `;
 
 export const StyledInfo = styled.span`
