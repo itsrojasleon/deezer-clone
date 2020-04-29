@@ -8,7 +8,7 @@ import {
   Context as FavoriteContext,
   State as FavoriteState
 } from '../contexts/favorites';
-import AlbumDetails from '../components/albums/AlbumDetails';
+import AlbumList from '../components/albums/AlbumList';
 
 const AlbumScreen = () => {
   const {
@@ -29,7 +29,7 @@ const AlbumScreen = () => {
   return (
     <div>
       {loading && <div>Loading...</div>}
-      <AlbumDetails album={album} hideLink />
+      {!loading && <AlbumList album={album} />}
     </div>
   );
 };

@@ -10,7 +10,7 @@ interface Props {
 const UserDetails = ({ user }: Props) => {
   return (
     <div>
-      <Link to={`/playlist/${user.id}`}>
+      <Link to={`/user/${user.id}`}>
         <StyledImage src={user.picture_medium} alt={user.name} />
         <StyledName>{user.name}</StyledName>
       </Link>
