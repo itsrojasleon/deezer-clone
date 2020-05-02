@@ -2,10 +2,15 @@ import React, { useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Context as TracksContext, State } from '../contexts/tracks';
 import Users from '../components/users/User';
+import { StyledLength } from '../styles/shared/components/StyledLength';
+import { isPlural } from '../utils/isPlural';
 
 const UsersScreen = () => {
   const { something } = useParams();
-  const { fetchUsers } = useContext<State>(TracksContext);
+  const {
+    state: { users },
+    fetchUsers
+  } = useContext<State>(TracksContext);
 
   useEffect(() => {
     fetchUsers({ value: something || '', limit: 20 });
@@ -13,9 +18,13 @@ const UsersScreen = () => {
   }, []);
 
   return (
-    <div>
+    <>
+      <StyledLength>
+        {users.length} user{isPlural(users.length)}
+      </StyledLength>
       <Users />
-    </div>
+    </>
   );
 };
+
 export default UsersScreen;
