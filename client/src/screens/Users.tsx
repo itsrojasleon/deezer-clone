@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Context as TracksContext, State } from '../contexts/tracks';
+import Users from '../components/users/User';
 
 const UsersScreen = () => {
   const { something } = useParams();
@@ -13,7 +14,7 @@ const UsersScreen = () => {
 
   return (
     <div>
-      <div>Users</div>
+      <Users />
     </div>
   );
 };
