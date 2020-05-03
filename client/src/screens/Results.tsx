@@ -14,6 +14,7 @@ const Albums = lazy(() => import('../components/albums/Albums'));
 const Artists = lazy(() => import('../components/artists/Artists'));
 const Playlists = lazy(() => import('../components/playlists/Playlists'));
 const Users = lazy(() => import('../components/users/User'));
+const Podcasts = lazy(() => import('../components/podcasts/Podcasts'));
 
 const Results = () => {
   const { something } = useParams();
@@ -22,7 +23,8 @@ const Results = () => {
     fetchAlbums,
     fetchArtists,
     fetchPlaylists,
-    fetchUsers
+    fetchUsers,
+    fetchPodcasts
   } = useContext<TrackState>(TracksContext);
   const { fetchFavorites } = useContext<FavoriteState>(FavoriteContext);
 
@@ -32,6 +34,7 @@ const Results = () => {
     fetchArtists({ value: something || '', limit: 5 });
     fetchPlaylists({ value: something || '', limit: 5 });
     fetchUsers({ value: something || '', limit: 5 });
+    fetchPodcasts({value: something || '', limit: 5})
 
     fetchFavorites();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -49,6 +52,8 @@ const Results = () => {
       <Playlists />
       <Subtitle title="Users" />
       <Users />
+      <Subtitle title="Podcasts" />
+      <Podcasts />
     </Suspense>
   );
 };

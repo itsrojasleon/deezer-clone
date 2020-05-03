@@ -72,10 +72,26 @@ router.get('/search/users/:user/:limit', async (req, res) => {
   }
 });
 
+router.get('/search/podcasts/:podcast/:limit', async (req, res) => {
+  try {
+    const { podcast, limit } = req.params;
+    const {
+      data: { data: podcasts }
+    } = await axios.get(
+      `${API_URL}/search/podcast?q=${podcast}&limit=${limit}`
+    );
+
+    res.status(200).json({ podcasts });
+  } catch (err) {
+    res.status(422).send(err.message);
+  }
+});
+
 router.get('/artist/:artistId', async (req, res) => {
   try {
-    const { artistId } = req.params;
-    const { data: artist } = await axios.get(`${API_URL}/artist/${artistId}`);
+    const { data: artist } = await axios.get(
+      `${API_URL}/artist/${req.params.artistId}`
+    );
 
     res.status(200).json({ ...artist });
   } catch (err) {
@@ -85,8 +101,9 @@ router.get('/artist/:artistId', async (req, res) => {
 
 router.get('/album/:albumId', async (req, res) => {
   try {
-    const { albumId } = req.params;
-    const { data: album } = await axios.get(`${API_URL}/album/${albumId}`);
+    const { data: album } = await axios.get(
+      `${API_URL}/album/${req.params.albumId}`
+    );
 
     res.status(200).json({ ...album });
   } catch (err) {
@@ -96,9 +113,8 @@ router.get('/album/:albumId', async (req, res) => {
 
 router.get('/playlist/:playlistId', async (req, res) => {
   try {
-    const { playlistId } = req.params;
     const { data: playlist } = await axios.get(
-      `${API_URL}/playlist/${playlistId}`
+      `${API_URL}/playlist/${req.params.playlistId}`
     );
 
     res.status(200).json({ ...playlist });
@@ -109,10 +125,23 @@ router.get('/playlist/:playlistId', async (req, res) => {
 
 router.get('/user/:userId', async (req, res) => {
   try {
-    const { userId } = req.params;
-    const { data: user } = await axios.get(`${API_URL}/user/${userId}`);
+    const { data: user } = await axios.get(
+      `${API_URL}/user/${req.params.userId}`
+    );
 
     res.status(200).json({ ...user });
+  } catch (err) {
+    res.status(422).send(err.message);
+  }
+});
+
+router.get('/podcast/:podcastId', async (req, res) => {
+  try {
+    const { data: podcast } = await axios.get(
+      `${API_URL}/podcast/${req.params.podcastId}`
+    );
+
+    res.status(200).json({ ...podcast });
   } catch (err) {
     res.status(422).send(err.message);
   }

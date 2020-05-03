@@ -6,6 +6,7 @@ import { Album } from '../types/Albums';
 import { Artist } from '../types/Artist';
 import { Playlist } from '../types/Playlist';
 import { User } from '../types/User';
+import { Podcast } from '../types/Podcast';
 
 interface Params {
   value: string;
@@ -18,10 +19,12 @@ interface TracksState {
   artists: Artist[];
   playlists: Playlist[];
   users: User[];
+  podcasts: Podcast[];
   artist: Artist;
   album: Album;
   playlist: Playlist;
   user: User;
+  podcast: Podcast;
   isLoading: boolean;
   isError: string;
 }
@@ -33,10 +36,12 @@ export interface State {
   fetchArtists: (params: Params) => void;
   fetchPlaylists: (params: Params) => void;
   fetchUsers: (params: Params) => void;
+  fetchPodcasts: (params: Params) => void;
   fetchArtist: (params: Params) => void;
   fetchAlbum: (params: Params) => void;
   fetchPlaylist: (params: Params) => void;
   fetchUser: (params: Params) => void;
+  fetchPodcast: (params: Params) => void;
 }
 
 enum ActionType {
@@ -45,10 +50,12 @@ enum ActionType {
   FETCH_ARTISTS,
   FETCH_PLAYLISTS,
   FETCH_USERS,
+  FETCH_PODCASTS,
   FETCH_ARTIST,
   FETCH_ALBUM,
   FETCH_PLAYLIST,
   FETCH_USER,
+  FETCH_PODCAST,
   LOADING,
   IS_ERROR
 }
@@ -70,6 +77,8 @@ const songsReducer: Reducer<TracksState, TrackActions> = (state, action) => {
       return { ...state, playlists: action.payload, isLoading: false };
     case ActionType.FETCH_USERS:
       return { ...state, users: action.payload, isLoading: false };
+    case ActionType.FETCH_PODCASTS:
+      return { ...state, podcasts: action.payload, isLoading: false };
     case ActionType.FETCH_ARTIST:
       return { ...state, artist: { ...action.payload }, isLoading: false };
     case ActionType.FETCH_ALBUM:
@@ -78,6 +87,8 @@ const songsReducer: Reducer<TracksState, TrackActions> = (state, action) => {
       return { ...state, playlist: { ...action.payload }, isLoading: false };
     case ActionType.FETCH_USER:
       return { ...state, user: { ...action.payload }, isLoading: false };
+    case ActionType.FETCH_PODCAST:
+      return { ...state, podcast: { ...action.payload }, isLoading: false };
     case ActionType.LOADING:
       return { ...state, isLoading: true };
     case ActionType.IS_ERROR:
@@ -167,6 +178,22 @@ const fetchUsers = (dispatch: Dispatch<TrackActions>) => async ({
   }
 };
 
+const fetchPodcasts = (dispatch: Dispatch<TrackActions>) => async ({
+  value,
+  limit
+}: Params) => {
+  dispatch({ type: ActionType.LOADING });
+
+  try {
+    const {
+      data: { podcasts }
+    } = await deezerAPI.get(`/search/podcasts/${value}/${limit}`);
+    dispatch({ type: ActionType.FETCH_PODCASTS, payload: podcasts });
+  } catch (err) {
+    dispatch({ type: ActionType.IS_ERROR, payload: err.message });
+  }
+};
+
 const fetchArtist = (dispatch: Dispatch<TrackActions>) => async ({
   value
 }: Params) => {
@@ -219,6 +246,19 @@ const fetchUser = (dispatch: Dispatch<TrackActions>) => async ({
   }
 };
 
+const fetchPodcast = (dispatch: Dispatch<TrackActions>) => async ({
+  value
+}: Params) => {
+  dispatch({ type: ActionType.LOADING });
+
+  try {
+    const { data: podcast } = await deezerAPI.get(`/podcast/${value}`);
+    dispatch({ type: ActionType.FETCH_PODCAST, payload: podcast });
+  } catch (err) {
+    dispatch({ type: ActionType.IS_ERROR, payload: err.message });
+  }
+};
+
 export const { Provider, Context } = createDataContext(
   songsReducer,
   {
@@ -227,10 +267,12 @@ export const { Provider, Context } = createDataContext(
     fetchArtists,
     fetchPlaylists,
     fetchUsers,
+    fetchPodcasts,
     fetchArtist,
     fetchAlbum,
     fetchPlaylist,
-    fetchUser
+    fetchUser,
+    fetchPodcast
   },
   {
     tracks: [],
@@ -238,10 +280,12 @@ export const { Provider, Context } = createDataContext(
     artists: [],
     playlists: [],
     users: [],
+    podcasts: [],
     album: {},
     artist: {},
     playlist: {},
     user: {},
+    podcast: {},
     isLoading: false,
     isError: ''
   }
