@@ -10,10 +10,12 @@ const AlbumsScreen = lazy(() => import('./screens/Albums'));
 const ArtistsScreen = lazy(() => import('./screens/Artists'));
 const PlaylistsScreen = lazy(() => import('./screens/Playlists'));
 const UsersScreen = lazy(() => import('./screens/Users'));
+const PodcastsScreen = lazy(() => import('./screens/Podcasts'));
 const ArtistScreen = lazy(() => import('./screens/Artist'));
 const AlbumScreen = lazy(() => import('./screens/Album'));
 const PlaylistScreen = lazy(() => import('./screens/Playlist'));
 const UserScreen = lazy(() => import('./screens/User'));
+const PodcastScreen = lazy(() => import('./screens/Podcast'));
 const SignupScreen = lazy(() => import('./screens/Signup'));
 const ProfileScreen = lazy(() => import('./screens/Profile'));
 const FavoriteScreen = lazy(() => import('./screens/Favorite'));
@@ -61,6 +63,11 @@ const App: React.FC = (): JSX.Element => {
                 exact
                 component={UsersScreen}
               />
+              <Route
+                path="/search/:something/podcasts"
+                exact
+                component={PodcastsScreen}
+              />
               <Route path="/artist/:artistId" exact component={ArtistScreen} />
               <Route path="/album/:albumId" exact component={AlbumScreen} />
               <Route
@@ -69,6 +76,11 @@ const App: React.FC = (): JSX.Element => {
                 component={PlaylistScreen}
               />
               <Route path="/user/:userId" exact component={UserScreen} />
+              <Route
+                path="/podcast/:podcastId"
+                exact
+                component={PodcastScreen}
+              />
               <Route path="/signup" component={SignupScreen} />
               <Route path="/profile" component={ProfileScreen} />
               <Route path="/favorites" component={FavoriteScreen} />

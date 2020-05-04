@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Context as TracksContext, State } from '../../contexts/tracks';
 import PodcastDetails from './PodcastDetails';
+import { StyledContainer } from '../../styles/podcasts/Podcasts';
 
 const Podcasts = () => {
   const {
@@ -10,12 +11,14 @@ const Podcasts = () => {
   const loading = podcasts.length === 0 && isLoading;
 
   return (
-    <div>
+    <>
       {loading && <div>Loading...</div>}
-      {podcasts.map((podcast, idx) => (
-        <PodcastDetails podcast={podcast} key={podcast.id} />
-      ))}
-    </div>
+      <StyledContainer>
+        {podcasts.map((podcast, idx) => (
+          <PodcastDetails podcast={podcast} key={podcast.id} />
+        ))}
+      </StyledContainer>
+    </>
   );
 };
 
