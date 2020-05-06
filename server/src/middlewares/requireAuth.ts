@@ -1,7 +1,8 @@
+import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/User';
 
-export default (req, res, next) => {
+export default (req: Request, res: Response, next: NextFunction) => {
   const { authorization } = req.headers;
 
   if (!authorization) {
@@ -9,7 +10,7 @@ export default (req, res, next) => {
   }
 
   const token = authorization.replace('Bearer ', '');
-  jwt.verify(token, 'MY_SECRET_KEY_YOLO', async (err, payload) => {
+  jwt.verify(token, 'MY_SECRET_KEY_YOLO', async (err: any, payload: any) => {
     if (err) {
       return res.status(401).send({ error: 'You must be logged in' });
     }
@@ -17,6 +18,7 @@ export default (req, res, next) => {
     const { userId } = payload;
 
     const user = await User.findById(userId);
+    // Come here and fix this.
     req.user = user;
     next();
   });
