@@ -38,12 +38,11 @@ app.use(userRoutes);
 app.use(favoriteRoutes);
 
 app.get('/', requireAuth, (req, res) => {
-  console.log(req.user);
   res.send(req.user);
 });
 
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
-  console.log('Listening...');
+  console.log('Listening on port 4000');
 });

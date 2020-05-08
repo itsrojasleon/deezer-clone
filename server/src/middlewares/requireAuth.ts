@@ -1,8 +1,21 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
 import { User } from '../models/User';
+import jwt from 'jsonwebtoken';
 
-export default (req: Request, res: Response, next: NextFunction) => {
+interface UserPayload {
+  userId: string;
+  iat: number;
+}
+
+declare global {
+  namespace Express {
+    interface Request {
+      user?: any;
+    }
+  }
+}
+
+export default async (req: Request, res: Response, next: NextFunction) => {
   const { authorization } = req.headers;
 
   if (!authorization) {
@@ -10,16 +23,13 @@ export default (req: Request, res: Response, next: NextFunction) => {
   }
 
   const token = authorization.replace('Bearer ', '');
-  jwt.verify(token, 'MY_SECRET_KEY_YOLO', async (err: any, payload: any) => {
-    if (err) {
-      return res.status(401).send({ error: 'You must be logged in' });
-    }
 
-    const { userId } = payload;
+  try {
+    const payload = jwt.verify(token, 'MY_SECRET_KEY_YOLO') as UserPayload;
 
-    const user = await User.findById(userId);
-    // Come here and fix this.
+    const user = await User.findById(payload.userId);
     req.user = user;
-    next();
-  });
+  } catch (err) {}
+
+  next();
 };
