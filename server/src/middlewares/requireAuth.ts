@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import util from 'util';
 import { User } from '../models/User';
 import jwt from 'jsonwebtoken';
 
@@ -24,12 +25,19 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
   const token = authorization.replace('Bearer ', '');
 
+  console.log(util.inspect(token, false, null, true /* enable colors */));
+  console.log(JSON.stringify(token, null, 4));
+
   try {
     const payload = jwt.verify(token, 'MY_SECRET_KEY_YOLO') as UserPayload;
 
     const user = await User.findById(payload.userId);
     req.user = user;
-  } catch (err) {}
+
+    next();
+  } catch (err) {
+    console.log(err);
+  }
 
   next();
 };

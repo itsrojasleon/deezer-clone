@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 import { body } from 'express-validator';
 
 import { User } from '../models/User';
-import { PasswordManager } from '../services/passwordManager';
 import { validateRequest } from '../middlewares/validateRequest';
 import { BadRequestError } from '../errors/badRequestError';
 
@@ -28,13 +27,17 @@ router.post(
       throw new BadRequestError('Email in use');
     }
 
-    const user = new User({ email, password });
+    const user: any = new User({ email, password });
     await user.save();
 
-    // Generate JWT
-    const token = jwt.sign({ userId: user._id }, 'MY_SECRET_KEY_YOLO');
+    const userJwt = jwt.sign(
+      {
+        userId: user._id
+      },
+      'MY_SECRET_KEY_YOLO'
+    );
 
-    res.send({ token });
+    res.status(201).send({ userJwt });
   }
 );
 
@@ -47,21 +50,27 @@ router.post(
   async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+    const existingUser: any = await User.findOne({ email });
 
-    if (!user) {
-      return res.status(422).send({ error: 'Invalid password or email' });
+    if (!existingUser) {
+      throw new BadRequestError('Invalid credentials');
     }
 
-    // try {
-    //   await user.comparePassword(password);
-    //   const token = jwt.sign({ userId: user._id }, 'MY_SECRET_KEY_YOLO');
-    //   res.send({ token });
-    // } catch (err) {
-    //   res.status(422).send({ error: 'Invalid password or email' });
-    // }
+    const passwordsMatch = await existingUser.comparePassword(password);
 
-    const passwordsMatch = await PasswordManager.compare();
+    if (!passwordsMatch) {
+      throw new BadRequestError('Invalid credentials');
+    }
+
+    // Generate JWT
+    const userJwt = jwt.sign(
+      {
+        userId: existingUser._id
+      },
+      'MY_SECRET_KEY_YOLO'
+    );
+
+    res.status(200).send({ userJwt });
   }
 );
 
